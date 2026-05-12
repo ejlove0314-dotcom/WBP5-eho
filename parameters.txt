@@ -1,0 +1,3 @@
+Selected chain: all
+Binding site prediction granularity: Properties and druggability
+Analysis detail: Pocket(s)

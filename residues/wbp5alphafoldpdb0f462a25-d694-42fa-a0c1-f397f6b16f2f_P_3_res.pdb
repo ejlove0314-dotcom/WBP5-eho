@@ -1,0 +1,34 @@
+HEADER	Output of DoGSiteScorer by A. Volkamer
+HEADER	Pocket 3 with 28 binding site atoms written.
+HEADER	References: 
+HEADER	A. Volkamer et al. Analyzing the topology of active sites: on the prediction of pockets and subpockets. J. Chem. Inf. Model. 2010,50(11), 2041-52
+HEADER	A. Volkamer et al. Combining global and local measures for structure-based druggability predictions. J. Chem. Inf. Model. 2012,52,360-372
+HEADER	Geometric pocket center at   0.67  -0.18  -0.62 with max radius 7.06
+ATOM    530  C   HIS A  64      -4.145  -2.357   4.072  0.00  0.00           C
+ATOM    532  O   HIS A  64      -3.674  -2.014   2.995  0.00  0.00           O
+ATOM    539  CA  LEU A  65      -2.005  -1.969   5.194  0.00  0.00           C
+ATOM    545  CD2 LEU A  65      -1.875   0.753   3.516  0.00  0.00           C
+ATOM    570  CA  ASP A  69       1.640  -4.344   0.785  0.00  0.00           C
+ATOM    571  C   ASP A  69       2.268  -2.964   0.561  0.00  0.00           C
+ATOM    572  CB  ASP A  69       0.136  -4.206   1.065  0.00  0.00           C
+ATOM    573  O   ASP A  69       2.456  -2.542  -0.581  0.00  0.00           O
+ATOM    574  CG  ASP A  69      -0.570  -5.560   1.135  0.00  0.00           C
+ATOM    577  N   MET A  70       2.690  -2.294   1.642  0.00  0.00           N
+ATOM    578  CA  MET A  70       3.391  -1.009   1.540  0.00  0.00           C
+ATOM    579  C   MET A  70       4.708  -1.129   0.765  0.00  0.00           C
+ATOM    580  CB  MET A  70       3.690  -0.430   2.927  0.00  0.00           C
+ATOM    581  O   MET A  70       5.053  -0.230   0.003  0.00  0.00           O
+ATOM    582  CG  MET A  70       2.441   0.028   3.684  0.00  0.00           C
+ATOM    598  C   ARG A  72       4.733  -2.670  -3.761  0.00  0.00           C
+ATOM    599  CB  ARG A  72       3.963  -4.923  -3.005  0.00  0.00           C
+ATOM    607  N   GLU A  73       3.920  -1.782  -3.190  0.00  0.00           N
+ATOM    608  CA  GLU A  73       3.510  -0.551  -3.876  0.00  0.00           C
+ATOM    609  C   GLU A  73       4.710   0.376  -4.151  0.00  0.00           C
+ATOM    610  CB  GLU A  73       2.414   0.140  -3.046  0.00  0.00           C
+ATOM    612  CG  GLU A  73       1.727   1.268  -3.832  0.00  0.00           C
+ATOM    613  CD  GLU A  73       0.504   1.867  -3.115  0.00  0.00           C
+ATOM    614  OE1 GLU A  73      -0.354   2.442  -3.828  0.00  0.00           O
+ATOM    615  OE2 GLU A  73       0.459   1.832  -1.865  0.00  0.00           O
+ATOM    616  N   VAL A  74       5.694   0.420  -3.245  0.00  0.00           N
+ATOM    622  CG2 VAL A  74       7.028   2.138  -1.108  0.00  0.00           C
+ATOM    647  CD1 ILE A  77       4.006   4.340  -5.414  0.00  0.00           C

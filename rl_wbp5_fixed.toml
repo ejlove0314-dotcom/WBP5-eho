@@ -1,0 +1,105 @@
+run_type = "staged_learning"
+device = "cpu"
+tb_logdir = "C:/Temp/reinvent_wbp5/tb_logs"
+json_out_config = "C:/Temp/reinvent_wbp5/rl_wbp5_out.json"
+
+[parameters]
+prior_file = "C:/Temp/reinvent_wbp5/priors/reinvent.prior"
+agent_file = "C:/Temp/reinvent_wbp5/priors/reinvent.prior"
+summary_csv_prefix = "C:/Temp/reinvent_wbp5/rl_report"
+use_checkpoint = false
+
+[learning_strategy]
+type = "dap"
+rate = 0.0001
+sigma = 120
+
+[diversity_filter]
+type = "IdenticalMurckoScaffold"
+bucket_size = 25
+minscore = 0.4
+minsimilarity = 0.4
+
+[[stage]]
+chkpt_file = "C:/Temp/reinvent_wbp5/rl_checkpoint.chkpt"
+max_score = 1.0
+min_steps = 50
+max_steps = 300
+
+[stage.scoring]
+type = "geometric_mean"
+
+[[stage.scoring.component]]
+[stage.scoring.component.custom_alerts]
+
+[[stage.scoring.component.custom_alerts.endpoint]]
+name = "Unwanted SMARTS"
+
+[stage.scoring.component.custom_alerts.endpoint.params]
+smarts = ["[*;r8]", "[*;r9]", "[*;r10]", "[*;r11]", "[*;r12]"]
+
+[[stage.scoring.component]]
+[stage.scoring.component.MolecularWeight]
+
+[[stage.scoring.component.MolecularWeight.endpoint]]
+name = "Molecular Weight"
+weight = 1
+
+[stage.scoring.component.MolecularWeight.endpoint.transform]
+type = "double_sigmoid"
+high = 500.0
+low = 200.0
+coef_div = 500.0
+coef_si = 10.0
+coef_se = 10.0
+
+[[stage.scoring.component]]
+[stage.scoring.component.NumAromaticRings]
+
+[[stage.scoring.component.NumAromaticRings.endpoint]]
+name = "Aromatic Rings"
+weight = 1
+
+[stage.scoring.component.NumAromaticRings.endpoint.transform]
+type = "double_sigmoid"
+high = 4.0
+low = 1.0
+coef_div = 4.0
+coef_si = 10.0
+coef_se = 10.0
+
+[[stage.scoring.component]]
+[stage.scoring.component.TPSA]
+
+[[stage.scoring.component.TPSA.endpoint]]
+name = "Polar Surface Area"
+weight = 1
+
+[stage.scoring.component.TPSA.endpoint.transform]
+type = "double_sigmoid"
+high = 140.0
+low = 40.0
+coef_div = 140.0
+coef_si = 10.0
+coef_se = 10.0
+
+[[stage.scoring.component]]
+[stage.scoring.component.TanimotoSimilarity]
+
+[[stage.scoring.component.TanimotoSimilarity.endpoint]]
+name = "Pazopanib Similarity"
+weight = 2
+
+[stage.scoring.component.TanimotoSimilarity.endpoint.params]
+smiles = ["CC1=C(C=C(C=C1)NC2=NC=CC(=N2)N3CCC(CC3)NC(=O)C4=CC=CS4)S(=O)(=O)N"]
+radius = 2
+use_counts = true
+use_features = true
+
+[stage.scoring.component.TanimotoSimilarity.endpoint.transform]
+type = "double_sigmoid"
+high = 0.6
+low = 0.2
+coef_div = 0.6
+coef_si = 10.0
+coef_se = 10.0

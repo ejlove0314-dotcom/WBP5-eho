@@ -1,0 +1,26 @@
+# ============================================================
+# REINVENT4 - WBP5 De Novo Molecule Generation
+# Mode: Sampling (새로운 분자 생성)
+# Target: WBP5 P_0 Pocket (Residues 64-74)
+# ============================================================
+
+[parameters]
+run_type = "sampling"           # 분자 생성 모드
+output_file = "C:/Temp/reinvent_wbp5/generated_molecules.csv"
+
+[parameters.logging]
+sender = "http://localhost"
+recipient = "local"
+logging_frequency = 0
+logging_path = "C:/Temp/reinvent_wbp5/progress.log"
+
+# ── Model Configuration ──
+# REINVENT4 내장 사전학습 모델 사용
+[parameters.model]
+# 기본 내장 모델 사용 (ChEMBL 학습된 RNN)
+model_path = ""
+
+[parameters.sampling]
+num_smiles = 500                # 생성할 분자 수 (500개)
+unique_molecules = true         # 중복 제거
+randomize_smiles = true         # SMILES 무작위화

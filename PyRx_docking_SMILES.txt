@@ -1,0 +1,6 @@
+Candidate #3 (SwissADME 1st): CC1=CN(Cc2ccc(S(N)(=O)=O)cc2)C(=O)c2cccnc2C1
+Candidate #5 (SwissADME 2nd): CN1CCN(S(=O)(=O)c2ccc(NC(=O)c3ccco3)cc2)CC1
+Candidate #2 (SwissADME 3rd): O=C(CCc1ccccc1)NNC(=O)C1CCN(c2ncccn2)CC1
+Candidate #1 (SwissADME 4th): CC(C)NS(=O)(=O)c1ccc(CCC(=O)Nc2ccnc2)cc1
+Candidate #4 (SwissADME 5th): Cc1ccc(OCc2cc(C(=O)NCc3c(C)noc3C)no2)cc1C
+Pazopanib (Reference): CC1=C(C=C(C=C1)NC2=NC=CC(=N2)N3CCC(CC3)NC(=O)C4=CC=CS4)S(=O)(=O)N
