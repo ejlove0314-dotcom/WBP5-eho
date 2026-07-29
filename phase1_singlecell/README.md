@@ -62,6 +62,28 @@ Outputs: `gse198315_wbp5_marker_correlations.tsv`,
 `gse198315_wbp5_combined_summary.tsv`,
 `gse198315_wbp5_marker_pipeline_report.json`, and the corresponding figures.
 
+### `gse198315_region_stats.py`
+
+Region- and compartment-resolved statistics for WBP5-high, EGFR-high and
+double-high cells, computed from the per-cell table written by
+`run_gse198315.py`.
+
+```
+python gse198315_region_stats.py --obs out/obs.csv --outdir out
+```
+
+High-expression groups are defined as the top decile among cells with non-zero
+expression of the respective gene. Because prevalence is not monotonic across
+NT -> TP -> TC -> mLN, the regional trend is reported as two contrasts: an
+ordinal logistic regression restricted to the primary site (NT, TP, TC), and a
+primary-versus-lymph-node comparison by Fisher's exact test, with a patient-level
+Wilcoxon signed-rank test as a paired confirmation.
+
+Outputs: `gse198315_composition.tsv`, `gse198315_prevalence_wilson.tsv`,
+`gse198315_compartment_enrichment.tsv`, `gse198315_trend_within_primary.tsv`,
+`gse198315_primary_vs_mln_fisher.tsv`, `gse198315_patient_level.tsv`, and
+`gse198315_region_stats_summary.json` (which also records package versions).
+
 ## Two proxy schemes
 
 The two scripts use different, deliberately separate marker-based proxies,
@@ -80,5 +102,6 @@ Both are approximations and do not establish compartment identity.
 ## Environment
 
 Python 3.10+ with `scanpy`, `anndata`, `numpy`, `pandas`, `scipy`,
-`matplotlib`, `seaborn` and `scienceplots`. Random seeds are fixed at 42
-throughout.
+`statsmodels`, `matplotlib`, `seaborn` and `scienceplots`. Random seeds are
+fixed at 42 throughout. Exact package versions used for the reported statistics
+are recorded in `gse198315_region_stats_summary.json`.
