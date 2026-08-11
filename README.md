@@ -42,3 +42,63 @@ for f in fig_*.py; do python3 "$f"; done
 If Arial is installed system-wide, `_style.py` picks it up automatically.
 Otherwise the rendered font is Liberation Sans, which matches Arial's
 kerning and advance widths exactly.
+## Note on the ligand SMILES files
+
+Two entries in `all_candidates.smi` (deposited 13 April 2026) required correction
+before the analyses reported in the manuscript. The original file is retained
+unmodified for provenance; the corrected strings are provided separately as
+`all_candidates_corrected.smi`. All docking, ADMET and toxicity results reported
+in the manuscript were obtained with the corrected structures.
+
+### Candidate_1
+
+The deposited string
+
+```
+CC(C)NS(=O)(=O)c1ccc(CCC(=O)Nc2ccnc2)cc1 Candidate_1
+```
+
+encodes a five-membered aromatic ring bearing a single nitrogen without an
+explicit hydrogen, and therefore cannot be kekulized by RDKit or Open Babel.
+The molecular weight (347 Da) and topological polar surface area (88.16 A^2)
+recorded for this molecule in the REINVENT4 run correspond to the
+pyridine-containing analogue (C17H21N3O3S; 347.44 Da; TPSA 88.16 A^2) rather
+than to the pyrrole analogue (C16H21N3O3S; 335.43 Da; TPSA 91.06 A^2). All
+analyses were therefore performed with
+
+```
+CC(C)NS(=O)(=O)c1ccc(CCC(=O)Nc2ccncc2)cc1     pyridin-4-yl
+InChIKey JGUIGLSIQCDQRA-UHFFFAOYSA-N
+```
+
+The position of the ring nitrogen (2-, 3- or 4-pyridyl) could not be
+independently confirmed from the archived output, because the three positional
+isomers share the same molecular weight, topological polar surface area and
+aromatic ring count. The 4-pyridyl assignment follows the ligand definition used
+in the original docking script.
+
+### Pazopanib_Ref
+
+The deposited string encoded a thiophene-carboxamide/piperidine analogue
+(C21H24N6O3S2; 472.60 Da), not pazopanib. The reference compound was corrected to
+the free base of pazopanib (PubChem CID 10113978):
+
+```
+CN(c1ccc2c(c1)nn(c2C)C)c1ccnc(n1)Nc1ccc(c(c1)S(=O)(=O)N)C
+C21H23N7O2S; 437.53 Da; InChIKey CUIHSIWYWATEQL-UHFFFAOYSA-N
+```
+
+### Verification
+
+Every entry in `all_candidates_corrected.smi` parses under RDKit 2026.03.5 and
+matches the molecular formula and molecular weight reported in the manuscript:
+
+| ID            | Formula      | MW (Da) | InChIKey                    |
+|---------------|--------------|---------|-----------------------------|
+| Candidate_1   | C17H21N3O3S  | 347.44  | JGUIGLSIQCDQRA-UHFFFAOYSA-N |
+| Candidate_2   | C19H23N5O2   | 353.43  | CWFOXUOVUNELQQ-UHFFFAOYSA-N |
+| Candidate_3   | C17H17N3O3S  | 343.41  | DSVBRFOHTGCUGB-UHFFFAOYSA-N |
+| Candidate_4   | C19H21N3O4   | 355.39  | MMBJDRLBTDFZJL-UHFFFAOYSA-N |
+| Candidate_5   | C16H19N3O4S  | 349.41  | UQFXIMOKNSXXKZ-UHFFFAOYSA-N |
+| Pazopanib_Ref | C21H23N7O2S  | 437.53  | CUIHSIWYWATEQL-UHFFFAOYSA-N |
+
