@@ -1,0 +1,3 @@
+﻿Contrast,n_A,n_B,mean_A,mean_B,PCT+_A (%),PCT+_B (%),FC (mean_A/mean_B),MWU_p,Cliffs_delta
+Cancer vs. Non-cancer,2215,3687,2.3813,1.3231,68.89,28.97,1.7998,1.326812852736729e-105,0.3075
+Primary (cancer) vs. LN (cancer),1427,788,2.4629,2.2334,71.34,64.47,1.1028,0.006130966639594026,0.0692
