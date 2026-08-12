@@ -1,3 +1,23 @@
+# WBP5-eho
+
+Code and data supporting the manuscript "Single-cell-to-structure analysis identifies
+WBP5 (TCEAL9) as a candidate p-EMT target in HNSCC."
+
+## Repository layout
+
+| Path | Contents |
+|------|----------|
+| `reproducibility/` | Scripts and verified outputs for manuscript Tables 1-4. **Start here.** |
+| `docking_P0/` | AutoDock Vina docking at pocket P0 — the protocol reported in the manuscript. |
+| `phase1_singlecell/` | GSE198315 single-cell analysis pipeline. |
+| `pockets/`, `residues/` | DoGSiteScorer pocket detection output for the AlphaFold model. |
+
+All docking values reported in the manuscript derive from pocket P0
+(grid center -23.835, -0.451, 23.910; box 25 x 25 x 25 A).
+
+Source data are available from GEO under accessions GSE103322 and GSE198315.
+
+---
 # WBP5/HNSCC Figures — Arial-unified
 
 ## Font policy
