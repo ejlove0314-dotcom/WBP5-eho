@@ -8,117 +8,70 @@ WBP5 (TCEAL9) as a candidate p-EMT target in HNSCC."
 | Path | Contents |
 |------|----------|
 | `reproducibility/` | Scripts and verified outputs for manuscript Tables 1-4. **Start here.** |
-| `docking_P0/` | AutoDock Vina docking at pocket P0 — the protocol reported in the manuscript. |
+| `docking_P0/` | AutoDock Vina docking at pocket P0 - the protocol reported in the manuscript. |
+| `docking_P0/mtiopenscreen/` | MTiOpenScreen Drugs-lib screen at the same pocket (job V06821248773098). |
 | `phase1_singlecell/` | GSE198315 single-cell analysis pipeline. |
-| `pockets/`, `residues/` | DoGSiteScorer pocket detection output for the AlphaFold model. |
+| `pockets/`, `residues/` | DoGSiteScorer pocket detection: run parameters, descriptor table, grid maps and pocket-lining residues. |
+| `deprecated/` | Superseded scripts, ligand files and reports. **Not used for any reported result.** |
+
+Root-level files are the AlphaFold model (`AF-Q9UHQ7-F1-model_v6.pdb`, and the
+identical working copy `WBP5_AlphaFold.pdb` used as the docking receptor), the
+REINVENT4 configuration files (`rl_wbp5.toml`, `rl_wbp5_fixed.toml`,
+`reinvent_wbp5_sampling.toml`), the corrected ligand set
+(`all_candidates_corrected.smi`), and the individual structure files for
+Candidate_2 through Candidate_5.
+
+## Ligand structures
+
+`all_candidates_corrected.smi` holds the structures used for every docking, ADMET and
+toxicity result reported in the manuscript. Each string was read back from the
+corresponding docked pose in `docking_P0/` and re-parsed with RDKit 2026.03.5.
+
+| ID | Formula | MW (Da) | InChIKey |
+|----|---------|---------|----------|
+| Candidate_1 | C17H21N3O3S | 347.44 | JGUIGLSIQCDQRA-UHFFFAOYSA-N |
+| Candidate_2 | C19H23N5O2 | 353.43 | CWFOXUOVUNELQQ-UHFFFAOYSA-N |
+| Candidate_3 | C17H17N3O3S | 343.41 | DSVBRFOHTGCUGB-UHFFFAOYSA-N |
+| Candidate_4 | C19H21N3O4 | 355.39 | MMBJDRLBTDFZJL-UHFFFAOYSA-N |
+| Candidate_5 | C16H19N3O4S | 349.41 | UQFXIMOKNSXXKZ-UHFFFAOYSA-N |
+| Pazopanib_Ref | C21H23N7O2S | 437.53 | CUIHSIWYWATEQL-UHFFFAOYSA-N |
+| Dasatinib | C22H26ClN7O2S | 488.02 | ZBNZXTGUTAYRHI-UHFFFAOYSA-N |
+| Verteporfin | C41H42N4O8 | 718.81 | CABKTHJNHVBKCC-ZSFNYQMMSA-N |
+| Simvastatin | C25H38O5 | 418.57 | RYMZZMVNJRMUDD-HGQWONQESA-N |
+| Dobutamine | C18H23NO3 | 301.39 | JRWZLRBJNMZMFE-CYBMUJFWSA-N |
+
+Two entries in the earlier file `all_candidates.smi` were incorrect. That file, the
+corresponding Candidate_1 and Pazopanib_Ref structure files, and the input and report
+files derived from them have been moved to `deprecated/`; see `deprecated/README.md`
+for the discrepancies and how they were resolved. The structure files for Candidate_2
+through Candidate_5 were unaffected and remain at the repository root.
+
+## Docking protocol
 
 All docking values reported in the manuscript derive from pocket P0
-(grid center -23.835, -0.451, 23.910; box 25 x 25 x 25 A).
+(grid center -23.835, -0.451, 23.910; box 25 x 25 x 25 A; exhaustiveness 8),
+in five replicates per ligand using fixed seeds 42, 1042, 2042, 3042 and 4042.
+
+`pockets/wbp5alphafoldpdb*_desc.txt` is the DoGSiteScorer descriptor table from which
+the pocket geometry reported in Table 3 is taken: for P0, volume 229.62 A^3, surface
+811.54 A^2, depth 24.90 A, enclosure 0.36 and Drug Score 0.837. The same table gives
+the corresponding values for the seven other detected pockets, none of which exceeds a
+Drug Score of 0.40. `pockets/PocXlsDescriptors.txt` explains each column, and
+`pockets/dogsitescorer_run_parameters.txt` records the server settings used.
+
+## Exploratory analyses not reported in the manuscript
+
+`deprecated/boltz2/` contains a ligand-protein co-folding run performed with Boltz-2
+during an early exploratory phase. It is retained for transparency but is not cited in
+the manuscript. The run recorded pose-confidence metrics (confidence score, ipTM, pLDDT)
+only; the affinity-prediction module was not used. Under those metrics the positive
+control (EGFR-erlotinib) behaved as expected, whereas six chemically unrelated
+negative-control ligands returned higher scores than the reference binder at WBP5.
+Because pose-confidence metrics are not intended to rank binding strength, the run was
+treated as inconclusive rather than as evidence about the target, and no result from it
+informed any conclusion in the manuscript.
+
+## Data availability
 
 Source data are available from GEO under accessions GSE103322 and GSE198315.
-
----
-# WBP5/HNSCC Figures — Arial-unified
-
-## Font policy
-All figures use a sans-serif family with Arial-metric widths. On the
-Linux generation environment (no real Arial installed) this resolves to
-`Liberation Sans`, which is byte-equivalent in width to Arial. Running
-the scripts on the Windows PC where Arial is installed will produce
-identical layouts rendered with real Arial, because `_style.py` prefers
-`Arial` when present.
-
-## Files
-
-| File | Source data | Script |
-|------|-------------|--------|
-| `fig_workflow.png` | Manuscript outline (text-based) | `_scripts/fig_workflow.py` |
-| `fig_structure_pocket_view1.png` / `view2.png` | `WBP5_AlphaFold.pdb` | `_scripts/fig_structure.py` |
-| `fig_heatmap_3panel.png` | Transcribed from original heatmap figure | `_scripts/fig_heatmap.py` |
-| `fig_regional_prevalence.png` | `GSE198315 region_compartment breakdown heatmap ... .xlsx` | `_scripts/fig_prevalence.py` |
-| `fig_stacked_composition.png` | `GSE198315_*distribution_summary.xlsx` + double-high breakdown | `_scripts/fig_stacked.py` |
-| `fig_external_validation.png` | Transcribed from the original external-validation figure | `_scripts/fig_extvalid.py` |
-| `fig_compartment_4panel.png` | Transcribed from the original compartment/triage figure | `_scripts/fig_compartment.py` |
-| `fig_umap_gse198315_4panel.png` | `GSE198315/out/umap_coords.csv` + `obs.csv` | `_scripts/fig_umap_gse198315.py` |
-| `fig_umap_overlay_4panel.png` | same + top-10% thresholds on expr_WBP5/expr_EGFR | `_scripts/fig_umap_overlay.py` |
-| `fig_umap_gse103322_4panel.png` | `GSE103322/out/umap_coords.csv` + `obs.csv` + WBP5 row from matrix | `_scripts/fig_umap_gse103322.py` |
-
-## Not included (require external tools)
-
-| Missing | Reason | How to get it |
-|---------|--------|---------------|
-| Candidate molecule grids (`all_candidates_grid`, `top_vs_pazopanib`) | RDKit not available in the sandbox | Run `_scripts/fig_molecules_ARIAL.py` on the Windows PC |
-| PyMOL ribbon screenshot (`wbp5alphafoldpdb*.png`) | PyMOL/ChimeraX not available | Open `WBP5_AlphaFold.pdb` in PyMOL, set `set cartoon_fancy_helices,1; set_cartoon_transparency,0`, export with Arial labels |
-
-## Regenerating everything
-
-```bash
-cd _scripts
-for f in fig_*.py; do python3 "$f"; done
-```
-
-## Font override
-
-If Arial is installed system-wide, `_style.py` picks it up automatically.
-Otherwise the rendered font is Liberation Sans, which matches Arial's
-kerning and advance widths exactly.
-## Note on the ligand SMILES files
-
-Two entries in `all_candidates.smi` (deposited 13 April 2026) required correction
-before the analyses reported in the manuscript. The original file is retained
-unmodified for provenance; the corrected strings are provided separately as
-`all_candidates_corrected.smi`. All docking, ADMET and toxicity results reported
-in the manuscript were obtained with the corrected structures.
-
-### Candidate_1
-
-The deposited string
-
-```
-CC(C)NS(=O)(=O)c1ccc(CCC(=O)Nc2ccnc2)cc1 Candidate_1
-```
-
-encodes a five-membered aromatic ring bearing a single nitrogen without an
-explicit hydrogen, and therefore cannot be kekulized by RDKit or Open Babel.
-The molecular weight (347 Da) and topological polar surface area (88.16 A^2)
-recorded for this molecule in the REINVENT4 run correspond to the
-pyridine-containing analogue (C17H21N3O3S; 347.44 Da; TPSA 88.16 A^2) rather
-than to the pyrrole analogue (C16H21N3O3S; 335.43 Da; TPSA 91.06 A^2). All
-analyses were therefore performed with
-
-```
-CC(C)NS(=O)(=O)c1ccc(CCC(=O)Nc2ccncc2)cc1     pyridin-4-yl
-InChIKey JGUIGLSIQCDQRA-UHFFFAOYSA-N
-```
-
-The position of the ring nitrogen (2-, 3- or 4-pyridyl) could not be
-independently confirmed from the archived output, because the three positional
-isomers share the same molecular weight, topological polar surface area and
-aromatic ring count. The 4-pyridyl assignment follows the ligand definition used
-in the original docking script.
-
-### Pazopanib_Ref
-
-The deposited string encoded a thiophene-carboxamide/piperidine analogue
-(C21H24N6O3S2; 472.60 Da), not pazopanib. The reference compound was corrected to
-the free base of pazopanib (PubChem CID 10113978):
-
-```
-CN(c1ccc2c(c1)nn(c2C)C)c1ccnc(n1)Nc1ccc(c(c1)S(=O)(=O)N)C
-C21H23N7O2S; 437.53 Da; InChIKey CUIHSIWYWATEQL-UHFFFAOYSA-N
-```
-
-### Verification
-
-Every entry in `all_candidates_corrected.smi` parses under RDKit 2026.03.5 and
-matches the molecular formula and molecular weight reported in the manuscript:
-
-| ID            | Formula      | MW (Da) | InChIKey                    |
-|---------------|--------------|---------|-----------------------------|
-| Candidate_1   | C17H21N3O3S  | 347.44  | JGUIGLSIQCDQRA-UHFFFAOYSA-N |
-| Candidate_2   | C19H23N5O2   | 353.43  | CWFOXUOVUNELQQ-UHFFFAOYSA-N |
-| Candidate_3   | C17H17N3O3S  | 343.41  | DSVBRFOHTGCUGB-UHFFFAOYSA-N |
-| Candidate_4   | C19H21N3O4   | 355.39  | MMBJDRLBTDFZJL-UHFFFAOYSA-N |
-| Candidate_5   | C16H19N3O4S  | 349.41  | UQFXIMOKNSXXKZ-UHFFFAOYSA-N |
-| Pazopanib_Ref | C21H23N7O2S  | 437.53  | CUIHSIWYWATEQL-UHFFFAOYSA-N |
-
+The AlphaFold model is AF-Q9UHQ7-F1-model_v6 (UniProt Q9UHQ7).

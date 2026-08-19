@@ -1,0 +1,10 @@
+CC(C)NS(=O)(=O)c1ccc(CCC(=O)Nc2ccncc2)cc1	Candidate_1
+O=C(CCc1ccccc1)NNC(=O)C1CCN(c2ncccn2)CC1	Candidate_2
+CC1=CN(Cc2ccc(S(N)(=O)=O)cc2)C(=O)c2cccnc2C1	Candidate_3
+Cc1ccc(OCc2cc(C(=O)NCc3c(C)noc3C)no2)cc1C	Candidate_4
+CN1CCN(S(=O)(=O)c2ccc(NC(=O)c3ccco3)cc2)CC1	Candidate_5
+Cc1ccc(Nc2nccc(N(C)c3ccc4c(C)n(C)nc4c3)n2)cc1S(N)(=O)=O	Pazopanib_Ref
+Cc1nc(Nc2ncc(C(=O)Nc3c(C)cccc3Cl)s2)cc(N2CCN(CCO)CC2)n1	Dasatinib
+C=Cc1c(C)c2cc3nc(cc4[nH]c(cc5nc(cc1[nH]2)C(C)=C5CCC(=O)OC)c(CCC(=O)O)c4C)[C@@]1(C)C3=CC=C(C(=O)OC)[C@H]1C(=O)OC	Verteporfin
+CCC(C)(C)C(=O)O[C@H]1C[C@@H](C)C=C2C=C[C@H](C)[C@H](CC[C@@H]3C[C@@H](O)CC(=O)O3)[C@H]21	Simvastatin
+C[C@H](CCc1ccc(O)cc1)NCCc1ccc(O)c(O)c1	Dobutamine
