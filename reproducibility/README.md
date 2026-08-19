@@ -1,4 +1,4 @@
-# Reproducibility — manuscript tables
+# Reproducibility - manuscript tables
 
 Scripts and verified output files that reproduce the numerical values reported in
 Tables 1-4 of the manuscript.
@@ -28,7 +28,16 @@ retrieves them directly from the original GSE103322 expression matrix
 
 **Candidate_1.** Candidate_1 was re-docked after its SMILES was corrected to the
 pyridin-4-yl variant (MW 347.44). `docking_replicates_P0_summary_v2.csv` contains the
-corrected value (-5.44 +/- 0.06 kcal/mol).
+corrected value (-5.44 +/- 0.05 kcal/mol).
+
+**Rounding.** Standard deviations in `docking_replicates_P0_summary_v2.csv` are given to
+three decimal places. Manuscript Tables 3 and 4 report them to two decimal places, so a
+value of 0.055 appears as 0.05 there; this applies to pazopanib, Candidate_1,
+Candidate_3 and Candidate_4.
+
+**Contact analysis.** The contact residues and distance ranges in Table 3 were computed
+from the seed 42 replicate of each ligand, as stated in the table legend. Binding
+energies, by contrast, are means across all five replicates.
 
 ## Data availability
 
