@@ -1,0 +1,1321 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?xml-stylesheet  href="job.xsl" type="text/xsl"?><jobState>
+  <program>
+    <head>
+      <name>MTiOpenScreen</name>
+      <doc>
+        <title>MTiOpenScreen</title>
+        <description>
+          <text lang="en">Virtual screening using AutoDock Vina.</text>
+        </description>
+        <comment>
+          <text lang="en">Virtual screening service allows to screen a curated library of small compounds in order to identify which compounds are likely to bind to given protein receptor.</text>
+        </comment>
+        <authors>Labbé CM, Rey J, Lagorce D, Vavrusa M, Becot J, Sperandio O, Villoutreix BO, Tufféry P, Miteva MA.</authors>
+        <reference url="https://doi.org/10.1093/nar/gkv306">MTiOpenScreen: a web server for structure-based virtual screening. Nucleic Acids Research, 2015.</reference>
+        <doclink>http://bioserv.rpbs.univ-paris-diderot.fr/services/MTiOpenScreen</doclink>
+      </doc>
+      <progressReport>.progress.txt</progressReport>
+      <category>Drugs</category>
+      <command>mtiopenscreen.py</command>
+      <env name="ENVIRONMENT_MODULE">rpbs_services/py2-rpbs</env>
+      <env name="ENVIRONMENT_TYPE">conda</env>
+      <interface type="form" generated="true">
+        <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="demo_mode">
+          <legend>Demonstration mode</legend>
+          <div>
+            <div class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="wmesg_demo">
+              <label class="parameter" title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+                Fill the service form with preset data
+              </label>
+              <input type="button" name="demo" value="Load"/>
+              <div class="remark">
+                <b>Note:</b> MTiOpenScreen will load a pre-configured test case. Click the "Reset" button above to reset the form.
+              </div>
+              <script>
+                $$('div[id^=\'ms-forms::\'].tabPanel').findAll(function(e){return e.visible()}).first().down('[name="demo"]').observe('click', function() {
+                    $$('div[id^=\'ms-forms::\'].tabPanel').findAll(function(e){return e.visible()}).first().select('[name="receptor_format"] option')[0].selected=true;
+                    new Ajax.Request('/portal/demos/MTiOpenScreen/4AG8_protein.pdb', {
+                        method:'get',
+                        onSuccess: function(r){
+                            $$('div[id^=\'ms-forms::\'].tabPanel').findAll(function(e){return e.visible()}).first().down('[name="receptor_file.mode"][value="paste"]').fire('databox:switch');
+                            $$('div[id^=\'ms-forms::\'].tabPanel').findAll(function(e){return e.visible()}).first().down('[name="receptor_file"]').value=r.responseText.strip()
+                        },
+                    });
+                    $$('div[id^=\'ms-forms::\'].tabPanel').findAll(function(e){return e.visible()}).first().select('[name="library"] option')[2].selected=true;
+                    $$('div[id^=\'ms-forms::\'].tabPanel').findAll(function(e){return e.visible()}).first().down('[name="limit"]').value='100';
+                    $$('div[id^=\'ms-forms::\'].tabPanel').findAll(function(e){return e.visible()}).first().select('[name="is_lead_like"] option')[0].selected=true;
+                    $$('div[id^=\'ms-forms::\'].tabPanel').findAll(function(e){return e.visible()}).first().select('[name="grid_calculation_mode"] option')[1].selected=true;
+                    $$('div[id^=\'ms-forms::\'].tabPanel').findAll(function(e){return e.visible()}).first().down('[name="gridcenter_x"]').value='20.192';
+                    $$('div[id^=\'ms-forms::\'].tabPanel').findAll(function(e){return e.visible()}).first().down('[name="gridcenter_y"]').value='25.726';
+                    $$('div[id^=\'ms-forms::\'].tabPanel').findAll(function(e){return e.visible()}).first().down('[name="gridcenter_z"]').value='35.76';
+                    $$('div[id^=\'ms-forms::\'].tabPanel').findAll(function(e){return e.visible()}).first().down('[name="gridpts_x"]').value='19';
+                    $$('div[id^=\'ms-forms::\'].tabPanel').findAll(function(e){return e.visible()}).first().down('[name="gridpts_y"]').value='13';
+                    $$('div[id^=\'ms-forms::\'].tabPanel').findAll(function(e){return e.visible()}).first().down('[name="gridpts_z"]').value='18';
+                });
+              </script>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="receptor">
+          <legend>Protein receptor</legend>
+          <div>
+            <label class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="pdb" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="receptor_format">Receptor format<a href="#idm140189018858976::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+              <select name="receptor_format">
+                <option value="pdb" selected="selected">pdb</option>
+                <option value="mol2">mol2</option>
+              </select>
+              <div id="idm140189018858976::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <div>Please specify the input receptor file format.</div>
+              </div>
+            </label>
+            <fieldset class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="Receptor " data-card="" data-formats="pdb mol2 " data-parametername="receptor_file">
+              <legend>Receptor file<a href="#idm140189019131952::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+              </legend>
+              <div id="idm140189019131952::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <div>Either PDB or MOL2 is accepted.</div>
+              </div>
+              <textarea name="receptor_file" cols="60" rows="7"> </textarea>
+            </fieldset>
+          </div>
+        </fieldset>
+        <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="user_db">
+          <legend>Compounds database</legend>
+          <div>
+            <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="library">Select library for the compound (use the database filters below)<select name="library">
+                <option value="0"/>
+                <option value="1">iPPI-lib</option>
+                <option value="2">diverse-lib</option>
+                <option value="3">Drugs-lib</option>
+                <option value="4">FOOD-lib</option>
+                <option value="5">NP-lib</option>
+              </select>
+            </label>
+            <fieldset class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="Compounds " data-card="" data-formats="mol2 " data-parametername="user_db">
+              <legend>Custom compound library (in 3D, protonated and up to 5000 compounds)<a href="#idm140189018713152::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+              </legend>
+              <div id="idm140189018713152::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <div>User-provided library of small compounds, you have to either provide your own database or use one of the provided with the database filters. Either MOL2 or SDF is accepted.</div>
+              </div>
+              <textarea name="user_db" cols="60" rows="7"> </textarea>
+            </fieldset>
+            <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="limit">Limit the number of ligands to<input name="limit" type="text" value=""/>
+            </label>
+          </div>
+        </fieldset>
+        <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="db_filters">
+          <legend>Compound library filters</legend>
+          <div>
+            <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="is_lead_like">Is lead-like?<a href="#idm140189018632304::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+              <select name="is_lead_like">
+                <option value=""/>
+                <option value="Y">Yes</option>
+                <option value="N">No</option>
+              </select>
+              <div id="idm140189018632304::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <div>If the selection of "lead-like" molecules is enabled, you should not input other parameters. If you do so, they will be ommited.</div>
+              </div>
+            </label>
+            <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="hba">Only compounds with the number of hydrogen bond acceptors lower than<input name="hba" type="text" value=""/>
+            </label>
+            <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="hbd">Only compounds with the number of hydrogen bonds donors lower than<input name="hbd" type="text" value=""/>
+            </label>
+            <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="logp">Only compounds with the LogP lower than<input name="logp" type="text" value=""/>
+            </label>
+            <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="mw">Only compounds with the molecular weight lower than<input name="mw" type="text" value=""/>
+            </label>
+            <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nrot">Only compounds with the number of rotatable bonds lower than<input name="nrot" type="text" value=""/>
+            </label>
+            <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="tpsa">Only compounds with the topological polar surface area lower than<input name="tpsa" type="text" value=""/>
+            </label>
+          </div>
+        </fieldset>
+        <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="grid_calculation">
+          <legend>Grid calculation</legend>
+          <div>
+            <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="grid_calculation_mode">Mode<select name="grid_calculation_mode">
+                <option value=""/>
+                <option value="custom">Custom parameters</option>
+                <option value="residues">List of residues</option>
+              </select>
+            </label>
+          </div>
+        </fieldset>
+        <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="grid">
+          <legend>Calculate grid from coordinates (custom mode)</legend>
+          <div>
+            <fieldset class="minimizable" data-paragraphname="gridcenter">
+              <legend>Grid center coordinates</legend>
+              <div>
+                <table>
+                  <tr>
+                    <td>
+                      <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gridcenter_x">x<input name="gridcenter_x" type="text" value=""/>
+                      </label>
+                    </td>
+                    <td>
+                      <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gridcenter_y">y<input name="gridcenter_y" type="text" value=""/>
+                      </label>
+                    </td>
+                    <td>
+                      <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gridcenter_z">z<input name="gridcenter_z" type="text" value=""/>
+                      </label>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </fieldset>
+            <fieldset class="minimizable" data-paragraphname="gridpts">
+              <legend>Sizes of the search space [A]<a href="#idm140189019247680::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+              </legend>
+              <div id="idm140189019247680::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <div>
+                  <p>Unlike AutoDock, Vina accepts search space size in Angstroms. Maximum recommended grid size is 27000 A^3, but if you really intended to use an unusually large search space, you can ignore this warning, but note that the search algorithm's job may be harder.</p>
+                  <p>Example:</p>
+                  <pre>30x30x30 means 27000 A^3</pre>
+                </div>
+              </div>
+              <div>
+                <table>
+                  <tr>
+                    <td>
+                      <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gridpts_x">x<input name="gridpts_x" type="text" value=""/>
+                      </label>
+                    </td>
+                    <td>
+                      <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gridpts_y">y<input name="gridpts_y" type="text" value=""/>
+                      </label>
+                    </td>
+                    <td>
+                      <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gridpts_z">z<input name="gridpts_z" type="text" value=""/>
+                      </label>
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </fieldset>
+          </div>
+        </fieldset>
+        <fieldset xmlns="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="residues">
+          <legend>Calculate grid from a list of residues (list of residues mode)</legend>
+          <div>
+            <label class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="residues_list">List of residues separated by commas (i.e. "_A_PHE_919__,_A_ALA_866__")<a href="#idm140189018398704::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+              <input name="residues_list" type="text" value=""/>
+              <div id="idm140189018398704::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <div>
+                  <p>The comma-separated list of residues must be of the following form and not contain white-space or special characters: CHAIN ID, RESIDUE 3-LETTERS CODE, RESIDUE #.</p>
+                  <p>Example:</p>
+                  <pre>_A_THR_1__,_A_THR_2__,_A_ILE_7__</pre>
+                </div>
+              </div>
+            </label>
+          </div>
+        </fieldset>
+      </interface>
+      <interface type="job_input" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="demo_mode">
+          <xhtml:legend>Demonstration mode</xhtml:legend>
+          <xhtml:div>
+            <xhtml:div data-parametername="wmesg_demo" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          </xhtml:div>
+        </xhtml:fieldset>
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="receptor">
+          <xhtml:legend>Protein receptor</xhtml:legend>
+          <xhtml:div>
+            <xhtml:div data-parametername="receptor_format" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="pdb" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+              <xhtml:a href="#idm140189018858976::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div id="idm140189018858976::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Please specify the input receptor file format.</xhtml:div>
+              </xhtml:div>
+            </xhtml:div>
+            <xhtml:div data-parametername="receptor_file" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="Receptor " data-card="" data-formats="pdb mol2 ">
+              <xhtml:i>
+				(Receptor _3DStructure)
+			</xhtml:i>
+              <xhtml:a href="#idm140189019131952::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div id="idm140189019131952::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Either PDB or MOL2 is accepted.</xhtml:div>
+              </xhtml:div>
+            </xhtml:div>
+          </xhtml:div>
+        </xhtml:fieldset>
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="user_db">
+          <xhtml:legend>Compounds database</xhtml:legend>
+          <xhtml:div>
+            <xhtml:div data-parametername="library" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+            <xhtml:div data-parametername="user_db" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="Compounds " data-card="" data-formats="mol2 ">
+              <xhtml:i>
+				(Compounds _3DStructure)
+			</xhtml:i>
+              <xhtml:a href="#idm140189018713152::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div id="idm140189018713152::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>User-provided library of small compounds, you have to either provide your own database or use one of the provided with the database filters. Either MOL2 or SDF is accepted.</xhtml:div>
+              </xhtml:div>
+            </xhtml:div>
+            <xhtml:div data-parametername="limit" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          </xhtml:div>
+        </xhtml:fieldset>
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="db_filters">
+          <xhtml:legend>Compound library filters</xhtml:legend>
+          <xhtml:div>
+            <xhtml:div data-parametername="is_lead_like" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+              <xhtml:a href="#idm140189018632304::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div id="idm140189018632304::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>If the selection of "lead-like" molecules is enabled, you should not input other parameters. If you do so, they will be ommited.</xhtml:div>
+              </xhtml:div>
+            </xhtml:div>
+            <xhtml:div data-parametername="hba" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+            <xhtml:div data-parametername="hbd" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+            <xhtml:div data-parametername="logp" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+            <xhtml:div data-parametername="mw" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+            <xhtml:div data-parametername="nrot" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+            <xhtml:div data-parametername="tpsa" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          </xhtml:div>
+        </xhtml:fieldset>
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="grid_calculation">
+          <xhtml:legend>Grid calculation</xhtml:legend>
+          <xhtml:div>
+            <xhtml:div data-parametername="grid_calculation_mode" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+          </xhtml:div>
+        </xhtml:fieldset>
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="grid">
+          <xhtml:legend>Calculate grid from coordinates (custom mode)</xhtml:legend>
+          <xhtml:div>
+            <xhtml:fieldset class="minimizable" data-paragraphname="gridcenter">
+              <xhtml:legend>Grid center coordinates</xhtml:legend>
+              <xhtml:div>
+                <xhtml:table>
+                  <xhtml:tr>
+                    <xhtml:td>
+                      <xhtml:div data-parametername="gridcenter_x" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+                    </xhtml:td>
+                    <xhtml:td>
+                      <xhtml:div data-parametername="gridcenter_y" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+                    </xhtml:td>
+                    <xhtml:td>
+                      <xhtml:div data-parametername="gridcenter_z" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+                    </xhtml:td>
+                  </xhtml:tr>
+                </xhtml:table>
+              </xhtml:div>
+            </xhtml:fieldset>
+            <xhtml:fieldset class="minimizable" data-paragraphname="gridpts">
+              <xhtml:legend>Sizes of the search space [A]</xhtml:legend>
+              <xhtml:div>
+                <xhtml:table>
+                  <xhtml:tr>
+                    <xhtml:td>
+                      <xhtml:div data-parametername="gridpts_x" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+                    </xhtml:td>
+                    <xhtml:td>
+                      <xhtml:div data-parametername="gridpts_y" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+                    </xhtml:td>
+                    <xhtml:td>
+                      <xhtml:div data-parametername="gridpts_z" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats=""/>
+                    </xhtml:td>
+                  </xhtml:tr>
+                </xhtml:table>
+              </xhtml:div>
+            </xhtml:fieldset>
+          </xhtml:div>
+        </xhtml:fieldset>
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="residues">
+          <xhtml:legend>Calculate grid from a list of residues (list of residues mode)</xhtml:legend>
+          <xhtml:div>
+            <xhtml:div data-parametername="residues_list" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+              <xhtml:a href="#idm140189018398704::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div id="idm140189018398704::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>
+                  <xhtml:p>The comma-separated list of residues must be of the following form and not contain white-space or special characters: CHAIN ID, RESIDUE 3-LETTERS CODE, RESIDUE #.</xhtml:p>
+                  <xhtml:p>Example:</xhtml:p>
+                  <xhtml:pre>_A_THR_1__,_A_THR_2__,_A_ILE_7__</xhtml:pre>
+                </xhtml:div>
+              </xhtml:div>
+            </xhtml:div>
+          </xhtml:div>
+        </xhtml:fieldset>
+      </interface>
+      <interface type="job_output" generated="true">
+        <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml" class="minimizable" data-paragraphname="Results">
+          <xhtml:legend>Results</xhtml:legend>
+          <xhtml:div>
+            <xhtml:div data-parametername="table" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="HTML" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+              <xhtml:i>
+				(HTML)
+			</xhtml:i>
+            </xhtml:div>
+            <xhtml:div data-parametername="csvtable" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="CSV" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+              <xhtml:i>
+				(CSV)
+			</xhtml:i>
+            </xhtml:div>
+            <xhtml:div data-parametername="visualization" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="HTML" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="">
+              <xhtml:i>
+				(HTML)
+			</xhtml:i>
+              <xhtml:a href="#idm140189018227968::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div id="idm140189018227968::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>Note: The bioactive compounds are rarely ranked in the top 1 % of the virtually screened compound library. Thus, the visualized here top ranked 100 ligands using MTiOpenScreen are only an illustration of the docking results and the binding site. You may need to proceed a thorough analysis of a larger number of ligands among the 1000 top ranked compounds provided to download by using standalone programs like PyMOL or AutoDockTools for a final selection of the best potential compound candidates.</xhtml:div>
+              </xhtml:div>
+            </xhtml:div>
+            <xhtml:div data-parametername="ligands_pdbqt" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="Drug " data-card="" data-formats="PDB ">
+              <xhtml:i>
+				(Drug _3DStructure)
+			</xhtml:i>
+              <xhtml:a href="#idm140189018220336::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div id="idm140189018220336::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The 3 top scored poses for the 1000 top ranked compounds screened using AutoDock Vina ranked by binding energy; binding energies; physico-chemical descriptors of ligands.</xhtml:div>
+              </xhtml:div>
+            </xhtml:div>
+            <xhtml:div data-parametername="ligands_mol2" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="Drug " data-card="" data-formats="mol2 ">
+              <xhtml:i>
+				(Drug _3DStructure)
+			</xhtml:i>
+              <xhtml:a href="#idm140189018212128::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</xhtml:a>
+              <xhtml:div id="idm140189018212128::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                <xhtml:div>The 3 top scored poses for the 1000 top ranked compounds screened using AutoDock Vina ranked by binding energy; binding energies; physico-chemical descriptors of ligands.</xhtml:div>
+              </xhtml:div>
+            </xhtml:div>
+          </xhtml:div>
+        </xhtml:fieldset>
+      </interface>
+    </head>
+    <parameters>
+      <paragraph>
+        <name>demo_mode</name>
+        <prompt>Demonstration mode</prompt>
+        <parameters>
+          <parameter issimple="1">
+            <name>wmesg_demo</name>
+            <prompt lang="en"/>
+            <type>
+              <datatype>
+                <class>String</class>
+              </datatype>
+            </type>
+            <format>
+              <code proglang="python">""</code>
+            </format>
+            <interface type="form">
+              <div xmlns="http://www.w3.org/1999/xhtml">
+                <label class="parameter" title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">
+                Fill the service form with preset data
+              </label>
+                <input type="button" name="demo" value="Load"/>
+                <div class="remark">
+                  <b>Note:</b> MTiOpenScreen will load a pre-configured test case. Click the "Reset" button above to reset the form.
+              </div>
+                <script>
+                $$('div[id^=\'ms-forms::\'].tabPanel').findAll(function(e){return e.visible()}).first().down('[name="demo"]').observe('click', function() {
+                    $$('div[id^=\'ms-forms::\'].tabPanel').findAll(function(e){return e.visible()}).first().select('[name="receptor_format"] option')[0].selected=true;
+                    new Ajax.Request('/portal/demos/MTiOpenScreen/4AG8_protein.pdb', {
+                        method:'get',
+                        onSuccess: function(r){
+                            $$('div[id^=\'ms-forms::\'].tabPanel').findAll(function(e){return e.visible()}).first().down('[name="receptor_file.mode"][value="paste"]').fire('databox:switch');
+                            $$('div[id^=\'ms-forms::\'].tabPanel').findAll(function(e){return e.visible()}).first().down('[name="receptor_file"]').value=r.responseText.strip()
+                        },
+                    });
+                    $$('div[id^=\'ms-forms::\'].tabPanel').findAll(function(e){return e.visible()}).first().select('[name="library"] option')[2].selected=true;
+                    $$('div[id^=\'ms-forms::\'].tabPanel').findAll(function(e){return e.visible()}).first().down('[name="limit"]').value='100';
+                    $$('div[id^=\'ms-forms::\'].tabPanel').findAll(function(e){return e.visible()}).first().select('[name="is_lead_like"] option')[0].selected=true;
+                    $$('div[id^=\'ms-forms::\'].tabPanel').findAll(function(e){return e.visible()}).first().select('[name="grid_calculation_mode"] option')[1].selected=true;
+                    $$('div[id^=\'ms-forms::\'].tabPanel').findAll(function(e){return e.visible()}).first().down('[name="gridcenter_x"]').value='20.192';
+                    $$('div[id^=\'ms-forms::\'].tabPanel').findAll(function(e){return e.visible()}).first().down('[name="gridcenter_y"]').value='25.726';
+                    $$('div[id^=\'ms-forms::\'].tabPanel').findAll(function(e){return e.visible()}).first().down('[name="gridcenter_z"]').value='35.76';
+                    $$('div[id^=\'ms-forms::\'].tabPanel').findAll(function(e){return e.visible()}).first().down('[name="gridpts_x"]').value='19';
+                    $$('div[id^=\'ms-forms::\'].tabPanel').findAll(function(e){return e.visible()}).first().down('[name="gridpts_y"]').value='13';
+                    $$('div[id^=\'ms-forms::\'].tabPanel').findAll(function(e){return e.visible()}).first().down('[name="gridpts_z"]').value='18';
+                });
+              </script>
+              </div>
+            </interface>
+            <interface generated="true" type="job_input">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="wmesg_demo"/>
+            </interface>
+          </parameter>
+        </parameters>
+      </paragraph>
+      <paragraph>
+        <name>receptor</name>
+        <prompt>Protein receptor</prompt>
+        <parameters>
+          <parameter ismandatory="1" issimple="1">
+            <name>receptor_format</name>
+            <prompt lang="en">Receptor format</prompt>
+            <type>
+              <datatype>
+                <class>Choice</class>
+              </datatype>
+            </type>
+            <vdef>
+              <value>pdb</value>
+            </vdef>
+            <vlist>
+              <velem>
+                <value>pdb</value>
+                <label>pdb</label>
+              </velem>
+              <velem>
+                <value>mol2</value>
+                <label>mol2</label>
+              </velem>
+            </vlist>
+            <format>
+              <code proglang="python">("", " --receptorFormat " + str(value))[value is not None]</code>
+            </format>
+            <comment>
+              <text lang="en">Please specify the input receptor file format.</text>
+            </comment>
+            <interface type="form" generated="true">
+              <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Receptor format<a href="#idm140189018858976::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <select name="receptor_format">
+                  <option value="pdb" selected="selected">pdb</option>
+                  <option value="mol2">mol2</option>
+                </select>
+                <div id="idm140189018858976::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>Please specify the input receptor file format.</div>
+                </div>
+              </label>
+            </interface>
+            <interface generated="true" type="job_input">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="pdb" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="receptor_format">
+                <a href="#idm140189018858976::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <div id="idm140189018858976::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>Please specify the input receptor file format.</div>
+                </div>
+              </div>
+            </interface>
+          </parameter>
+          <parameter ismandatory="1" issimple="1">
+            <name>receptor_file</name>
+            <prompt lang="en">Receptor file</prompt>
+            <type>
+              <biotype>Receptor</biotype>
+              <datatype>
+                <class>_3DStructure</class>
+                <superclass>AbstractText</superclass>
+              </datatype>
+              <dataFormat>pdb</dataFormat>
+              <dataFormat>mol2</dataFormat>
+            </type>
+            <format>
+              <code proglang="python">("", " -r " + str(value))[value is not None]</code>
+            </format>
+            <comment>
+              <text lang="en">Either PDB or MOL2 is accepted.</text>
+            </comment>
+            <interface type="form" generated="true">
+              <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+                <xhtml:legend>Receptor file</xhtml:legend>
+                <xhtml:textarea name="receptor_file" cols="60" rows="7"> </xhtml:textarea>
+              </xhtml:fieldset>
+            </interface>
+            <interface generated="true" type="job_input">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter &#10;&#9;&#9;&#9;&#9;mandatory&#10;&#9;&#9;&#9;&#9;" title="This parameter is mandatory" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="Receptor " data-card="" data-formats="pdb mol2 " data-parametername="receptor_file">
+                <i>
+				(Receptor _3DStructure)
+			</i>
+                <a href="#idm140189019131952::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <div id="idm140189019131952::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>Either PDB or MOL2 is accepted.</div>
+                </div>
+              </div>
+            </interface>
+          </parameter>
+        </parameters>
+      </paragraph>
+      <paragraph>
+        <name>user_db</name>
+        <prompt>Compounds database</prompt>
+        <parameters>
+          <parameter issimple="1">
+            <name>library</name>
+            <prompt lang="en">Select library for the compound (use the database filters below)</prompt>
+            <type>
+              <datatype>
+                <class>Choice</class>
+              </datatype>
+            </type>
+            <vlist>
+              <velem>
+                <value>0</value>
+                <label/>
+              </velem>
+              <velem>
+                <value>1</value>
+                <label>iPPI-lib</label>
+              </velem>
+              <velem>
+                <value>2</value>
+                <label>diverse-lib</label>
+              </velem>
+              <velem>
+                <value>3</value>
+                <label>Drugs-lib</label>
+              </velem>
+              <velem>
+                <value>4</value>
+                <label>FOOD-lib</label>
+              </velem>
+              <velem>
+                <value>5</value>
+                <label>NP-lib</label>
+              </velem>
+              <!--
+            <velem>
+              <value>6</value>
+              <label>UMR8601</label>
+            </velem>
+-->
+            </vlist>
+            <format>
+              <code proglang="python">("", " --library iPPI-lib ", " --library diverse-lib ", " --built-in-db Drug_DB ", " --built-in-db FOOD_DB ", " --built-in-db NP_DB ")[ int(value) ]</code>
+            </format>
+            <interface type="form" generated="true">
+              <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Select library for the compound (use the database filters below)<select name="library">
+                  <option value="0"/>
+                  <option value="1">iPPI-lib</option>
+                  <option value="2">diverse-lib</option>
+                  <option value="3">Drugs-lib</option>
+                  <option value="4">FOOD-lib</option>
+                  <option value="5">NP-lib</option>
+                </select>
+              </label>
+            </interface>
+            <interface generated="true" type="job_input">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="library"/>
+            </interface>
+          </parameter>
+          <parameter issimple="1">
+            <name>user_db</name>
+            <prompt lang="en">Custom compound library (in 3D, protonated and up to 5000 compounds)</prompt>
+            <type>
+              <biotype>Compounds</biotype>
+              <datatype>
+                <class>_3DStructure</class>
+                <superclass>AbstractText</superclass>
+              </datatype>
+              <dataFormat>mol2</dataFormat>
+            </type>
+            <format>
+              <code proglang="python">("", " -d " + str(value))[value is not None]</code>
+            </format>
+            <comment>
+              <text lang="en">User-provided library of small compounds, you have to either provide your own database or use one of the provided with the database filters. Either MOL2 or SDF is accepted.</text>
+            </comment>
+            <interface type="form" generated="true">
+              <xhtml:fieldset xmlns:xhtml="http://www.w3.org/1999/xhtml">
+                <xhtml:legend>Custom compound library (in 3D, protonated and up to 5000 compounds)</xhtml:legend>
+                <xhtml:textarea name="user_db" cols="60" rows="7"> </xhtml:textarea>
+              </xhtml:fieldset>
+            </interface>
+            <interface generated="true" type="job_input">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="Compounds " data-card="" data-formats="mol2 " data-parametername="user_db">
+                <i>
+				(Compounds _3DStructure)
+			</i>
+                <a href="#idm140189018713152::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <div id="idm140189018713152::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>User-provided library of small compounds, you have to either provide your own database or use one of the provided with the database filters. Either MOL2 or SDF is accepted.</div>
+                </div>
+              </div>
+            </interface>
+          </parameter>
+          <parameter issimple="1">
+            <name>limit</name>
+            <prompt lang="en">Limit the number of ligands to</prompt>
+            <type>
+              <datatype>
+                <class>Integer</class>
+              </datatype>
+            </type>
+            <format>
+              <code proglang="python">("", " --limit " + str(value))[value is not None]</code>
+            </format>
+            <interface type="form" generated="true">
+              <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Limit the number of ligands to<input name="limit" type="text" value=""/>
+              </label>
+            </interface>
+            <interface generated="true" type="job_input">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="limit"/>
+            </interface>
+          </parameter>
+        </parameters>
+      </paragraph>
+      <paragraph>
+        <name>db_filters</name>
+        <prompt>Compound library filters</prompt>
+        <parameters>
+          <parameter issimple="1">
+            <name>is_lead_like</name>
+            <prompt lang="en">Is lead-like?</prompt>
+            <comment>
+              <text lang="en">If the selection of "lead-like" molecules is enabled, you should not input other parameters. If you do so, they will be ommited.</text>
+            </comment>
+            <type>
+              <datatype>
+                <class>Choice</class>
+              </datatype>
+            </type>
+            <vlist>
+              <velem>
+                <value/>
+                <label/>
+              </velem>
+              <velem>
+                <value>Y</value>
+                <label>Yes</label>
+              </velem>
+              <velem>
+                <value>N</value>
+                <label>No</label>
+              </velem>
+            </vlist>
+            <format>
+              <code proglang="python">("", " --isLeadLike " + str(value))[value is not None]</code>
+            </format>
+            <interface type="form" generated="true">
+              <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Is lead-like?<a href="#idm140189018632304::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <select name="is_lead_like">
+                  <option value=""/>
+                  <option value="Y">Yes</option>
+                  <option value="N">No</option>
+                </select>
+                <div id="idm140189018632304::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>If the selection of "lead-like" molecules is enabled, you should not input other parameters. If you do so, they will be ommited.</div>
+                </div>
+              </label>
+            </interface>
+            <interface generated="true" type="job_input">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="is_lead_like">
+                <a href="#idm140189018632304::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <div id="idm140189018632304::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>If the selection of "lead-like" molecules is enabled, you should not input other parameters. If you do so, they will be ommited.</div>
+                </div>
+              </div>
+            </interface>
+          </parameter>
+          <parameter issimple="1">
+            <name>hba</name>
+            <prompt lang="en">Only compounds with the number of hydrogen bond acceptors lower than</prompt>
+            <type>
+              <datatype>
+                <class>Integer</class>
+              </datatype>
+            </type>
+            <format>
+              <code proglang="python">("", " --HBA " + str(value))[value is not None]</code>
+            </format>
+            <interface type="form" generated="true">
+              <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Only compounds with the number of hydrogen bond acceptors lower than<input name="hba" type="text" value=""/>
+              </label>
+            </interface>
+            <interface generated="true" type="job_input">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="hba"/>
+            </interface>
+          </parameter>
+          <parameter issimple="1">
+            <name>hbd</name>
+            <prompt lang="en">Only compounds with the number of hydrogen bonds donors lower than</prompt>
+            <type>
+              <datatype>
+                <class>Integer</class>
+              </datatype>
+            </type>
+            <format>
+              <code proglang="python">("", " --HBD " + str(value))[value is not None]</code>
+            </format>
+            <interface type="form" generated="true">
+              <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Only compounds with the number of hydrogen bonds donors lower than<input name="hbd" type="text" value=""/>
+              </label>
+            </interface>
+            <interface generated="true" type="job_input">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="hbd"/>
+            </interface>
+          </parameter>
+          <parameter issimple="1">
+            <name>logp</name>
+            <prompt lang="en">Only compounds with the LogP lower than</prompt>
+            <type>
+              <datatype>
+                <class>Integer</class>
+              </datatype>
+            </type>
+            <format>
+              <code proglang="python">("", " --LogP " + str(value))[value is not None]</code>
+            </format>
+            <interface type="form" generated="true">
+              <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Only compounds with the LogP lower than<input name="logp" type="text" value=""/>
+              </label>
+            </interface>
+            <interface generated="true" type="job_input">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="logp"/>
+            </interface>
+          </parameter>
+          <parameter issimple="1">
+            <name>mw</name>
+            <prompt lang="en">Only compounds with the molecular weight lower than</prompt>
+            <type>
+              <datatype>
+                <class>Integer</class>
+              </datatype>
+            </type>
+            <format>
+              <code proglang="python">("", " --MW " + str(value))[value is not None]</code>
+            </format>
+            <interface type="form" generated="true">
+              <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Only compounds with the molecular weight lower than<input name="mw" type="text" value=""/>
+              </label>
+            </interface>
+            <interface generated="true" type="job_input">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="mw"/>
+            </interface>
+          </parameter>
+          <parameter issimple="1">
+            <name>nrot</name>
+            <prompt lang="en">Only compounds with the number of rotatable bonds lower than</prompt>
+            <type>
+              <datatype>
+                <class>Integer</class>
+              </datatype>
+            </type>
+            <format>
+              <code proglang="python">("", " --nRot " + str(value))[value is not None]</code>
+            </format>
+            <interface type="form" generated="true">
+              <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Only compounds with the number of rotatable bonds lower than<input name="nrot" type="text" value=""/>
+              </label>
+            </interface>
+            <interface generated="true" type="job_input">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="nrot"/>
+            </interface>
+          </parameter>
+          <parameter issimple="1">
+            <name>tpsa</name>
+            <prompt lang="en">Only compounds with the topological polar surface area lower than</prompt>
+            <type>
+              <datatype>
+                <class>Integer</class>
+              </datatype>
+            </type>
+            <format>
+              <code proglang="python">("", " --TPSA " + str(value))[value is not None]</code>
+            </format>
+            <interface type="form" generated="true">
+              <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Only compounds with the topological polar surface area lower than<input name="tpsa" type="text" value=""/>
+              </label>
+            </interface>
+            <interface generated="true" type="job_input">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="tpsa"/>
+            </interface>
+          </parameter>
+        </parameters>
+      </paragraph>
+      <paragraph>
+        <name>grid_calculation</name>
+        <prompt lang="en">Grid calculation</prompt>
+        <parameters>
+          <parameter issimple="1">
+            <name>grid_calculation_mode</name>
+            <prompt lang="en">Mode</prompt>
+            <type>
+              <datatype>
+                <class>Choice</class>
+              </datatype>
+            </type>
+            <vlist>
+              <velem>
+                <value/>
+                <label/>
+              </velem>
+              <velem>
+                <value>custom</value>
+                <label>Custom parameters</label>
+              </velem>
+              <velem>
+                <value>residues</value>
+                <label>List of residues</label>
+              </velem>
+            </vlist>
+            <interface type="form" generated="true">
+              <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">Mode<select name="grid_calculation_mode">
+                  <option value=""/>
+                  <option value="custom">Custom parameters</option>
+                  <option value="residues">List of residues</option>
+                </select>
+              </label>
+            </interface>
+            <interface generated="true" type="job_input">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Choice" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="grid_calculation_mode"/>
+            </interface>
+          </parameter>
+        </parameters>
+      </paragraph>
+      <paragraph>
+        <name>grid</name>
+        <prompt>Calculate grid from coordinates (custom mode)</prompt>
+        <parameters>
+          <paragraph>
+            <name>gridcenter</name>
+            <prompt lang="en">Grid center coordinates</prompt>
+            <parameters>
+              <parameter issimple="1">
+                <name>gridcenter_x</name>
+                <prompt lang="en">x</prompt>
+                <type>
+                  <datatype>
+                    <class>Float</class>
+                  </datatype>
+                </type>
+                <format>
+                  <code proglang="python">""</code>
+                </format>
+                <interface type="form" generated="true">
+                  <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">x<input name="gridcenter_x" type="text" value=""/>
+                  </label>
+                </interface>
+                <interface generated="true" type="job_input">
+                  <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gridcenter_x"/>
+                </interface>
+              </parameter>
+              <parameter issimple="1">
+                <name>gridcenter_y</name>
+                <prompt lang="en">y</prompt>
+                <type>
+                  <datatype>
+                    <class>Float</class>
+                  </datatype>
+                </type>
+                <format>
+                  <code proglang="python">""</code>
+                </format>
+                <interface type="form" generated="true">
+                  <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">y<input name="gridcenter_y" type="text" value=""/>
+                  </label>
+                </interface>
+                <interface generated="true" type="job_input">
+                  <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gridcenter_y"/>
+                </interface>
+              </parameter>
+              <parameter issimple="1">
+                <name>gridcenter_z</name>
+                <prompt lang="en">z</prompt>
+                <type>
+                  <datatype>
+                    <class>Float</class>
+                  </datatype>
+                </type>
+                <format>
+                  <code proglang="python">""</code>
+                </format>
+                <interface type="form" generated="true">
+                  <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">z<input name="gridcenter_z" type="text" value=""/>
+                  </label>
+                </interface>
+                <interface generated="true" type="job_input">
+                  <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Float" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gridcenter_z"/>
+                </interface>
+              </parameter>
+              <parameter ishidden="1">
+                <name>gridcenter_control</name>
+                <type>
+                  <datatype>
+                    <class>String</class>
+                  </datatype>
+                </type>
+                <format>
+                  <code proglang="python">("", " --gridcentercrds=" + str(gridcenter_x) + "," + str(gridcenter_y) + "," + str(gridcenter_z))[grid_calculation_mode == "custom" and (gridcenter_x is not None)]</code>
+                </format>
+                <interface generated="true" type="job_input">
+                  <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gridcenter_control"/>
+                </interface>
+              </parameter>
+            </parameters>
+            <layout>
+              <hbox>
+                <box>gridcenter_x</box>
+                <box>gridcenter_y</box>
+                <box>gridcenter_z</box>
+              </hbox>
+            </layout>
+          </paragraph>
+          <paragraph>
+            <name>gridpts</name>
+            <prompt lang="en">Sizes of the search space [A]</prompt>
+            <comment>
+              <div xmlns="http://www.w3.org/1999/xhtml">
+                <p>Unlike AutoDock, Vina accepts search space size in Angstroms. Maximum recommended grid size is 27000 A^3, but if you really intended to use an unusually large search space, you can ignore this warning, but note that the search algorithm's job may be harder.</p>
+                <p>Example:</p>
+                <pre>30x30x30 means 27000 A^3</pre>
+              </div>
+            </comment>
+            <parameters>
+              <parameter issimple="1">
+                <name>gridpts_x</name>
+                <prompt lang="en">x</prompt>
+                <type>
+                  <datatype>
+                    <class>Integer</class>
+                  </datatype>
+                </type>
+                <format>
+                  <code proglang="python">""</code>
+                </format>
+                <interface type="form" generated="true">
+                  <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">x<input name="gridpts_x" type="text" value=""/>
+                  </label>
+                </interface>
+                <interface generated="true" type="job_input">
+                  <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gridpts_x"/>
+                </interface>
+              </parameter>
+              <parameter issimple="1">
+                <name>gridpts_y</name>
+                <prompt lang="en">y</prompt>
+                <type>
+                  <datatype>
+                    <class>Integer</class>
+                  </datatype>
+                </type>
+                <format>
+                  <code proglang="python">""</code>
+                </format>
+                <interface type="form" generated="true">
+                  <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">y<input name="gridpts_y" type="text" value=""/>
+                  </label>
+                </interface>
+                <interface generated="true" type="job_input">
+                  <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gridpts_y"/>
+                </interface>
+              </parameter>
+              <parameter issimple="1">
+                <name>gridpts_z</name>
+                <prompt lang="en">z</prompt>
+                <type>
+                  <datatype>
+                    <class>Integer</class>
+                  </datatype>
+                </type>
+                <format>
+                  <code proglang="python">""</code>
+                </format>
+                <interface type="form" generated="true">
+                  <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">z<input name="gridpts_z" type="text" value=""/>
+                  </label>
+                </interface>
+                <interface generated="true" type="job_input">
+                  <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="Integer" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gridpts_z"/>
+                </interface>
+              </parameter>
+              <parameter ishidden="1">
+                <name>gridpts_control</name>
+                <type>
+                  <datatype>
+                    <class>String</class>
+                  </datatype>
+                </type>
+                <format>
+                  <code proglang="python">("", " --gridpts " + str(gridpts_x) + "," + str(gridpts_y) + "," + str(gridpts_z))[grid_calculation_mode == "custom" and (gridpts_x is not None)]</code>
+                </format>
+                <ctrl>
+                  <message>
+                    <text lang="en">You must fill in all coordinates.</text>
+                  </message>
+                  <code proglang="python">( ((gridpts_x is not None) and (gridpts_y is not None) and (gridpts_z is not None)) or (grid_calculation_mode == "custom") )</code>
+                </ctrl>
+                <interface generated="true" type="job_input">
+                  <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="gridpts_control"/>
+                </interface>
+              </parameter>
+            </parameters>
+            <layout>
+              <hbox>
+                <box>gridpts_x</box>
+                <box>gridpts_y</box>
+                <box>gridpts_z</box>
+              </hbox>
+            </layout>
+          </paragraph>
+        </parameters>
+      </paragraph>
+      <paragraph>
+        <name>residues</name>
+        <prompt lang="en">Calculate grid from a list of residues (list of residues mode)</prompt>
+        <parameters>
+          <parameter issimple="1">
+            <name>residues_list</name>
+            <prompt lang="en">List of residues separated by commas (i.e. "_A_PHE_919__,_A_ALA_866__")</prompt>
+            <comment>
+              <div xmlns="http://www.w3.org/1999/xhtml">
+                <p>The comma-separated list of residues must be of the following form and not contain white-space or special characters: CHAIN ID, RESIDUE 3-LETTERS CODE, RESIDUE #.</p>
+                <p>Example:</p>
+                <pre>_A_THR_1__,_A_THR_2__,_A_ILE_7__</pre>
+              </div>
+            </comment>
+            <type>
+              <datatype>
+                <class>String</class>
+              </datatype>
+            </type>
+            <format>
+              <code proglang="python">("", " --gridcenterres \"" + str(residues_list) + "\"")[grid_calculation_mode == "residues" and (residues_list is not None)]</code>
+            </format>
+            <interface type="form" generated="true">
+              <label xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="" data-datatype-superclass="" data-biotype="" data-card="" data-formats="">List of residues separated by commas (i.e. "_A_PHE_919__,_A_ALA_866__")<a href="#idm140189018398704::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <input name="residues_list" type="text" value=""/>
+                <div id="idm140189018398704::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+                    <p>The comma-separated list of residues must be of the following form and not contain white-space or special characters: CHAIN ID, RESIDUE 3-LETTERS CODE, RESIDUE #.</p>
+                    <p>Example:</p>
+                    <pre>_A_THR_1__,_A_THR_2__,_A_ILE_7__</pre>
+                  </div>
+                </div>
+              </label>
+            </interface>
+            <interface generated="true" type="job_input">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="true" data-ismultiple="false" data-default-value="" data-datatype="String" data-datatype-superclass="" data-biotype="" data-card="" data-formats="" data-parametername="residues_list">
+                <a href="#idm140189018398704::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <div id="idm140189018398704::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>
+                    <p>The comma-separated list of residues must be of the following form and not contain white-space or special characters: CHAIN ID, RESIDUE 3-LETTERS CODE, RESIDUE #.</p>
+                    <p>Example:</p>
+                    <pre>_A_THR_1__,_A_THR_2__,_A_ILE_7__</pre>
+                  </div>
+                </div>
+              </div>
+            </interface>
+          </parameter>
+        </parameters>
+      </paragraph>
+      <paragraph>
+        <name>Results</name>
+        <prompt lang="en">Results</prompt>
+        <parameters>
+          <parameter isout="1">
+            <name>table</name>
+            <prompt lang="en">Table with 1500 best ligands</prompt>
+            <type>
+              <datatype>
+                <class>HTML</class>
+                <superclass>AbstractText</superclass>
+              </datatype>
+            </type>
+            <filenames>
+              <code proglang="python">"output.table.html"</code>
+            </filenames>
+            <interface generated="true" type="job_output">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="HTML" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="table">
+                <i>
+				(HTML)
+			</i>
+              </div>
+            </interface>
+          </parameter>
+          <parameter isout="1">
+            <name>csvtable</name>
+            <prompt lang="en">Table with 1500 best ligands</prompt>
+            <type>
+              <datatype>
+                <class>CSV</class>
+                <superclass>AbstractText</superclass>
+              </datatype>
+            </type>
+            <filenames>
+              <code proglang="python">"output.table.csv"</code>
+            </filenames>
+            <interface generated="true" type="job_output">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="CSV" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="csvtable">
+                <i>
+				(CSV)
+			</i>
+              </div>
+            </interface>
+          </parameter>
+          <parameter isout="1">
+            <name>visualization</name>
+            <prompt lang="en">Visualization of 100 best ligands</prompt>
+            <comment>
+              <text lang="en">Note: The bioactive compounds are rarely ranked in the top 1 % of the virtually screened compound library. Thus, the visualized here top ranked 100 ligands using MTiOpenScreen are only an illustration of the docking results and the binding site. You may need to proceed a thorough analysis of a larger number of ligands among the 1000 top ranked compounds provided to download by using standalone programs like PyMOL or AutoDockTools for a final selection of the best potential compound candidates.</text>
+            </comment>
+            <type>
+              <datatype>
+                <class>HTML</class>
+                <superclass>AbstractText</superclass>
+              </datatype>
+            </type>
+            <filenames>
+              <code proglang="python">"output.vis.html"</code>
+            </filenames>
+            <interface generated="true" type="job_output">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="HTML" data-datatype-superclass="AbstractText" data-biotype="" data-card="" data-formats="" data-parametername="visualization">
+                <i>
+				(HTML)
+			</i>
+                <a href="#idm140189018227968::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <div id="idm140189018227968::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>Note: The bioactive compounds are rarely ranked in the top 1 % of the virtually screened compound library. Thus, the visualized here top ranked 100 ligands using MTiOpenScreen are only an illustration of the docking results and the binding site. You may need to proceed a thorough analysis of a larger number of ligands among the 1000 top ranked compounds provided to download by using standalone programs like PyMOL or AutoDockTools for a final selection of the best potential compound candidates.</div>
+                </div>
+              </div>
+            </interface>
+          </parameter>
+          <parameter isout="1">
+            <name>ligands_pdbqt</name>
+            <prompt lang="en">Selected ligands (pdbqt file)</prompt>
+            <comment>
+              <text lang="en">The 3 top scored poses for the 1000 top ranked compounds screened using AutoDock Vina ranked by binding energy; binding energies; physico-chemical descriptors of ligands.</text>
+            </comment>
+            <type>
+              <biotype>Drug</biotype>
+              <datatype>
+                <class>_3DStructure</class>
+                <superclass>AbstractText</superclass>
+              </datatype>
+              <dataFormat>PDB</dataFormat>
+            </type>
+            <filenames>
+              <code proglang="python">"output.pdbqt"</code>
+            </filenames>
+            <interface generated="true" type="job_output">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="Drug " data-card="" data-formats="PDB " data-parametername="ligands_pdbqt">
+                <i>
+				(Drug _3DStructure)
+			</i>
+                <a href="#idm140189018220336::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <div id="idm140189018220336::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>The 3 top scored poses for the 1000 top ranked compounds screened using AutoDock Vina ranked by binding energy; binding energies; physico-chemical descriptors of ligands.</div>
+                </div>
+              </div>
+            </interface>
+          </parameter>
+          <parameter isout="1">
+            <name>ligands_mol2</name>
+            <prompt lang="en">Selected ligands (mol2 file)</prompt>
+            <comment>
+              <text lang="en">The 3 top scored poses for the 1000 top ranked compounds screened using AutoDock Vina ranked by binding energy; binding energies; physico-chemical descriptors of ligands.</text>
+            </comment>
+            <type>
+              <biotype>Drug</biotype>
+              <datatype>
+                <class>_3DStructure</class>
+                <superclass>AbstractText</superclass>
+              </datatype>
+              <dataFormat>mol2</dataFormat>
+            </type>
+            <filenames>
+              <code proglang="python">"output.mol2"</code>
+            </filenames>
+            <interface generated="true" type="job_output">
+              <div xmlns="http://www.w3.org/1999/xhtml" class="parameter " title="" data-issimple="false" data-ismultiple="false" data-default-value="" data-datatype="_3DStructure" data-datatype-superclass="AbstractText" data-biotype="Drug " data-card="" data-formats="mol2 " data-parametername="ligands_mol2">
+                <i>
+				(Drug _3DStructure)
+			</i>
+                <a href="#idm140189018212128::comment" class="blindLink commentToggle" onclick="if (typeof portal=='undefined'){var target=document.getElementById(this.getAttribute('href').substr(1)); target.style.display=(target.style.display=='none') ? '':'none';}" title="click to expand/collapse contextual help">?</a>
+                <div id="idm140189018212128::comment" class="commentText" style="display:none" mode="ajaxTarget">
+                  <div>The 3 top scored poses for the 1000 top ranked compounds screened using AutoDock Vina ranked by binding energy; binding energies; physico-chemical descriptors of ligands.</div>
+                </div>
+              </div>
+            </interface>
+          </parameter>
+        </parameters>
+      </paragraph>
+    </parameters>
+  </program>
+  <name>https://mobyle2.rpbs.univ-paris-diderot.fr/data/services/servers/local/programs/MTiOpenScreen.xml</name>
+  <host>https://mobyle2.rpbs.univ-paris-diderot.fr</host>
+  <id>https://mobyle2.rpbs.univ-paris-diderot.fr/data/jobs/MTiOpenScreen/V06821248773098</id>
+  <date>08/13/26  09:26:48</date>
+  <sessionKey>U06459621305943</sessionKey>
+  <data>
+    <input>
+      <parameter>
+        <name>receptor_file</name>
+      </parameter>
+      <file>
+        <raw fmt="not detected" size="76949">WBP5_AlphaFold.pdb</raw>
+      </file>
+    </input>
+    <input>
+      <parameter>
+        <name>library</name>
+      </parameter>
+      <value>3</value>
+    </input>
+    <input>
+      <parameter>
+        <name>limit</name>
+      </parameter>
+      <value>10000</value>
+    </input>
+    <input>
+      <parameter>
+        <name>gridcenter_x</name>
+      </parameter>
+      <value>-23.835</value>
+    </input>
+    <input>
+      <parameter>
+        <name>gridcenter_y</name>
+      </parameter>
+      <value>-0.451</value>
+    </input>
+    <input>
+      <parameter>
+        <name>gridcenter_z</name>
+      </parameter>
+      <value>23.91</value>
+    </input>
+    <input>
+      <parameter>
+        <name>gridpts_x</name>
+      </parameter>
+      <value>25</value>
+    </input>
+    <input>
+      <parameter>
+        <name>gridpts_y</name>
+      </parameter>
+      <value>25</value>
+    </input>
+    <input>
+      <parameter>
+        <name>gridpts_z</name>
+      </parameter>
+      <value>25</value>
+    </input>
+    <output>
+      <parameter>
+        <name>visualization</name>
+      </parameter>
+      <file size="249495">output.vis.html</file>
+    </output>
+    <output>
+      <parameter>
+        <name>ligands_pdbqt</name>
+      </parameter>
+      <file size="16473228">output.pdbqt</file>
+    </output>
+    <output>
+      <parameter>
+        <name>ligands_mol2</name>
+      </parameter>
+      <file size="16942977">output.mol2</file>
+    </output>
+    <output>
+      <parameter>
+        <name>table</name>
+      </parameter>
+      <file size="337200">output.table.html</file>
+    </output>
+    <output>
+      <parameter>
+        <name>csvtable</name>
+      </parameter>
+      <file size="56983">output.table.csv</file>
+    </output>
+  </data>
+  <commandLine>mtiopenscreen.py --receptorFormat pdb -r WBP5_AlphaFold.pdb --built-in-db Drug_DB --limit 10000</commandLine>
+  <status>
+    <value>finished</value>
+    <message/>
+  </status>
+</jobState>
