@@ -92,3 +92,6 @@ for provenance only. They are not the basis of any value reported in the
 manuscript. In particular, the Candidate_1 structure was corrected after the
 initial SwissADME submission (see Table S6, Section A footnote); all values in
 the manuscript derive from `swissadme_final_20260820.csv`.
+Molecular weights in this table were recomputed with RDKit 2026.03.5 and may
+differ from the SwissADME values reported in the manuscript by 0.01 Da owing
+to differing atomic mass tables.
