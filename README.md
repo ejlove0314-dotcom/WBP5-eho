@@ -75,3 +75,20 @@ informed any conclusion in the manuscript.
 
 Source data are available from GEO under accessions GSE103322 and GSE198315.
 The AlphaFold model is AF-Q9UHQ7-F1-model_v6 (UniProt Q9UHQ7).
+## Data files and their use in the manuscript
+
+| File | Used in |
+|---|---|
+| `reproducibility/swissadme_final_20260820.csv` | Table 4; Table S6 Sections B–C |
+| `reproducibility/docking_replicates_P0_summary_v2.csv` | Table 3; Table 4 |
+| `reproducibility/ProTox-3.0 - ... candidate 1–5, pazopanib.xlsx` | Table S6 Sections F1–F2 |
+| `phase1_singlecell/gse198315_wbp5_marker_correlations.tsv` | Fig. 5B; Fig. S1 |
+| `phase1_singlecell/make_gse198315_wbp5_marker_pipeline.py` | Script generating the above TSV |
+
+### Note on superseded files
+
+Files in `deprecated/` correspond to an earlier analysis run and are retained
+for provenance only. They are not the basis of any value reported in the
+manuscript. In particular, the Candidate_1 structure was corrected after the
+initial SwissADME submission (see Table S6, Section A footnote); all values in
+the manuscript derive from `swissadme_final_20260820.csv`.
