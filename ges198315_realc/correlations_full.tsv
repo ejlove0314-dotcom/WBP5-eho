@@ -1,0 +1,81 @@
+gene	scale	analysis	subset	n	rho	p	pearson
+LAMC2	as_deposited	cell_level	All cells	268131	0.3566643552395455	0.0	0.40674152649465806
+LAMC2	as_deposited	cell_level	Proxy tumor epithelial cells	53192	0.5915163063215932	0.0	0.5188680097118009
+LAMC2	as_deposited	cell_level	Non-proxy tumor cells	214939	0.23799644981130283	0.0	0.30769994169865
+LAMC2	as_deposited	cell_level	Primary proxy tumor epithelial cells	48108	0.5848329508160223	0.0	0.5140181055545845
+LAMC2	as_deposited	cell_level	Lymph node proxy tumor epithelial cells	5084	0.6355636872569055	0.0	0.5529881427511866
+LAMC2	as_deposited	patient_mean	Proxy tumor epithelial cells	10	0.6848484848484848	0.02888279750673276	0.46036712182591755
+LAMC2	as_deposited	patient_mean	Primary proxy tumor epithelial cells	10	0.6363636363636362	0.047911726129975435	0.41695271371652387
+LAMC2	as_deposited	patient_mean	Lymph node proxy tumor epithelial cells	10	0.2121212121212121	0.5563057751029299	0.1379159358200562
+ITGA5	as_deposited	cell_level	All cells	268131	0.5061577736249718	0.0	0.5369148001251693
+ITGA5	as_deposited	cell_level	Proxy tumor epithelial cells	53192	0.5165394615542203	0.0	0.5882371414295655
+ITGA5	as_deposited	cell_level	Non-proxy tumor cells	214939	0.5024289713039741	0.0	0.491325984582826
+ITGA5	as_deposited	cell_level	Primary proxy tumor epithelial cells	48108	0.5091456599150512	0.0	0.5766220044126084
+ITGA5	as_deposited	cell_level	Lymph node proxy tumor epithelial cells	5084	0.5773071108927013	0.0	0.6957898139380408
+ITGA5	as_deposited	patient_mean	Proxy tumor epithelial cells	10	0.5757575757575757	0.08155281477260244	0.5882737707321221
+ITGA5	as_deposited	patient_mean	Primary proxy tumor epithelial cells	10	0.5636363636363636	0.0897240283170912	0.5256029975664329
+ITGA5	as_deposited	patient_mean	Lymph node proxy tumor epithelial cells	10	0.8666666666666665	0.0011735381801554685	0.7451762681552234
+VIM	as_deposited	cell_level	All cells	268131	0.36709588833471646	0.0	0.4637964106135405
+VIM	as_deposited	cell_level	Proxy tumor epithelial cells	53192	0.052923886058102075	2.6068538391768964e-34	0.35135361537392296
+VIM	as_deposited	cell_level	Non-proxy tumor cells	214939	0.47818256189749214	0.0	0.5440276265830024
+VIM	as_deposited	cell_level	Primary proxy tumor epithelial cells	48108	0.05340704490483127	9.818978449960687e-32	0.35445011576557356
+VIM	as_deposited	cell_level	Lymph node proxy tumor epithelial cells	5084	-0.01811140209903223	0.19664449626482458	0.32854829940985003
+VIM	as_deposited	patient_mean	Proxy tumor epithelial cells	10	0.2606060606060606	0.46708905438634024	0.3185407961860611
+VIM	as_deposited	patient_mean	Primary proxy tumor epithelial cells	10	0.2606060606060606	0.46708905438634024	0.2711189421251504
+VIM	as_deposited	patient_mean	Lymph node proxy tumor epithelial cells	10	0.7696969696969697	0.009221952722215994	0.805450545672691
+KRT17	as_deposited	cell_level	All cells	268131	0.22722127858886484	0.0	0.2971932375848449
+KRT17	as_deposited	cell_level	Proxy tumor epithelial cells	53192	0.4166487984041913	0.0	0.3957018197302796
+KRT17	as_deposited	cell_level	Non-proxy tumor cells	214939	0.16422463693392517	0.0	0.19404293248671337
+KRT17	as_deposited	cell_level	Primary proxy tumor epithelial cells	48108	0.4122276028399622	0.0	0.3944434715236165
+KRT17	as_deposited	cell_level	Lymph node proxy tumor epithelial cells	5084	0.41452399324675343	2.3571558522507758e-210	0.4110817828805232
+KRT17	as_deposited	patient_mean	Proxy tumor epithelial cells	10	0.8303030303030302	0.002940227023279509	0.39545700736102046
+KRT17	as_deposited	patient_mean	Primary proxy tumor epithelial cells	10	0.8545454545454544	0.0016368033159867156	0.434465765637758
+KRT17	as_deposited	patient_mean	Lymph node proxy tumor epithelial cells	10	-0.406060606060606	0.24428229408662652	-0.33847441025331687
+KRT14	as_deposited	cell_level	All cells	268131	0.1549595839406997	0.0	0.3410271566175895
+KRT14	as_deposited	cell_level	Proxy tumor epithelial cells	53192	0.28469758768971065	0.0	0.38533258550375726
+KRT14	as_deposited	cell_level	Non-proxy tumor cells	214939	0.12760888098076517	0.0	0.296774239019846
+KRT14	as_deposited	cell_level	Primary proxy tumor epithelial cells	48108	0.27706423982477973	0.0	0.37242272834819434
+KRT14	as_deposited	cell_level	Lymph node proxy tumor epithelial cells	5084	0.297426483071021	2.3000449711600005e-104	0.5129202568837342
+KRT14	as_deposited	patient_mean	Proxy tumor epithelial cells	10	0.2727272727272727	0.4458383415427516	0.22573410650895048
+KRT14	as_deposited	patient_mean	Primary proxy tumor epithelial cells	10	0.29696969696969694	0.40470167127015705	0.2187169488276789
+KRT14	as_deposited	patient_mean	Lymph node proxy tumor epithelial cells	10	-0.480245379507251	0.16006700964682788	-0.3530546608814126
+LAMC2	CPM1e4_log1p	cell_level	All cells	268131	0.3000329450427837	0.0	0.18886652710702664
+LAMC2	CPM1e4_log1p	cell_level	Proxy tumor epithelial cells	53192	0.4375723567473858	0.0	0.2742615436772316
+LAMC2	CPM1e4_log1p	cell_level	Non-proxy tumor cells	214939	0.2015666307203881	0.0	0.12645236391721346
+LAMC2	CPM1e4_log1p	cell_level	Primary proxy tumor epithelial cells	48108	0.4238294863947286	0.0	0.26371557903776427
+LAMC2	CPM1e4_log1p	cell_level	Lymph node proxy tumor epithelial cells	5084	0.5382235186495162	0.0	0.36345126626900587
+LAMC2	CPM1e4_log1p	patient_mean	Proxy tumor epithelial cells	10	0.7575757575757575	0.011143446799694208	0.9215996200397525
+LAMC2	CPM1e4_log1p	patient_mean	Primary proxy tumor epithelial cells	10	0.7818181818181817	0.007547007781067879	0.9101282121479692
+LAMC2	CPM1e4_log1p	patient_mean	Lymph node proxy tumor epithelial cells	10	0.7575757575757575	0.011143446799694208	0.7265489104163959
+ITGA5	CPM1e4_log1p	cell_level	All cells	268131	0.41913152326158537	0.0	0.30275251216156
+ITGA5	CPM1e4_log1p	cell_level	Proxy tumor epithelial cells	53192	0.36663997035828005	0.0	0.24411970077786657
+ITGA5	CPM1e4_log1p	cell_level	Non-proxy tumor cells	214939	0.4299870658943982	0.0	0.3179170589122046
+ITGA5	CPM1e4_log1p	cell_level	Primary proxy tumor epithelial cells	48108	0.35390853805088246	0.0	0.23620096123330814
+ITGA5	CPM1e4_log1p	cell_level	Lymph node proxy tumor epithelial cells	5084	0.4700648761478284	6.735761710826114e-278	0.28507889584048035
+ITGA5	CPM1e4_log1p	patient_mean	Proxy tumor epithelial cells	10	0.6121212121212121	0.059972142477255276	0.6608302065356563
+ITGA5	CPM1e4_log1p	patient_mean	Primary proxy tumor epithelial cells	10	0.5272727272727272	0.1173080655502023	0.5897284530780031
+ITGA5	CPM1e4_log1p	patient_mean	Lymph node proxy tumor epithelial cells	10	0.8909090909090909	0.0005421442248338671	0.8423954536487959
+VIM	CPM1e4_log1p	cell_level	All cells	268131	0.25554816457219653	0.0	0.2074758545989294
+VIM	CPM1e4_log1p	cell_level	Proxy tumor epithelial cells	53192	-0.05729310824915489	6.353805886140415e-40	-0.026816781387076882
+VIM	CPM1e4_log1p	cell_level	Non-proxy tumor cells	214939	0.36515037027898556	0.0	0.30027649432213893
+VIM	CPM1e4_log1p	cell_level	Primary proxy tumor epithelial cells	48108	-0.06693986558147678	6.601517601060855e-49	-0.03753984725024104
+VIM	CPM1e4_log1p	cell_level	Lymph node proxy tumor epithelial cells	5084	-0.1039614836872287	1.0778006643010356e-13	-0.029199548812054395
+VIM	CPM1e4_log1p	patient_mean	Proxy tumor epithelial cells	10	-0.406060606060606	0.24428229408662652	-0.28056942236519383
+VIM	CPM1e4_log1p	patient_mean	Primary proxy tumor epithelial cells	10	-0.406060606060606	0.24428229408662652	-0.3789503247731356
+VIM	CPM1e4_log1p	patient_mean	Lymph node proxy tumor epithelial cells	10	0.4787878787878787	0.16152292801745594	0.8579390324006895
+KRT17	CPM1e4_log1p	cell_level	All cells	268131	0.1969796039239711	0.0	0.18016013600205905
+KRT17	CPM1e4_log1p	cell_level	Proxy tumor epithelial cells	53192	0.2975980199128242	0.0	0.25915781416025196
+KRT17	CPM1e4_log1p	cell_level	Non-proxy tumor cells	214939	0.14161178984235936	0.0	0.11582097900800352
+KRT17	CPM1e4_log1p	cell_level	Primary proxy tumor epithelial cells	48108	0.28648543583124336	0.0	0.24604376077631238
+KRT17	CPM1e4_log1p	cell_level	Lymph node proxy tumor epithelial cells	5084	0.3452129416961424	3.009754548962031e-142	0.3482350234995074
+KRT17	CPM1e4_log1p	patient_mean	Proxy tumor epithelial cells	10	0.8787878787878788	0.0008138621117322102	0.7438443063978091
+KRT17	CPM1e4_log1p	patient_mean	Primary proxy tumor epithelial cells	10	0.9030303030303028	0.0003436121977632824	0.768985333737221
+KRT17	CPM1e4_log1p	patient_mean	Lymph node proxy tumor epithelial cells	10	-0.38181818181818183	0.2762553333854362	-0.5582727352423804
+KRT14	CPM1e4_log1p	cell_level	All cells	268131	0.13088117521503556	0.0	0.16833938843091986
+KRT14	CPM1e4_log1p	cell_level	Proxy tumor epithelial cells	53192	0.19346759986627327	0.0	0.2380429146730829
+KRT14	CPM1e4_log1p	cell_level	Non-proxy tumor cells	214939	0.10452647712034924	0.0	0.10473803165043667
+KRT14	CPM1e4_log1p	cell_level	Primary proxy tumor epithelial cells	48108	0.18160570101025791	0.0	0.220912416909262
+KRT14	CPM1e4_log1p	cell_level	Lymph node proxy tumor epithelial cells	5084	0.2177342835961134	1.2927984712141155e-55	0.33543190438251913
+KRT14	CPM1e4_log1p	patient_mean	Proxy tumor epithelial cells	10	0.6121212121212121	0.059972142477255276	0.7600619109698618
+KRT14	CPM1e4_log1p	patient_mean	Primary proxy tumor epithelial cells	10	0.5878787878787878	0.07387770688865809	0.7726786598473506
+KRT14	CPM1e4_log1p	patient_mean	Lymph node proxy tumor epithelial cells	10	-0.6079055436800646	0.06225488170893078	-0.7354734381544923
