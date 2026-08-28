@@ -1,0 +1,88 @@
+manuscript_location,quantity,manuscript_value,source_file,source_value,status
+Table 1 row1,n cancer / non-cancer,"2,215 / 3,687",WBP5_Table1_results_v2.csv,2215 / 3687,VERIFIED
+Table 1 row1,mean log2(TPM/10+1),2.38 / 1.32,WBP5_Table1_results_v2.csv,2.3813 / 1.3231,VERIFIED
+Table 1 row1,PCT+ (%),68.89 / 28.97,WBP5_Table1_results_v2.csv,68.89 / 28.97,VERIFIED
+Table 1 row1,fold change,1.80,WBP5_Table1_results_v2.csv,1.7998,VERIFIED
+Table 1 row1,Mann-Whitney p,1.33e-105,WBP5_Table1_results_v2.csv,1.3268e-105,VERIFIED
+Table 1 row1,Cliff delta,+0.308,WBP5_Table1_results_v2.csv,+0.3075,VERIFIED
+Table 1 row2,n primary / LN,"1,427 / 788",WBP5_Table1_results_v2.csv,1427 / 788,VERIFIED
+Table 1 row2,mean / PCT+ / FC,2.46 / 2.23 / 71.34 / 64.47 / 1.10,WBP5_Table1_results_v2.csv,2.4629 / 2.2334 / 71.34 / 64.47 / 1.1028,VERIFIED
+Table 1 row2,Mann-Whitney p / delta,6.1e-03 / +0.069,WBP5_Table1_results_v2.csv,6.1310e-03 / +0.0692,VERIFIED
+Section 3.1.1,site counts,"Primary 4,541 / LN 1,361",WBP5_Table1_recalc.ipynb,4541 / 1361,VERIFIED
+Table 2,Spearman rho LAMC2,0.169,WBP5_Phase1_recalc.ipynb,0.1689,VERIFIED
+Table 2,Spearman rho ITGA5,0.169,WBP5_Phase1_recalc.ipynb,0.1688,VERIFIED
+Table 2,Spearman rho KRT14,0.125,WBP5_Phase1_recalc.ipynb,0.1254,VERIFIED
+Table 2,Spearman rho VIM,0.120,WBP5_Phase1_recalc.ipynb,0.1203,VERIFIED
+Table 2,Spearman rho EGFR,0.077,WBP5_Phase1_recalc.ipynb,0.0766,VERIFIED
+Table 2,Spearman rho PTPRC,0.015,WBP5_Phase1_recalc.ipynb,0.0150,VERIFIED
+Table 2,Spearman rho KRT17,0.002,WBP5_Phase1_recalc.ipynb,0.0019,VERIFIED
+Table 2,Spearman rho EPCAM,-0.081,WBP5_Phase1_recalc.ipynb,-0.0814,VERIFIED
+Table 2 / Section 3.2,LAMC2 mean and PCT+,3.57 / 2.37 / 81.59 / 67.63,WBP5_Table2_meanPCT_v2.csv,3.5704 / 2.3703 / 81.5858 / 67.6343,VERIFIED
+Table 2 / Section 3.2,ITGA5 mean and PCT+,1.63 / 0.94 / 50.98 / 31.06,WBP5_Table2_meanPCT_v2.csv,1.6289 / 0.9386 / 50.9830 / 31.0595,VERIFIED
+Table 2 / Section 3.2,KRT14 mean,9.42 / 8.07,WBP5_Table2_meanPCT_v2.csv,9.4196 / 8.0724,VERIFIED
+Table 2 / Section 3.2,VIM mean,1.32 / 0.73,WBP5_Table2_meanPCT_v2.csv,1.3221 / 0.7333,VERIFIED
+Table 2 legend,n WBP5-positive / negative,"1,526 / 689",WBP5_Table2_meanPCT_v2.csv,1526 / 689,VERIFIED
+Section 3.1.2,quality-filtered subset,"80,000 cells",gse198315_region_stats_summary.json,80000,VERIFIED
+Fig. 4 legend,WBP5 / EGFR log1p CPM thresholds,1.81 / 1.26,gse198315_region_stats_summary.json,1.809419 / 1.263588,VERIFIED
+Section 3.1.2,n WBP5-high / EGFR-high / double-high,"2,345 / 878 / 84",gse198315_region_stats_summary.json,2345 / 878 / 84,VERIFIED
+Section 3.1.2,n WBP5-only / EGFR-only,"2,261 / 794",gse198315_region_stats_summary.json,2261 / 794,VERIFIED
+Fig. 4B legend,region cell counts,"15,309 / 20,640 / 24,910 / 19,141",gse198315_region_stats_summary.json,15309 / 20640 / 24910 / 19141,VERIFIED
+Section 3.1.2,WBP5-high regional composition (%),45.0 / 30.6 / 21.8 / 2.6,gse198315_composition.tsv,45.03 / 30.58 / 21.83 / 2.56,VERIFIED
+Section 3.1.2,EGFR-high regional composition (%),51.3 / 27.4 / 17.1 / 4.2,gse198315_composition.tsv,51.25 / 27.45 / 17.08 / 4.21,VERIFIED
+Section 3.1.2,WBP5-high prevalence NT (Wilson CI),3.34 (3.07-3.64),gse198315_prevalence_wilson.tsv,3.344 (3.071-3.641),VERIFIED
+Section 3.1.2,WBP5-high prevalence TP (Wilson CI),3.47 (3.23-3.73),gse198315_prevalence_wilson.tsv,3.474 (3.233-3.732),VERIFIED
+Section 3.1.2,WBP5-high prevalence TC (Wilson CI),4.24 (4.00-4.50),gse198315_prevalence_wilson.tsv,4.239 (3.996-4.497),VERIFIED
+Section 3.1.2,WBP5-high prevalence mLN (Wilson CI),0.31 (0.24-0.40),gse198315_prevalence_wilson.tsv,0.313 (0.244-0.403),VERIFIED
+Section 3.1.2,within-primary OR WBP5-high,1.14 (1.08-1.21) p=9.5e-07,gse198315_trend_within_primary.tsv,1.1427 (1.0834-1.2054) 9.544e-07,VERIFIED
+Section 3.1.2,within-primary OR EGFR-high,1.40 (1.28-1.53) p=5.1e-13,gse198315_trend_within_primary.tsv,1.3974 (1.2761-1.5302) 5.052e-13,VERIFIED
+Section 3.1.2,within-primary OR double-high,1.56 (1.15-2.11) p=4.3e-03,gse198315_trend_within_primary.tsv,1.5569 (1.1490-2.1097) 4.292e-03,VERIFIED
+Section 3.1.2,patients with TC>NT of those with both,5 of 7,gse198315_patient_level.tsv,5 / 7,VERIFIED
+Section 3.1.2,primary vs mLN WBP5-high,3.75% vs 0.31%; OR=12.4; p=7.0e-193,gse198315_primary_vs_mln_fisher.tsv,3.755 / 0.313 / 12.406 / 6.975e-193,VERIFIED
+Section 3.1.2,primary vs mLN EGFR-high / double-high OR,7.2 / 5.0,gse198315_primary_vs_mln_fisher.tsv,7.235 / 4.974,VERIFIED
+Section 3.1.2,patient-level Wilcoxon,9 of 10; p=3.9e-03,gse198315_patient_level.tsv,9 / 10; 0.00390625,VERIFIED
+Section 3.1.2 / Table S7,all-cell compartment fractions (%),12.71 / 15.88 / 60.40 / 6.65 / 4.36,gse198315_region_stats_summary.json,10170 / 12707 / 48319 / 5317 / 3487 of 80000,VERIFIED
+Section 3.1.2,WBP5-high compartment (% and fold),66.2 stromal (4.2x); 19.2 epi; 11.5 endo; 2.3 immune,gse198315_compartment_enrichment.tsv,66.23 (4.169) / 19.19 / 11.51 / 2.30,VERIFIED
+Section 3.1.2,EGFR-high epithelial-like,64.8% (5.1x),gse198315_compartment_enrichment.tsv,64.81 (5.098),VERIFIED
+Section 3.1.2,double-high compartment,54.8 stromal / 42.9 epi / 0.0 immune,gse198315_compartment_enrichment.tsv,54.76 / 42.86 / 0.00,VERIFIED
+Section 3.1.2,WBP5-only stromal / EGFR-only epithelial,66.7% / 67.1%,gse198315_compartment_enrichment.tsv,66.65 / 67.13,VERIFIED
+Section 3.1.2,region chi-square,26.8 df=6 p=1.6e-04; 1 cell expected<5,verify_recompute.py from gse198315_composition.tsv,26.79 df=6 p=1.58e-04; 1,VERIFIED (recomputed)
+Section 3.1.2,compartment chi-square,692.5 df=8 p=3.0e-144; 2 cells expected<5,verify_recompute.py from gse198315_composition.tsv,692.5 df=8 p=2.99e-144; 2,VERIFIED (recomputed)
+Section 3.2 / Table S3,depth-corrected rho proxy epithelium,0.438 / 0.367 / 0.298 / 0.193 / -0.057,gse198315_recalc/headline.tsv,0.437572 / 0.366640 / 0.297598 / 0.193468 / -0.057293,VERIFIED
+Section 3.2 / Table S3,uncorrected rho proxy epithelium,0.592 / 0.517 / 0.417 / 0.285 / 0.053,gse198315_recalc/headline.tsv,0.591516 / 0.516539 / 0.416649 / 0.284698 / 0.052924,VERIFIED
+Section 2.3 / 4.4,depth-correction inflation range,0.09-0.15,verify_recompute.py from headline.tsv,0.091-0.154,VERIFIED (recomputed)
+Section 3.2,VIM non-proxy tumor cells,0.365,correlations_full.tsv (CPM1e4_log1p),0.365150,VERIFIED
+Section 3.2,ITGA5 LN patient-mean,rho=0.891 p=5.4e-04,correlations_full.tsv (CPM1e4_log1p),0.890909 / 5.4214e-04,VERIFIED
+Section 3.2,KRT14 / KRT17 LN patient-mean not significant,n.s.,correlations_full.tsv (CPM1e4_log1p),-0.6079 p=0.062 / -0.3818 p=0.276,VERIFIED
+Abstract,exploratory cohort rho range,0.19-0.44,gse198315_recalc/headline.tsv,0.193-0.438,VERIFIED
+Section 3.2 cell counts,proxy epi / non-proxy / primary / LN / all,"53,192 / 214,939 / 48,108 / 5,084 / 268,131",correlations_full.tsv,53192 / 214939 / 48108 / 5084 / 268131,VERIFIED
+Table 4 / Section 3.5 / 3.7,docking means and SD (10 ligands),see manuscript,docking_replicates_P0_summary_v2.csv,all 10 match,VERIFIED
+Section 3.5 / 3.7,docking margins,1.32 / 0.46 / 0.60 / 0.42 / 0.20,verify_recompute.py from docking summary,identical,VERIFIED (recomputed)
+Table 4 / Table S5,SwissADME MW SA GI lead-likeness,see manuscript,swissadme_final_20260820.csv,all match,VERIFIED
+Table S5 Section D,SwissADME CYP450 profile,"Cand_2/3/5 = 0; Cand_4 = 4; Cand_1 and pazopanib n.d.",April 2026 SwissADME session record,identical,VERIFIED (session record; module unavailable Aug 2026)
+Table S4,TIMER3 purity-adjusted and unadjusted rho,see Table S4,genecorr_table-*.csv (10 files),all 30 pairs match,VERIFIED
+Table S4,Benjamini-Hochberg q values,see Table S4,verify_recompute.py from TIMER3 p values,computed,VERIFIED (recomputed)
+Fig. S3A,WBP5 vs tumor purity,rho=0.125 p=5.5e-03,genecorr_plot_*_HNSC.jpg annotations,0.125 / 5.49e-03,VERIFIED
+Table S6 / Fig. 2 legend,compartment-wise PCT+ (fibroblast 51.97 endothelial 51.15 dendritic 3.92 T cell 1.21 mast 14.55 myocyte 16.00),as listed,supplementary compartment table (11 rows summing to 5902); legend cross-check,identical,VERIFIED (session 2026-08-13)
+Section 3.4 / Table 3,pocket P0 residues,38-58 (12 discontinuous),DoGSiteScorer job 0f462a25 P_0_res.pdb,"38 41 42 44 45 48 49 51 52 54 55 58",VERIFIED (session 2026-08-11)
+Section 3.4 / Table 3,P0 Drug Score / volume / surface / depth,0.837 / 229.6 / 811.5 / 24.9,DoGSiteScorer desc.txt,0.837 / 229.62 / 811.54 / 24.90,VERIFIED (session 2026-08-11)
+Section 3.4 / Table 3,P0 mean pLDDT,79.4,WBP5_AlphaFold.pdb B-factor column over P0 residues,79.4,VERIFIED (session 2026-08-11)
+Section 3.4,number of pockets detected,8 (P_0 to P_7),DoGSiteScorer desc.txt,8,VERIFIED (session 2026-08-11)
+Section 2.8,docking grid centre,"-23.835, -0.451, 23.910",P_0 residue centroid / docking scripts,identical,VERIFIED (session 2026-08-11)
+Fig. 6A,yellow mesh identity,P0,P_0_gpsAll.ccp4 volume centroid (-21.78 0.78 24.38),matches P0 residue centroid,VERIFIED (session 2026-08-11)
+Section 4.2,common contact subsite,"Ala41 Lys42 Thr44 Phe45 Arg48 in all six poses",WBP5_AlphaFold.pdb + six *_seed42_out.pdbqt,identical,VERIFIED (session 2026-08-11)
+Section 4.2,Phe45 atom pairs and distance range,16-23 pairs at 3.22-3.58 A,pose recomputation after Candidate_1 correction,16-23 / 3.22-3.58,VERIFIED (session 2026-08-13; supersedes 16-29 / 2.58-3.58)
+Section 4.2,Thr44 and Arg48 distance ranges,2.80-3.40 A / 3.04-3.79 A,pose contact analysis,identical,VERIFIED (session 2026-08-11)
+Section 4.2,Thr44 hydroxyl to ligand polar hydrogen,1.81 A,Candidate_2 pose,1.81,VERIFIED (session 2026-08-11)
+Section 3.3 / Fig. S5,WBP5 vs YAP/TAZ target signature,rho=0.17 p=4.2e-16,HNSCC_all_data.txt module scoring,+0.172 / 4.2e-16,VERIFIED (session 2026-07-03)
+Section 3.3 / Fig. S5,WBP5 vs YAP1 mRNA,rho=0.02 p=0.37,HNSCC_all_data.txt,+0.019 / 0.37,VERIFIED (session 2026-07-03)
+Section 3.3 / Fig. S5,gene-set permutation empirical p,0.005,1000 random 22-gene sets; null 0.041+/-0.040 97.5%ile 0.120,0.005,VERIFIED (session 2026-07-03)
+Section 3.3 / Fig. S5,partial rho after p-EMT adjustment,0.06 p=2.6e-03,partial Spearman from module scores,+0.064 / 2.6e-03,VERIFIED (session 2026-07-03)
+Section 3.3,YAP/TAZ signature vs p-EMT score,rho=0.56,verify_recompute-style inversion of the partial correlation,implied 0.562,VERIFIED (internally consistent)
+Section 2.7 / 2.11,MTiOpenScreen job ID and date,V06821248773098 / 13 August 2026,MTiOpenScreen job record,identical,VERIFIED (session 2026-08-13)
+Section 3.6,MTiOpenScreen returned entries and unique drugs,"1,500 (20.9% of 7,173); 1,037 unique",job V06821248773098 output table,1500 / 1037,VERIFIED (session 2026-08-13)
+Section 3.6,MTiOpenScreen energy range and mean,-8.7 to -5.7; -6.17 +/- 0.38,job V06821248773098 output table,identical,VERIFIED (session 2026-08-13)
+Section 3.6,pazopanib server score and rank,-5.8; top 16.5-20.0%,"1,180 better + 257 tied of 7,173",ranks 1181-1437,VERIFIED (session 2026-08-13)
+Section 3.6 / 4.4,unobserved fraction of library,79.1%,"(7,173 - 1,500) / 7,173",79.1%,VERIFIED (session 2026-08-13)
+Table 4 / Table S5,ligand identity of all ten compounds,see manuscript,InChIKey cross-reference across docking scripts SwissADME CSV and ProTox submissions,all ten consistent,VERIFIED (session 2026-08-11)
+Table S5,ProTox 3.0 toxicity endpoints,see Table S5,six ProTox 3.0 xlsx exports,as submitted,VERIFIED (session 2026-08-11)
+Table 4,Candidate_1 SD,+/-0.05,docking replicate summary,0.055,VERIFIED (session 2026-08-13; supersedes +/-0.06)
