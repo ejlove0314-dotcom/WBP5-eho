@@ -1,0 +1,38 @@
+# Computational environment for:
+#   Single-cell-to-structure nomination of WBP5 (TCEAL9) as a p-EMT-associated
+#   target in HNSCC
+#
+#   conda env create -f environment.yml
+#   conda activate wbp5
+#
+# Versions match those reported in Methods 2.11.
+
+name: wbp5
+
+channels:
+  - conda-forge
+  - bioconda
+
+dependencies:
+  - python=3.12
+  # --- single-cell / statistics (Phase I) ---
+  - numpy=2.4.6
+  - pandas=3.0.3
+  - scipy=1.17.1
+  - statsmodels=0.14.6
+  - scanpy=1.10.3
+  # --- figures ---
+  - matplotlib
+  - pillow
+  # --- cheminformatics / docking (Phase II-III) ---
+  - rdkit=2026.03.5
+  - pip
+  - pip:
+      - meeko==0.7.1
+
+# Not installable via conda; obtain separately:
+#   AutoDock Vina v1.2.5   https://github.com/ccsb-scripps/AutoDock-Vina
+#   PyRx v0.8              https://pyrx.sourceforge.io
+#   REINVENT4 v4.7.15      https://github.com/MolecularAI/REINVENT4
+# Web servers used (no local install): AlphaFold DB, DoGSiteScorer/ProteinsPlus,
+#   MTiOpenScreen, SwissADME, ProTox 3.0, TIMER3.
