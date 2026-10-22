@@ -1,0 +1,9 @@
+run_type = "sampling"
+device = "cpu"
+json_out_config = "C:/Temp/reinvent_wbp5/sampling_out.json"
+
+[parameters]
+model_file = "priors/reinvent.prior"
+num_smiles = 500
+unique_molecules = true
+randomize_smiles = true
