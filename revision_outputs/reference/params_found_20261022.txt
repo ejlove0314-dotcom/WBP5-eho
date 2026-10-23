@@ -1,0 +1,329 @@
+GSE198315 파이프라인 파라미터 탐색  (20261022)
+========================================================================
+
+### 탐색 경로: C:\Users\user\Desktop\WBP5 revision
+
+--- GSE198315_reannotation_20261015.py   (60줄)
+      6  [이웃/클러스터]  proxy 마커 기반 분류를 Leiden 클러스터링 + 마커 주석 + inferCNV 악성 판정으로 교체합니다.
+     13  [이웃/클러스터/마커/주석]  리뷰어는 "Leiden clustering with marker-based annotation OR reference-based label
+     21  [이웃/클러스터]  pip install scanpy infercnvpy leidenalg igraph
+     29  [마커/주석]  python GSE198315_reannotation_20261015.py step1 \
+     33  [서브샘플]  --n-cells 80000 --seed 42 \
+     37  [마커/주석]  python GSE198315_reannotation_20261015.py step2 \
+     41  [마커/주석]  python GSE198315_reannotation_20261015.py step3 \
+     42  [마커/주석]  --h5ad gse198315_checkpoint.h5ad --gtf gencode.v44.basic.annotation.gtf.gz \
+     62  [시드]  RANDOM_SEED = 42
+     69  [마커/주석]  MARKERS = {
+     70  [마커/주석/구획명]  "Epithelial":  ["EPCAM", "KRT5", "KRT14", "KRT17", "KRT19", "SFN", "CDH1"],
+     71  [마커/주석/구획명]  "Fibroblast":  ["COL1A1", "COL1A2", "DCN", "LUM", "PDGFRB", "THY1", "FAP"],
+     72  [마커/주석/구획명]  "Endothelial": ["PECAM1", "VWF", "CDH5", "CLDN5", "RAMP2"],
+     73  [마커/주석]  "T/NK":        ["CD3D", "CD3E", "CD2", "IL7R", "NKG7", "GNLY"],
+     75  [마커/주석]  "Myeloid":     ["LYZ", "CD68", "CD14", "AIF1", "ITGAX", "C1QA"],
+     79  [구획명]  IMMUNE_LABELS = ["T/NK", "B/Plasma", "Myeloid", "Mast"]   # inferCNV reference
+     82  [마커/주석]  PEMT_MARKERS = ["LAMC2", "ITGA5", "KRT14", "KRT17", "VIM"]
+    212  [품질필터]  keep = (entries >= args.min_genes) & (pct_mt <= args.max_mt)
+    214  [품질필터]  f"(min_genes={args.min_genes}, max_mt={args.max_mt}%)")
+    223  [시드]  rng = np.random.default_rng(args.seed)
+    225  [시드]  log(f"  서브샘플 seed={args.seed}: {len(cand):,} 세포")
+    268  [품질필터]  adata.obs["n_genes_by_counts"] = entries[cand]
+    270  [품질필터]  adata.obs["pct_counts_mt"] = pct_mt[cand]
+    349  [정규화]  sc.pp.normalize_total(adata, target_sum=1e4)
+    350  [정규화]  sc.pp.log1p(adata)
+    353  [HVG/Harmony]  sc.pp.highly_variable_genes(adata, n_top_genes=args.n_hvg, batch_key=
+    355  [HVG]  adata = adata[:, adata.var.highly_variable].copy()
+    356  [스케일/PCA]  sc.pp.scale(adata, max_value=10)
+    357  [스케일/PCA/시드]  sc.tl.pca(adata, n_comps=args.n_pcs, svd_solver="arpack", random_state=RANDOM_SEED)
+    364  [Harmony/시드]  sce.pp.harmony_integrate(adata, "sample", random_state=RANDOM_SEED)
+    365  [Harmony]  rep = "X_pca_harmony"
+    366  [Harmony]  log("  harmony 배치보정 적용")
+    368  [Harmony]  log(f"  harmony 미적용 ({type(e).__name__}) — X_pca 사용. 답변서에 명시할 것")
+    370  [이웃/클러스터/시드]  sc.pp.neighbors(adata, n_neighbors=15, use_rep=rep, random_state=RANDOM_SEED)
+    371  [이웃/클러스터]  sc.tl.leiden(adata, resolution=args.resolution, key_added="leiden",
+    372  [HVG/시드]  random_state=RANDOM_SEED, flavor="igraph", n_iterations=2, directed=False)
+    373  [이웃/클러스터]  log(f"  Leiden 클러스터 {adata.obs['leiden'].nunique()}개 (resolution={args.resolution})")
+    374  [시드]  sc.tl.umap(adata, random_state=RANDOM_SEED)
+    378  [이웃/클러스터]  full.obs["leiden"] = adata.obs["leiden"].values
+    380  [마커/주석]  for ct, genes in MARKERS.items():
+    389  [시드]  _sc.tl.score_genes(full, present, score_name=key, random_state=RANDOM_SEED)
+    390  [이웃/클러스터]  score_tbl[ct] = full.obs.groupby("leiden", observed=True)[key].mean()
+    392  [마커/주석]  S.to_csv(f"{args.outdir}/G1_cluster_marker_scores.csv")
+    398  [이웃/클러스터]  adata.obs["cell_type"] = adata.obs["leiden"].map(ann).astype(str)
+    404  [이웃/클러스터]  pat_by_clu = pd.crosstab(adata.obs["leiden"], adata.obs["patient"])
+    410  [이웃/클러스터]  "leiden": S.index, "assigned": ann.values, "score_margin": margin.values,
+    411  [이웃/클러스터]  "n_cells": adata.obs["leiden"].value_counts().reindex(S.index).values,
+    414  [마커/주석]  summary.to_csv(f"{args.outdir}/G2_cluster_annotation.csv", index=False)
+    418  [이웃/클러스터]  f"{dom.leiden.tolist()} — 답변서에서 다룰 것")
+    429  [마커/주석]  ct.to_csv(f"{args.outdir}/G3_proxy_vs_new_annotation.csv")
+    473  [마커/주석]  adata.write_h5ad(args.h5ad.replace(".h5ad", "_annotated.h5ad"), compression="gzip")
+    474  [마커/주석]  full.write_h5ad(args.h5ad.replace(".h5ad", "_full_annotated.h5ad"), compression="gzip")
+    526  [마커/주석]  path = args.h5ad.replace(".h5ad", "_full_annotated.h5ad")
+    569  [구획명]  ref = [c for c in IMMUNE_LABELS if c in set(adata.obs["cell_type"])]
+    576  [스케일/PCA/이웃/클러스터]  cnv.tl.pca(adata); cnv.pp.neighbors(adata); cnv.tl.leiden(adata)
+    585  [서브샘플]  log(f"  악성 판정 {int(adata.obs['cnv_malignant'].sum()):,} / {adata.n_obs:,}")
+    638  [시드]  fh.write(f"seed {RANDOM_SEED}\nresolution {args.resolution if hasattr(args,'resolution') else 'n/a'}\n")
+    653  [서브샘플]  p1.add_argument("--n-cells", type=int, default=80000, help="0 이면 전체 사용")
+    654  [시드]  p1.add_argument("--seed", type=int, default=RANDOM_SEED)
+    663  [이웃/클러스터]  p2 = sub.add_parser("step2", help="정규화 + Leiden + 마커 주석")
+
+--- GSE198315_step7_20261019.py   (30줄)
+      8  [구획명]  step5 (C) 의 10/10 결과는 immune-only inferCNV 의 CNV+ 10,203개
+     12  [구획명]  EPI_TUMOR  (주분석) : cell_type == Epithelial  AND  region ∈ {TC, TP}
+     13  [구획명]  EPI_ALL    (민감도) : cell_type == Epithelial  (모든 부위, NT 포함)
+     18  [마커/주석]  --h5ad gse198315_checkpoint_full_annotated_cnv.h5ad ^
+     49  [품질필터]  MIN_CELLS = 20
+     68  [정규화]  ap.add_argument("--n-perm", type=int, default=10000)
+     74  [시드]  rng = np.random.default_rng(C.SEED)
+     87  [정규화]  C.log("  X 가 raw count 로 보임 → CPM 1e4 + log1p 적용")
+     89  [정규화]  sc.pp.normalize_total(a, target_sum=1e4)
+     90  [정규화]  sc.pp.log1p(a)
+     94  [서브샘플]  C.log(f"  세포 {a.n_obs:,} / 유전자 {a.n_vars:,} / 대상 유전자 {gene}")
+    100  [구획명]  "EPI_TUMOR": (ct == "Epithelial") & np.isin(rg, TUMOR_REGIONS),
+    101  [구획명]  "EPI_ALL": ct == "Epithelial",
+    129  [마커/주석]  for mk in C.MARKER_PANEL:
+    132  [품질필터]  per, s = C.within_group_spearman(w, col(a, mk)[m], pats, MIN_CELLS)
+    133  [마커/주석]  per["set"], per["marker"] = nm, mk
+    135  [마커/주석]  s.update({"set": nm, "marker": mk})
+    141  [마커/주석]  m1.to_csv(out("M1_within_patient_markers.csv"), index=False)
+    154  [마커/주석]  "PURAM30_minus_panel": [g for g in used30 if g not in C.MARKER_PANEL],
+    155  [마커/주석]  "PURAM100_minus_panel": [g for g in used100 if g not in C.MARKER_PANEL]}
+    173  [품질필터]  per, s = C.within_group_spearman(w, scores[nm], pats, MIN_CELLS)
+    180  [마커/주석]  preds = {mk: col(e, mk) for mk in C.MARKER_PANEL if mk in e.var_names}
+    230  [구획명]  for t in sorted(set(ct[tumor_reg]) - {"Epithelial"}):
+    242  [구획명]  for t in [x for x in ("Fibroblast", "Endothelial", "Ambiguous", "Myofibroblast") if x in set(ct)]:
+    255  [정규화]  boot = [rng.choice(dd, len(dd)).mean() for _ in range(10000)]
+    271  [서브샘플]  k = a.n_obs // 10
+    276  [서브샘플]  hi = np.zeros(a.n_obs, bool)
+    306  [마커/주석]  print(m1[["set", "marker", "median_rho", "n_positive", "n_patients", "sign_test_p", "sign_test_q",
+    314  [마커/주석]  print(f"  ΔR² [{r.response_signature}] {r.get('R2_markers', np.nan):.4f} → "
+    315  [마커/주석]  f"{r.get('R2_markers_plus_WBP5', np.nan):.4f} (Δ {r.get('delta_R2_WBP5', np.nan):.4f}); "
+
+--- GSE198315_step5_DE_and_patient_20261015.py   (20줄)
+     28  [마커/주석]  --h5ad gse198315_checkpoint_full_annotated_cnv.h5ad \
+     44  [마커/주석]  MARKERS = ["LAMC2", "ITGA5", "KRT14", "KRT17", "VIM"]
+     45  [마커/주석]  CONTEXT = ["EGFR", "EPCAM", "PTPRC"]
+     48  [품질필터]  MIN_CELLS = 20
+     49  [시드]  SEED = 42
+     74  [마커/주석]  ap.add_argument("--h5ad", required=True, help="step3 산출물 (…_full_annotated_cnv.h5ad)")
+     76  [품질필터]  ap.add_argument("--min-cells", type=int, default=MIN_CELLS)
+    104  [구획명]  ep = a.obs[a.obs.cell_type == "Epithelial"]
+    130  [구획명]  sub = a[(a.obs.cell_type == "Epithelial") &
+    136  [품질필터]  if n_n >= args.min_cells and n_t >= args.min_cells:
+    161  [마커/주석]  for m in MARKERS + CONTEXT:
+    179  [마커/주석]  for m in MARKERS:
+    186  [품질필터]  if sel.sum() < args.min_cells or np.std(x) == 0 or np.std(y) == 0:
+    189  [마커/주석]  rows.append({"marker": m, "patient": p, "n_cells": int(sel.sum()),
+    197  [마커/주석]  for m, g in per.groupby("marker"):
+    200  [마커/주석]  summ.append({"marker": m, "median_rho": np.median(rh),
+    221  [품질필터]  if len(m) >= args.min_cells and len(n) >= args.min_cells:
+    231  [시드]  rng = np.random.default_rng(SEED)
+    232  [정규화]  boot = np.array([np.mean(rng.choice(d, len(d), replace=True)) for _ in range(10000)])
+    245  [품질필터]  fh.write(f"min_cells {args.min_cells}\ninput {os.path.abspath(args.h5ad)}\n")
+
+--- CRED_profiles_20261021.py   (18줄)
+     10  [구획명]  GSE198315: step7b(D3/D4)와 같은 세포(Epithelial ∩ TC/TP), 같은 유전자 집합(검출률 ≥ 1%),
+     11  [정규화]  같은 깊이 지표(log1p total_counts), 같은 환자 내 순위 z, 같은 편상관 식(분모 n).
+     13  [정규화]  같은 상관 정의(C.corr_with_all, 분모 = 제곱합). 기술 축 = log1p(검출 유전자 수).
+     24  [마커/주석]  CR4  음성 대조(하우스키핑 11개)·양성 대조(LAMC2, ITGA5, Puram 100 구성원)
+     28  [마커/주석]  --h5ad gse198315_checkpoint_full_annotated_cnv.h5ad --pemt "p-EMT gene list.xlsx" ^
+     56  [품질필터]  MIN_CELLS = 20          # LOPO 대상 환자 기준 (step7b 와 동일)
+     67  [마커/주석]  POS_CTRL = ["LAMC2", "ITGA5"]
+    148  [구획명]  m = (a.obs.cell_type.values == "Epithelial") & np.isin(a.obs.region.values, TUMOR_REGIONS)
+    156  [정규화]  tech, src = np.log1p(e.obs[c].astype(float).values), f"log1p(obs.{c})"
+    168  [서브샘플]  C.log(f"  EPI_TUMOR {e.n_obs:,} 세포 / 환자 {len(pd.unique(pats))} / 유전자 집합 {len(names):,} "
+    186  [정규화]  tech, src = np.log1p(ndet), "log1p(검출 유전자 수, 전 유전자)"
+    341  [정규화]  ap.add_argument("--n-perm", type=int, default=10000)
+    410  [시드]  rng = np.random.default_rng(C.SEED)            # step7b 와 같은 rng 순서
+    430  [시드]  rng = np.random.default_rng(C.SEED)
+    448  [시드]  rng = np.random.default_rng(C.SEED)
+    458  [품질필터]  if dec.ncell[j] < MIN_CELLS:
+    465  [시드]  rng = np.random.default_rng(C.SEED)
+    547  [시드]  rng = np.random.default_rng(C.SEED)
+
+--- GSE103322_Puram_pEMT_20261019.py   (16줄)
+     24  [마커/주석]  P2  증분 정보량: PURAM30에서 마커 패널(LAMC2, ITGA5, VIM)을 뺀 27개 점수를 반응변수로,
+     55  [품질필터]  MIN_CELLS = 20
+    113  [정규화]  ap.add_argument("--n-perm", type=int, default=10000)
+    117  [시드]  rng = np.random.default_rng(C.SEED)
+    143  [마커/주석]  panel_in_30 = [m for m in C.MARKER_PANEL if m in used30]
+    147  [마커/주석]  "PURAM30_minus_panel": [g for g in used30 if g not in C.MARKER_PANEL],
+    148  [마커/주석]  "PURAM100_minus_panel": [g for g in used100 if g not in C.MARKER_PANEL],
+    169  [품질필터]  per, summ = C.within_group_spearman(w, s, pats, MIN_CELLS)
+    181  [마커/주석]  preds = {m: E.loc[m].values.astype(float) for m in C.MARKER_PANEL if m in E.index}
+    190  [마커/주석]  ax = [g for g in ["EPCAM", "KRT14", "KRT17", "VIM", "PTPRC"] if g in E.index]
+    191  [스케일/PCA/시드]  pc1 = PCA(n_components=1, random_state=C.SEED).fit_transform(
+    196  [구획명]  r.update({"rho_WBP5_vs_epi_stromal_PC1": rr, "p_WBP5_vs_PC1": pp,
+    238  [구획명]  for label, key in (("Fibroblast", "fibroblast"), ("Endothelial", "endothelial")):
+    255  [정규화]  boot = [rng.choice(d, len(d)).mean() for _ in range(10000)]
+    306  [마커/주석]  print(f"  [{r.response_signature}] R² 마커 {r.get('R2_markers', np.nan):.4f} → "
+    307  [마커/주석]  f"+WBP5 {r.get('R2_markers_plus_WBP5', np.nan):.4f}  ΔR² {r.get('delta_R2_WBP5', np.nan):.4f}")
+
+--- GSE198315_step6_inferCNV_corrected_20261015.py   (15줄)
+     30  [마커/주석]  --h5ad gse198315_checkpoint_full_annotated.h5ad \
+     31  [마커/주석]  --gtf gencode.v50.basic.annotation.gtf.gz \
+     48  [마커/주석]  MARKERS = ["LAMC2", "ITGA5", "KRT14", "KRT17", "VIM"]
+     49  [구획명]  IMMUNE = ["T/NK", "B/Plasma", "Myeloid", "Mast"]
+     52  [시드]  SEED = 42
+    105  [마커/주석]  help="step2 산출물 (…_full_annotated.h5ad). _cnv 가 아닌 쪽입니다")
+    140  [구획명]  is_norm_epi = (ct == "Epithelial") & (rg == NORMAL_REGION)
+    141  [구획명]  grp[is_norm_epi] = "Epithelial_normal"
+    150  [구획명]  ref = [c for c in IMMUNE if c in set(a.obs["cnv_ref_group"])] + ["Epithelial_normal"]
+    169  [스케일/PCA/이웃/클러스터]  cnv.tl.pca(a); cnv.pp.neighbors(a); cnv.tl.leiden(a); cnv.tl.cnv_score(a)
+    178  [구획명]  ep = a.obs[ct.values == "Epithelial"]
+    235  [마커/주석]  for m in MARKERS:
+    244  [마커/주석]  rows.append({"marker": m, "patient": pt, "n_cells": int(sel.sum()), "rho": rho})
+    249  [마커/주석]  for m, g in per.groupby("marker"):
+    252  [마커/주석]  summ.append({"marker": m, "median_rho": np.median(rh),
+
+--- GSE198315_step7b_depth_20261019.py   (14줄)
+     11  [마커/주석]  따라서 M1/M2 의 양의 상관(LAMC2 0.17, ITGA5 0.18, Puram 0.20–0.24)이
+     14  [구획명]  방법 (EPI_TUMOR = Epithelial ∩ TC/TP, 환자 내 순위 기반)
+     26  [마커/주석]  --h5ad gse198315_checkpoint_full_annotated_cnv.h5ad ^
+     47  [품질필터]  MIN_CELLS = 20
+     83  [품질필터]  if s.sum() < MIN_CELLS or np.std(x[s]) == 0:
+    105  [정규화]  ap.add_argument("--n-perm", type=int, default=10000)
+    109  [시드]  rng = np.random.default_rng(C.SEED)
+    118  [구획명]  m = (a.obs.cell_type.values == "Epithelial") & np.isin(a.obs.region.values, TUMOR_REGIONS)
+    128  [정규화]  depth, src = np.log1p(e.obs[c].astype(float).values), f"log1p(obs.{c})"
+    133  [서브샘플]  C.log(f"  EPI_TUMOR {e.n_obs:,} 세포 / 깊이 지표: {src}  (obs 열: {list(e.obs.columns)})")
+    156  [마커/주석]  for mk in C.MARKER_PANEL if mk in e.var_names}
+    206  [마커/주석]  for mk in C.MARKER_PANEL:
+    211  [마커/주석]  r = {"marker": mk}
+    219  [마커/주석]  d3m.to_csv(out("D3_marker_percentiles.csv"), index=False)
+
+--- marker_pair_rho.py   (14줄)
+      4  [마커/주석]  marker_pair_rho.py — GSE103322 악성세포에서 마커 쌍 Spearman 상관 계산
+     11  [마커/주석]  "for reference, canonical p-EMT marker pairs (e.g., LAMC2-ITGA5)
+     14  [마커/주석]  LAMC2-ITGA5 한 쌍만이 아니라 패널 전체의 쌍별 상관을 계산해, 문장에
+     20  [마커/주석]  python marker_pair_rho.py
+     27  [마커/주석]  1) marker_pair_rho_<날짜>.csv  — 모든 쌍의 rho / p / n
+     28  [마커/주석]  2) 화면에 LAMC2-ITGA5 값, p-EMT 마커 쌍의 실제 범위, 문장 제안
+     50  [마커/주석]  PANEL = ["WBP5", "LAMC2", "ITGA5", "KRT14", "KRT17", "VIM", "EGFR", "EPCAM", "PTPRC"]
+     53  [마커/주석]  PEMT = ["LAMC2", "ITGA5", "KRT14", "KRT17", "VIM"]
+     56  [마커/주석]  def read_annotations():
+    111  [마커/주석]  cells, is_malignant = read_annotations()
+    131  [마커/주석]  f = "marker_pair_rho_%s.csv" % STAMP
+    136  [마커/주석]  li = res[((res.gene_A == "LAMC2") & (res.gene_B == "ITGA5")) |
+    137  [마커/주석]  ((res.gene_A == "ITGA5") & (res.gene_B == "LAMC2"))]
+    140  [마커/주석]  print("  LAMC2-ITGA5 rho = %.4f" % r)
+
+--- find_params.py   (11줄)
+     20  [Harmony/이웃/클러스터]  .py / .ipynb / .txt / .md 파일을 재귀적으로 훑어, scanpy·harmony·leiden
+     41  [품질필터]  ("품질필터",   r"min_genes|min_cells|min_counts|pct_counts_mt|percent\.mt|n_genes_by_counts|filter_cells|filter_genes"),
+     42  [정규화]  ("정규화",     r"normalize_total|target_sum|log1p|CPM|1e4|10000\b"),
+     43  [HVG]  ("HVG",        r"highly_variable|n_top_genes|flavor\s*=|seurat_v3"),
+     44  [스케일/PCA]  ("스케일/PCA", r"scale\(|max_value|pca\(|n_comps|n_pcs|svd_solver"),
+     45  [Harmony]  ("Harmony",    r"harmony|batch_key|max_iter|theta\s*=|lamb\s*="),
+     46  [이웃/클러스터]  ("이웃/클러스터", r"neighbors\(|n_neighbors|use_rep|leiden|louvain|resolution\s*=|n_clusters"),
+     47  [시드]  ("시드",       r"random_state|random\.seed|np\.random|seed\s*=|RANDOM_SEED"),
+     48  [서브샘플]  ("서브샘플",   r"subsample|sample\(|n_obs|80000|80_000|5359|5,359"),
+     49  [마커/주석]  ("마커/주석",  r"EPCAM|KRT14|KRT17|LAMC2|PTPRC|COL1A1|DCN|PECAM1|CD3D|LYZ|marker|annot"),
+     50  [구획명]  ("구획명",     r"Epithelial|Fibroblast|Endothelial|Immune|Stromal|tumour-region|tumor-region"),
+
+--- GSE198315_step4_composition_20261015.py   (10줄)
+     22  [마커/주석]  --h5ad gse198315_checkpoint_full_annotated_cnv.h5ad \
+     41  [품질필터]  MIN_CELLS = 20              # 환자×세포형×부위 최소 세포 수
+     42  [정규화]  N_BOOT = 10000
+     43  [시드]  SEED = 42
+     81  [마커/주석]  help="step3 산출물 (…_full_annotated_cnv.h5ad)")
+     83  [품질필터]  ap.add_argument("--min-cells", type=int, default=MIN_CELLS)
+     88  [시드]  rng = np.random.default_rng(SEED)
+    155  [품질필터]  m = gp[(gp.region == MET) & (gp.n_cells >= args.min_cells)]
+    156  [품질필터]  pr = gp[gp.region.isin(PRIMARY) & (gp.n_cells >= args.min_cells)]
+    183  [품질필터]  fh.write(f"min_cells_per_patient_celltype_region {args.min_cells}\n")
+
+--- regen_tableS6.py   (10줄)
+     62  [구획명]  "Fibroblast":         (1440, 1.61, 51.97),
+     63  [구획명]  "Endothelial":        (280,  1.48, 51.15),
+     64  [구획명]  "Fibroblast (excl.)": (370,  1.12, 38.92),
+     65  [마커/주석]  "Unannotated":        (135,  0.95, 34.07),
+     96  [마커/주석]  def read_annotations():
+    146  [구획명]  "fibroblast":  "Fibroblast",
+    147  [구획명]  "-fibroblast": "Fibroblast (excl.)",   # 원 분석에서 제외된 섬유아세포
+    148  [구획명]  "endothelial": "Endothelial",
+    166  [마커/주석]  labels.append(NORM.get(key, "Unannotated" if raw in ("", "0", "nan") else raw))
+    201  [마커/주석]  cells, ann = read_annotations()
+
+--- wbp5_rev_common.py   (6줄)
+     19  [시드]  SEED = 42
+     32  [마커/주석]  MARKER_PANEL = ["LAMC2", "ITGA5", "KRT14", "VIM", "KRT17"]   # 원고 Table 2, 변경 금지
+    221  [마커/주석]  resp ~ markers (+ WBP5).  모든 변수 z-표준화.
+    241  [마커/주석]  out.update({"R2_markers": mb.rsquared, "R2_markers_plus_WBP5": mf.rsquared,
+    313  [정규화]  def set_enrichment(rho, gene_names, bins, set_genes, rng, n_perm=10000, top_ks=(100, 200, 500)):
+    354  [정규화]  def matched_null_setscore(wbp5, Z, bins, set_idx, rng, n_perm=10000, matched=True):
+
+--- fig_S5_regenerate_20261021.py   (3줄)
+     31  [마커/주석]  PURAM30=["SERPINE1","TGFBI","MMP10","LAMC2","P4HA2","PDPN","ITGA5","LAMA3","CDH13","TNC",
+     34  [정규화/시드]  SEED=42; NPERM=10000; NBIN=25
+     80  [시드]  a=ap.parse_args(); os.makedirs(a.outdir,exist_ok=True); rng=np.random.default_rng(SEED)
+
+--- README_신뢰도분석4종_실행안내_20261021.md   (3줄)
+     20  [마커/주석]  python CRED_profiles_20261021.py --cohort gse198315 --h5ad gse198315_checkpoint_full_annotated_cnv.h5ad --pemt "p-EMT gene list.xlsx" --tag seed42 --check-dir results_gse198315 --outdir results_cred\s
+     22  [마커/주석]  python CRED_profiles_20261021.py --cohort gse198315 --h5ad gse198315_seed2026_full_annotated.h5ad --pemt "p-EMT gene list.xlsx" --tag seed2026 --check-dir results_seed2026 --outdir results_cred\seed20
+     24  [마커/주석]  python CRED_profiles_20261021.py --cohort gse198315 --h5ad gse198315_seed7_full_annotated.h5ad --pemt "p-EMT gene list.xlsx" --tag seed7 --check-dir results_seed7 --outdir results_cred\seed7
+
+--- results_cred\seed2026\CR_run_info.txt   (3줄)
+      6  [마커/주석]  input gse198315_seed2026_full_annotated.h5ad
+      8  [정규화]  n_perm 10000
+     21  [정규화]  tech log1p(obs.total_counts)
+
+--- results_cred\seed42\CR_run_info.txt   (3줄)
+      6  [마커/주석]  input gse198315_checkpoint_full_annotated_cnv.h5ad
+      8  [정규화]  n_perm 10000
+     21  [정규화]  tech log1p(obs.total_counts)
+
+--- results_cred\seed7\CR_run_info.txt   (3줄)
+      6  [마커/주석]  input gse198315_seed7_full_annotated.h5ad
+      8  [정규화]  n_perm 10000
+     21  [정규화]  tech log1p(obs.total_counts)
+
+--- results_gse198315\environment_step4.txt   (3줄)
+      6  [정규화]  n_boot 10000
+      7  [품질필터]  min_cells_per_patient_celltype_region 20
+      9  [마커/주석]  input C:\Users\user\Desktop\WBP5 revision\gse198315_checkpoint_full_annotated_cnv.h5ad
+
+--- results_gse198315\environment_step6.txt   (3줄)
+     11  [구획명]  reference_groups ['T/NK', 'B/Plasma', 'Myeloid', 'Mast', 'Epithelial_normal']
+     15  [마커/주석]  gtf C:\Users\user\Desktop\WBP5 revision\gencode.v50.basic.annotation.gtf.gz
+     16  [마커/주석]  input C:\Users\user\Desktop\WBP5 revision\gse198315_checkpoint_full_annotated.h5ad
+
+--- verify_remaining_20261019.py   (2줄)
+    106  [구획명]  "GSE103322_linear_mean|Fibroblast": 23.5,                  # (5) 미검증
+    107  [구획명]  "GSE103322_linear_median|Fibroblast": 0.52,                # (5) 미검증
+
+--- results_cred\gse103322\CR_run_info.txt   (2줄)
+      8  [정규화]  n_perm 10000
+     21  [정규화]  tech log1p(검출 유전자 수, 전 유전자)
+
+--- results_gse198315\environment_step5.txt   (2줄)
+      8  [품질필터]  min_cells 20
+      9  [마커/주석]  input C:\Users\user\Desktop\WBP5 revision\gse198315_checkpoint_full_annotated_cnv.h5ad
+
+--- results_gse198315\environment_step7.txt   (2줄)
+      8  [정규화]  n_perm 10000
+      9  [마커/주석]  input C:\Users\user\Desktop\WBP5 revision\gse198315_checkpoint_full_annotated_cnv.h5ad
+
+--- results_seed2026\environment_step7.txt   (2줄)
+      8  [정규화]  n_perm 10000
+      9  [마커/주석]  input C:\Users\user\Desktop\WBP5 revision\gse198315_seed2026_full_annotated.h5ad
+
+--- results_seed7\environment_step7.txt   (2줄)
+      8  [정규화]  n_perm 10000
+      9  [마커/주석]  input C:\Users\user\Desktop\WBP5 revision\gse198315_seed7_full_annotated.h5ad
+
+--- results_gse103322_puram\environment.txt   (1줄)
+      7  [정규화]  n_perm 10000
+
+--- results_gse198315\environment.txt   (1줄)
+      8  [마커/주석]  gtf gencode.v50.basic.annotation.gtf.gz
+
+========================================================================
+총 259줄
+
+다음으로 할 일
+  1) 위 출력에서 GSE198315 재분석 스크립트가 어느 파일인지 확인
+  2) params_found_20261022.txt 파일을 그대로 올리기
+  3) 해당 스크립트 파일 자체도 함께 올리면 가장 정확함
+
+아무것도 안 나왔다면
+  - 다른 폴더를 인자로 지정:  python find_params.py "C:\Users\user\Desktop\wbp5"
+  - 또는 GitHub 저장소 phase1_singlecell/ 폴더를 확인

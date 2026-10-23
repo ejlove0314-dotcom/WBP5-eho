@@ -1,0 +1,12 @@
+﻿compartment,n,mean,pct
+Cancer cells,2215,2.381,68.89
+Fibroblast,1422,2.497,51.97
+Endothelial,260,2.334,51.15
+Fibroblast (excl.),18,1.523,38.89
+Unannotated,324,1.311,34.26
+Macrophage,98,0.844,24.49
+Myocyte,19,0.381,15.79
+Mast,120,0.52,14.17
+B cell,138,0.396,12.32
+Dendritic,51,0.085,3.92
+T cell,1237,0.046,1.21

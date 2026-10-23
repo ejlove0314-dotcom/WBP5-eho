@@ -1,0 +1,12 @@
+﻿compartment,n_new,n_TableS6,mean_new,mean_TableS6,pct_new,pct_TableS6,n_match,mean_match,pct_match
+Cancer cells,2215,2215,2.381,2.38,68.89,68.89,True,True,True
+Fibroblast,1422,1440,2.497,1.61,51.97,51.97,False,False,True
+Endothelial,260,280,2.334,1.48,51.15,51.15,False,False,True
+Fibroblast (excl.),18,370,1.523,1.12,38.89,38.92,False,False,True
+Unannotated,324,135,1.311,0.95,34.26,34.07,False,False,False
+Macrophage,98,220,0.844,0.61,24.49,23.64,False,False,False
+Myocyte,19,25,0.381,0.41,15.79,16.0,False,False,False
+Mast,120,55,0.52,0.38,14.17,14.55,False,False,False
+B cell,138,145,0.396,0.29,12.32,11.72,False,False,False
+Dendritic,51,190,0.085,0.15,3.92,3.92,False,False,True
+T cell,1237,827,0.046,0.04,1.21,1.21,False,False,True

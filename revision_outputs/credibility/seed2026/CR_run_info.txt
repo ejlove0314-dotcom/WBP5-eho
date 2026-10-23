@@ -1,0 +1,21 @@
+script CRED_profiles_20261021.py sha256 6e125af2af829d1fba6060616f6184ec22aa295db8a9882b11b5de4e6cc7ba73
+common sha256 17f71e703aea00f7b42a515f90fdac4c5a2a9321375a33aceedb6f828730e357
+started 2026-10-21 10:59:58.044409
+cohort gse198315
+tag seed2026
+input gse198315_seed2026_full_annotated.h5ad
+pemt C:\Users\user\Desktop\WBP5 revision\p-EMT gene list.xlsx
+n_perm 10000
+n_ref 1000
+min_det 0.01
+seed 42
+preregistration claude/CSBJ_신뢰도분석4종_사전규칙_20261021.md
+finished 2026-10-21 11:00:34.906372
+python 3.13.12 | packaged by Anaconda, Inc. | (main, Feb 24 2026, 16:05:56) [MSC v.1942 64 bit (AMD64)]
+numpy 2.4.6
+pandas 3.0.3
+scipy 1.17.1
+reproduction_ok True
+decomp_diff 5.967448757360216e-16
+x_looks_raw False
+tech log1p(obs.total_counts)
