@@ -1,0 +1,4 @@
+comparison,n_patients,mean_diff,ci_lo,ci_hi,n_positive,wilcoxon_p
+EPI_TUMOR_vs_Fibroblast,10,-0.60919833,-0.72830206,-0.46900406,0,0.001953125
+EPI_TUMOR_vs_Endothelial,10,-0.29842237,-0.41115615,-0.17241904,1,0.005859375
+EPI_TUMOR_vs_Ambiguous,10,-0.46045312,-0.57473916,-0.33404616,0,0.001953125

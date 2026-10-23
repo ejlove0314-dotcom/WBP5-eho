@@ -1,0 +1,9 @@
+python 3.13.12 | packaged by Anaconda, Inc. | (main, Feb 24 2026, 16:05:56) [MSC v.1942 64 bit (AMD64)]
+numpy 2.4.6
+pandas 3.0.3
+scipy 1.17.1
+scanpy 1.12.4
+statsmodels 0.14.6
+seed 42
+min_cells 20
+input C:\Users\user\Desktop\WBP5 revision\gse198315_checkpoint_full_annotated_cnv.h5ad

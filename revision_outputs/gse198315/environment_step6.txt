@@ -1,0 +1,16 @@
+python 3.13.12 | packaged by Anaconda, Inc. | (main, Feb 24 2026, 16:05:56) [MSC v.1942 64 bit (AMD64)]
+numpy 2.4.6
+pandas 3.0.3
+scipy 1.17.1
+scanpy 1.12.4
+infercnvpy 0.6.1
+statsmodels 0.14.6
+seed 42
+window 100
+cnv_sd 2.0
+reference_groups ['T/NK', 'B/Plasma', 'Myeloid', 'Mast', 'Epithelial_normal']
+n_normal_epithelium_in_reference 2780
+threshold 0.01125290085133067
+validity_verdict STILL CONFOUNDED: do not use inferCNV as an independent malignancy call
+gtf C:\Users\user\Desktop\WBP5 revision\gencode.v50.basic.annotation.gtf.gz
+input C:\Users\user\Desktop\WBP5 revision\gse198315_checkpoint_full_annotated.h5ad

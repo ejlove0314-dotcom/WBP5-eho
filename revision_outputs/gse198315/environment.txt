@@ -1,0 +1,11 @@
+python 3.13.12 | packaged by Anaconda, Inc. | (main, Feb 24 2026, 16:05:56) [MSC v.1942 64 bit (AMD64)]
+numpy 2.4.6
+pandas 3.0.3
+scanpy 1.12.4
+infercnvpy 0.6.1
+seed 42
+resolution n/a
+gtf gencode.v50.basic.annotation.gtf.gz
+cnv_window 100
+cnv_threshold_sd 2.0
+reference_compartments ['T/NK', 'B/Plasma', 'Myeloid', 'Mast']

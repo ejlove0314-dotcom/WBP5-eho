@@ -1,0 +1,7 @@
+set,cell_type,region,n
+EPI_TUMOR,Epithelial,TC,3781
+EPI_TUMOR,Epithelial,TP,1705
+EPI_ALL,Epithelial,NT,2787
+EPI_ALL,Epithelial,TC,3781
+EPI_ALL,Epithelial,TP,1705
+EPI_ALL,Epithelial,mLN,381
