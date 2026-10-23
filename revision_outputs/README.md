@@ -19,10 +19,22 @@ been modified.
 | `reference/` | Input gene lists, resolved parameters, AlphaFold predicted aligned error, and regenerated comparison tables. |
 | `structure/` | Per-residue relative solvent accessibility of the AlphaFold model, with the script that computes it. |
 
+## Recorded paths in run-metadata files
+
+The `preregistration` field in `credibility/*/CR_run_info.txt` records the
+working-copy path of the pre-analysis plan as it stood when each run was
+executed. In this repository that document is deposited as
+`reproducibility/pre_analysis_plan_20261021_KO.md`, with an English
+translation in `reproducibility/pre_analysis_plan_20261021_EN.md`. The input
+paths recorded in the same files, such as the p-EMT gene list, likewise refer
+to the authors' local working copies rather than to locations within this
+repository. These metadata files are preserved as written at run time, so that
+the recorded script checksums continue to match the deposited scripts.
+
 ## Key files
 
 - `gse198315/K2_DE_tumor_vs_normal_epithelium_full.csv` — the complete ranked
-  differential-expression table for tumour-region versus normal-tissue epithelial
+  differential-expression table for tumor-region versus normal-tissue epithelial
   cells, all 33,694 genes, with effect sizes, adjusted p values and ranks.
 - `gse103322_puram/P5_YAP_TAZ_permutation.csv` — the 10,000-permutation
   WBP5–YAP/TAZ test against expression- and detection-matched null gene sets.
@@ -42,7 +54,7 @@ in this repository:
 - GSE198315 count matrix, barcodes and features — NCBI GEO, accession GSE198315.
 - GENCODE v50 basic annotation — GENCODE release 50.
 - The ChEMBL-25 pre-trained prior used for de novo generation is distributed with
-  REINVENT4 and is subject to its licence; it is not redistributed here.
+  REINVENT4 and is subject to its license; it is not redistributed here.
 
 Intermediate AnnData checkpoints (`.h5ad`) are not deposited because of their size.
 They are reproducible from the deposited scripts together with the barcode lists in
