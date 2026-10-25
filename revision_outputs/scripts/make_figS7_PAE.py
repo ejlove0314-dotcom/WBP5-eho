@@ -44,6 +44,9 @@ import sys
 import numpy as np
 import matplotlib
 matplotlib.use("Agg")
+matplotlib.rcParams["font.family"]="sans-serif"
+matplotlib.rcParams["font.sans-serif"]=["Liberation Sans","Arial","DejaVu Sans"]
+matplotlib.rcParams["pdf.fonttype"]=42
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 
@@ -160,8 +163,8 @@ def main():
         ax.plot(r, n + 2.5, marker="v", color="#ed7d31", ms=3.2,
                 clip_on=False, zorder=5)
 
-    ax.set_xlabel("Residue (scored)", fontsize=9)
-    ax.set_ylabel("Residue (aligned)", fontsize=9)
+    ax.set_xlabel("Residue (scored)", fontsize=11.5, fontweight="bold")
+    ax.set_ylabel("Residue (aligned)", fontsize=11.5, fontweight="bold")
     ax.set_xticks([1, 20, 40, 60, 80, 104])
     ax.set_yticks([1, 20, 40, 60, 80, 104])
     ax.tick_params(labelsize=8)

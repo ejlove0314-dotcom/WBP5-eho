@@ -29,7 +29,9 @@ matplotlib.rcParams["pdf.fonttype"] = 42
 matplotlib.rcParams["svg.fonttype"] = "none"
 from matplotlib.patches import Rectangle
 
-PDB = "/home/claude/ejlove0314-dotcom/wbp5-eho/WBP5_AlphaFold.pdb"
+import os as _os
+REPO = _os.path.dirname(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))  # repository root
+PDB = _os.path.join(REPO, "WBP5_AlphaFold.pdb")
 P0 = [38, 41, 42, 44, 45, 48, 49, 51, 52, 54, 55, 58]
 CORE = range(35, 101)
 
@@ -83,7 +85,7 @@ for s in ("top", "right"):
     ax.spines[s].set_visible(False)
 
 fig.subplots_adjust(left=0.085, right=0.845, top=0.82, bottom=0.24)
-fig.savefig("FigS2.pdf")
+fig.savefig("FigS2.pdf", bbox_inches="tight")
 fig.savefig("FigS2.svg")
 fig.savefig("FigS2_300dpi.png", dpi=300)
 print("saved FigS2.pdf / .svg / FigS2_300dpi.png")

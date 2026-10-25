@@ -21,12 +21,19 @@ import os
 import pandas as pd
 import matplotlib
 matplotlib.use("Agg")
+matplotlib.rcParams["font.family"]="sans-serif"
+matplotlib.rcParams["font.sans-serif"]=["Liberation Sans","Arial","DejaVu Sans"]
+matplotlib.rcParams["mathtext.fontset"]="custom"
+matplotlib.rcParams["mathtext.rm"]="Liberation Sans"
+matplotlib.rcParams["mathtext.it"]="Liberation Sans:italic"
+matplotlib.rcParams["pdf.fonttype"]=42
 import matplotlib.pyplot as plt
 from matplotlib.patches import Patch
 
-CSV = ("/home/claude/ejlove0314-dotcom/wbp5-eho/revision_outputs/"
-       "credibility/gse103322/CR3_family_and_controls.csv")
-OUT = os.path.dirname(os.path.abspath(__file__))
+import os as _os
+REPO = _os.path.dirname(_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__))))  # repository root
+CSV = _os.path.join(REPO, "revision_outputs", "credibility", "gse103322", "CR3_family_and_controls.csv")
+OUT = _os.path.dirname(_os.path.abspath(__file__))
 
 RED, DBLUE, LBLUE, GREY = "#D62728", "#1F77B4", "#9ECAE1", "#D2D2D2"
 
