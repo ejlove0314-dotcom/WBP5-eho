@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Fig. S3 - assembled from TIMER3 Gene_Correlation exports
-=========================================================
+Fig. S3 - assembled from TIMER3 Gene_Correlation exports (revised 2026-10-25)
+============================================================================
 TIMER3 returns a two-panel plot per query: one panel for the gene-gene
 association and one for the gene-purity association. The x-axis titles are
 assigned by facet position rather than by content, so they are transposed
@@ -12,6 +12,11 @@ KRT14, KRT17). The facet strip titles are correct.
 This script crops the correct half of each export, discards the incorrect
 axis title along with the strip band, and re-labels each panel. No data point,
 LOESS fit, confidence band, axis tick or statistical annotation is altered.
+Crops are embedded at native resolution (no resampling).
+
+2026-10-25 layout revision: each panel now carries its own bold y-axis title,
+x-axis titles are bold, and the panel letters sit in reserved space above
+each panel so they no longer overlap the top y-tick label.
 
 Panel   Source file                      Half   New x-axis title
   A     genecorr_plot_ITGA5_HNSC.jpg     right  Tumor purity
@@ -19,17 +24,15 @@ Panel   Source file                      Half   New x-axis title
   C     genecorr_plot_LAMC2_HNSC.jpg     left   LAMC2 expression (log2 TPM)
   D     genecorr_plot_VIM_HNSC.jpg       right  VIM expression (log2 TPM)
 
-Crop boundaries were determined by pixel profiling of the 4400 x 2400 exports
-(panel borders, strip band, tick-label band, axis-title band).
-
 Usage:  python make_figS3_from_timer3.py [input_dir] [output_dir]
 """
 import os
 import sys
+
+import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
 from PIL import Image
 
 IN = sys.argv[1] if len(sys.argv) > 1 else "timer3"
@@ -40,6 +43,7 @@ R0, R1 = 261, 2185          # below the strip band, down to the tick labels
 LEFT = (208, 2248)          # y tick labels + left panel
 RIGHT = (2304, 4375)        # y tick labels + right panel
 
+YTITLE = "TCEAL9 expression level (log$_2$ TPM)"
 PANELS = [
     ("A", "Tumor purity",                   "genecorr_plot_ITGA5_HNSC.jpg", "R"),
     ("B", "ITGA5 expression (log$_2$ TPM)", "genecorr_plot_ITGA5_HNSC.jpg", "L"),
@@ -49,31 +53,43 @@ PANELS = [
 
 matplotlib.rcParams["font.family"] = "sans-serif"
 matplotlib.rcParams["font.sans-serif"] = ["Liberation Sans", "Arial", "DejaVu Sans"]
+matplotlib.rcParams["mathtext.fontset"] = "custom"
+matplotlib.rcParams["mathtext.rm"] = "Liberation Sans"
+matplotlib.rcParams["mathtext.bf"] = "Liberation Sans:bold"
 matplotlib.rcParams["pdf.fonttype"] = 42
 
-crops = []
-for lab, xt, fn, side in PANELS:
-    im = Image.open(os.path.join(IN, fn))
+# ---- layout in inches (explicit, so labels never collide) ----------------
+FIG_W = 7.48                                   # 190 mm
+COL_L = [0.45, 4.22]                           # left edge of each image column
+IMG_W = 3.20
+ROW_TOP = [0.32, 3.98]                         # gap above each image row
+# image height follows the crop aspect ratio
+crop_h = R1 - R0
+img_h = {s: IMG_W * crop_h / (c1 - c0) for s, (c0, c1) in (("L", LEFT), ("R", RIGHT))}
+H_IMG = max(img_h.values())
+XT_H = 0.30                                    # room for the x-axis title
+FIG_H = ROW_TOP[1] + H_IMG + XT_H + 0.05
+
+fig = plt.figure(figsize=(FIG_W, FIG_H))
+for k, (lab, xt, fn, side) in enumerate(PANELS):
+    r, c = divmod(k, 2)
     c0, c1 = LEFT if side == "L" else RIGHT
-    tmp = os.path.join(OUT, f"_panel_{lab}.png")
-    im.crop((c0, R0, c1, R1)).save(tmp)
-    crops.append((lab, xt, tmp))
-
-fig, axes = plt.subplots(2, 2, figsize=(7.48, 6.6))   # 190 mm wide
-for ax, (lab, xt, fn) in zip(axes.ravel(), crops):
-    ax.imshow(mpimg.imread(fn))
+    arr = np.asarray(Image.open(os.path.join(IN, fn)).convert("RGB").crop((c0, R0, c1, R1)))
+    h = img_h[side]
+    x0 = COL_L[c]
+    y_top = ROW_TOP[r]
+    ax = fig.add_axes([x0 / FIG_W, 1 - (y_top + h) / FIG_H, IMG_W / FIG_W, h / FIG_H])
+    ax.imshow(arr, interpolation="none", aspect="auto")
     ax.set_axis_off()
-    ax.text(-0.045, 1.02, f"({lab})", transform=ax.transAxes,
-            fontsize=13, fontweight="bold", va="bottom", ha="left")
-    ax.text(0.55, -0.055, xt, transform=ax.transAxes,
-            fontsize=10.5, va="top", ha="center")
+    # panel letter: above the image, left of the y-axis title -> no overlap
+    fig.text((x0 - 0.40) / FIG_W, 1 - (y_top - 0.06) / FIG_H, f"({lab})",
+             fontsize=12, fontweight="bold", ha="left", va="bottom")
+    # x-axis title under the image
+    fig.text((x0 + IMG_W * 0.53) / FIG_W, 1 - (y_top + h + 0.04) / FIG_H, xt,
+             fontsize=10, fontweight="bold", ha="center", va="top")
+    # per-panel y-axis title
+    fig.text((x0 - 0.33) / FIG_W, 1 - (y_top + h / 2) / FIG_H, YTITLE,
+             rotation=90, fontsize=9.5, fontweight="bold", ha="left", va="center")
 
-fig.text(0.012, 0.5, "TCEAL9 expression (log$_2$ TPM)", rotation=90,
-         va="center", ha="left", fontsize=11)
-fig.subplots_adjust(left=0.055, right=0.995, top=0.965, bottom=0.055,
-                    wspace=0.06, hspace=0.16)
-fig.savefig(os.path.join(OUT, "Fig_S3_TIMER3_purity.pdf"))
-fig.savefig(os.path.join(OUT, "Fig_S3_TIMER3_purity.png"), dpi=300)
-for _, _, fn in crops:
-    os.remove(fn)
-print("saved: Fig_S3_TIMER3_purity.pdf / .png")
+fig.savefig(os.path.join(OUT, "Figure_S3.pdf"))
+print("saved: Figure_S3.pdf  (%.2f x %.2f in)" % (FIG_W, FIG_H))
