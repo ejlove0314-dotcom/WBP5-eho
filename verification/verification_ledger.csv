@@ -58,25 +58,25 @@ Section 3.2 cell counts,proxy epi / non-proxy / primary / LN / all,"53,192 / 214
 Table 4 / Section 3.5 / 3.7,docking means and SD (10 ligands),see manuscript,docking_replicates_P0_summary_v2.csv,all 10 match,VERIFIED
 Section 3.5 / 3.7,docking margins,1.32 / 0.46 / 0.60 / 0.42 / 0.20,verify_recompute.py from docking summary,identical,VERIFIED (recomputed)
 Table 4 / Table S5,SwissADME MW SA GI lead-likeness,see manuscript,swissadme_final_20260820.csv,all match,VERIFIED
-Table S5 Section D,SwissADME CYP450 profile,"Cand_2/3/5 = 0; Cand_4 = 4; Cand_1 and pazopanib n.d.",April 2026 SwissADME session record,identical,VERIFIED (session record; module unavailable Aug 2026)
+Table S5 Section D,SwissADME CYP450 profile,Cand_2/3/5 = 0; Cand_4 = 4; Cand_1 and pazopanib n.d.,April 2026 SwissADME session record,identical,VERIFIED (session record; module unavailable Aug 2026)
 Table S4,TIMER3 purity-adjusted and unadjusted rho,see Table S4,genecorr_table-*.csv (10 files),all 30 pairs match,VERIFIED
 Table S4,Benjamini-Hochberg q values,see Table S4,verify_recompute.py from TIMER3 p values,computed,VERIFIED (recomputed)
 Fig. S3A,WBP5 vs tumor purity,rho=0.125 p=5.5e-03,genecorr_plot_*_HNSC.jpg annotations,0.125 / 5.49e-03,VERIFIED
 Table S6 / Fig. 2 legend,compartment-wise PCT+ (fibroblast 51.97 endothelial 51.15 dendritic 3.92 T cell 1.21 mast 14.55 myocyte 16.00),as listed,supplementary compartment table (11 rows summing to 5902); legend cross-check,identical,VERIFIED (session 2026-08-13)
-Section 3.4 / Table 3,pocket P0 residues,38-58 (12 discontinuous),DoGSiteScorer job 0f462a25 P_0_res.pdb,"38 41 42 44 45 48 49 51 52 54 55 58",VERIFIED (session 2026-08-11)
+Section 3.4 / Table 3,pocket P0 residues,38-58 (12 discontinuous),DoGSiteScorer job 0f462a25 P_0_res.pdb,38 41 42 44 45 48 49 51 52 54 55 58,VERIFIED (session 2026-08-11)
 Section 3.4 / Table 3,P0 Drug Score / volume / surface / depth,0.837 / 229.6 / 811.5 / 24.9,DoGSiteScorer desc.txt,0.837 / 229.62 / 811.54 / 24.90,VERIFIED (session 2026-08-11)
 Section 3.4 / Table 3,P0 mean pLDDT,79.4,WBP5_AlphaFold.pdb B-factor column over P0 residues,79.4,VERIFIED (session 2026-08-11)
 Section 3.4,number of pockets detected,8 (P_0 to P_7),DoGSiteScorer desc.txt,8,VERIFIED (session 2026-08-11)
 Section 2.8,docking grid centre,"-23.835, -0.451, 23.910",P_0 residue centroid / docking scripts,identical,VERIFIED (session 2026-08-11)
 Fig. 6A,yellow mesh identity,P0,P_0_gpsAll.ccp4 volume centroid (-21.78 0.78 24.38),matches P0 residue centroid,VERIFIED (session 2026-08-11)
-Section 4.2,common contact subsite,"Ala41 Lys42 Thr44 Phe45 Arg48 in all six poses",WBP5_AlphaFold.pdb + six *_seed42_out.pdbqt,identical,VERIFIED (session 2026-08-11)
+Section 4.2,common contact subsite,Ala41 Lys42 Thr44 Phe45 Arg48 in all six poses,WBP5_AlphaFold.pdb + six *_seed42_out.pdbqt,identical,VERIFIED (session 2026-08-11)
 Section 4.2,Phe45 atom pairs and distance range,16-23 pairs at 3.22-3.58 A,pose recomputation after Candidate_1 correction,16-23 / 3.22-3.58,VERIFIED (session 2026-08-13; supersedes 16-29 / 2.58-3.58)
 Section 4.2,Thr44 and Arg48 distance ranges,2.80-3.40 A / 3.04-3.79 A,pose contact analysis,identical,VERIFIED (session 2026-08-11)
 Section 4.2,Thr44 hydroxyl to ligand polar hydrogen,1.81 A,Candidate_2 pose,1.81,VERIFIED (session 2026-08-11)
 Section 3.3 / Fig. S5,WBP5 vs YAP/TAZ target signature,rho=0.17 p=4.2e-16,HNSCC_all_data.txt module scoring,+0.172 / 4.2e-16,VERIFIED (session 2026-07-03)
 Section 3.3 / Fig. S5,WBP5 vs YAP1 mRNA,rho=0.02 p=0.37,HNSCC_all_data.txt,+0.019 / 0.37,VERIFIED (session 2026-07-03)
-Section 3.3 / Fig. S5,gene-set permutation empirical p,0.005,1000 random 22-gene sets; null 0.041+/-0.040 97.5%ile 0.120,0.005,VERIFIED (session 2026-07-03)
-Section 3.3 / Fig. S5,partial rho after p-EMT adjustment,0.06 p=2.6e-03,partial Spearman from module scores,+0.064 / 2.6e-03,VERIFIED (session 2026-07-03)
+Section 3.3 / Fig. S5,gene-set permutation empirical p,0.0002,"revision_outputs/gse103322_puram/P5_YAP_TAZ_permutation.csv (10,000 expression- and detection-matched 22-gene sets)",0.00019998 (matched null mean 0.0399; 95th percentile of |rho| 0.0966; resolution 1e-04; unmatched null 0.0003),"VERIFIED (session 2026-11-02; supersedes 0.005 from the 1,000-set unmatched null used at submission)"
+Section 3.3 / Fig. S5,partial rho after p-EMT adjustment,0.040 p=0.06,revision_outputs/gse103322_puram/P5_YAP_TAZ_permutation.csv,0.040078 / 0.060172,VERIFIED (session 2026-11-02; supersedes +0.064 / 2.6e-03 computed before the matched-null revision)
 Section 3.3,YAP/TAZ signature vs p-EMT score,rho=0.56,verify_recompute-style inversion of the partial correlation,implied 0.562,VERIFIED (internally consistent)
 Section 2.7 / 2.11,MTiOpenScreen job ID and date,V06821248773098 / 13 August 2026,MTiOpenScreen job record,identical,VERIFIED (session 2026-08-13)
 Section 3.6,MTiOpenScreen returned entries and unique drugs,"1,500 (20.9% of 7,173); 1,037 unique",job V06821248773098 output table,1500 / 1037,VERIFIED (session 2026-08-13)
