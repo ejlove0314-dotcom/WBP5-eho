@@ -180,6 +180,26 @@ Molecular weights in this table were recomputed with RDKit 2026.03.5 and may
 differ from the SwissADME values reported in the manuscript by 0.01 Da owing
 to differing atomic mass tables.
 
+## Running the deposited scripts
+
+Two things are worth knowing before running anything here.
+
+**Absolute paths.** Twenty-two of the fifty-five scripts carry absolute paths
+from the machine each analysis was run on, as `C:/Temp/...`, `/home/...` or
+`/mnt/...`; twelve of those are in `deprecated/` and are not the basis of any
+reported result. The paths have deliberately not been rewritten: these files
+are the record of what was executed, and editing them now would mean the
+repository no longer holds the scripts that produced the deposited outputs.
+Adjust the paths to your own layout before running a script, or read the
+deposited output it produced, which is stored beside it.
+
+**Comment language.** Nineteen scripts carry comments in Korean, most of them
+in `revision_outputs/scripts/`. The code, the variable names and the printed
+output are in English throughout, and every value these scripts produce is
+also recorded in the deposited CSV outputs and in `verification/`, so a reader
+who does not read Korean can still follow what each script computes and check
+its results.
+
 ## Correction records
 
 Four deposited files were corrected after the first revision was prepared. Each
