@@ -31,7 +31,7 @@ pyridin-4-yl variant (MW 347.44). `docking_replicates_P0_summary_v2.csv` contain
 corrected value (-5.44 +/- 0.05 kcal/mol).
 
 **Rounding.** Standard deviations in `docking_replicates_P0_summary_v2.csv` are given to
-three decimal places. Manuscript Tables 3 and 4 report them to two decimal places, so a
+three decimal places. Supplementary Tables S8 and S10 report them to two decimal places, so a
 value of 0.055 appears as 0.05 there; this applies to pazopanib, Candidate_1,
 Candidate_3 and Candidate_4.
 
