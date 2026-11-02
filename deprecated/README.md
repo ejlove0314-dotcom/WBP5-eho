@@ -29,7 +29,7 @@ three points**. It is retained only to document what was originally computed.
 | Candidates #3 and #5 are the top picks | Superseded. After redocking at P0 and re-running ADMET on the corrected structures, Candidate_4 is the affinity lead and Candidate_2 the property lead. |
 
 The ADMET and toxicity values reported in the manuscript were obtained after these
-corrections and are tabulated in Table 4 and Table S4.
+corrections and are tabulated in Supplementary Tables S5 and S10.
 
 ## Pocket assignment
 
