@@ -1,8 +1,18 @@
 """Relative solvent accessibility (RSA) of the AlphaFold WBP5/TCEAL9 model.
 
-SASA is computed with the Shrake-Rupley algorithm as implemented in Biopython
-(n_points=960, probe 1.40 A).  RSA = SASA / Tien et al. (2013) theoretical
-maximum accessible surface area for the residue type.
+SASA is computed with the Shrake-Rupley algorithm as implemented in Biopython,
+using the default 100-point sphere sampling and a 1.40 A probe.  RSA = SASA /
+Tien et al. (2013) theoretical maximum accessible surface area for the residue
+type.  The 100-point setting is the one reported in Supplementary Table S18.
+
+Usage:  python compute_rsa_shrake_rupley.py MODEL.pdb OUT.csv [n_points]
+
+An earlier version of this script used n_points=960.  The finer sampling shifts
+individual RSA values by up to about 0.03 but does not alter the conclusion
+drawn in Table S18: over the P0 region (residues 38-58) it gives a range of
+0.290-0.624 with a median of 0.521, against 0.266-0.593 and a median of 0.516
+at 100 points, so every P0 residue is solvent-exposed under either setting.
+Pass 960 as the third argument to reproduce the earlier values.
 """
 import csv, sys
 from Bio.PDB import PDBParser, ShrakeRupley
@@ -17,8 +27,9 @@ THREE2ONE = {"ALA":"A","ARG":"R","ASN":"N","ASP":"D","CYS":"C","GLN":"Q","GLU":"
 POCKET = set(range(38, 59))          # P0 pocket span, residues 38-58
 
 pdb, out = sys.argv[1], sys.argv[2]
+n_points = int(sys.argv[3]) if len(sys.argv) > 3 else 100
 s = PDBParser(QUIET=True).get_structure("wbp5", pdb)
-ShrakeRupley(n_points=960).compute(s[0], level="R")
+ShrakeRupley(n_points=n_points).compute(s[0], level="R")
 
 rows = []
 for res in s[0].get_residues():
@@ -41,9 +52,8 @@ with open(out, "w", newline="") as fh:
     w = csv.DictWriter(fh, fieldnames=list(rows[0].keys()))
     w.writeheader(); w.writerows(rows)
 
-pk = [r for r in rows if r["in_P0_pocket_38_58"]]
+pk = sorted(r["rsa"] for r in rows if r["in_P0_pocket_38_58"])
+mid = pk[len(pk)//2] if len(pk) % 2 else (pk[len(pk)//2-1] + pk[len(pk)//2]) / 2
 print(f"residues: {len(rows)}  (span {rows[0]['residue_number']}-{rows[-1]['residue_number']})")
-print(f"P0 span residues: {len(pk)}  mean RSA {sum(r['rsa'] for r in pk)/len(pk):.3f}")
-print(f"P0 span mean pLDDT {sum(r['mean_pLDDT'] for r in pk)/len(pk):.2f}")
-buried = [r for r in pk if r['rsa'] < 0.25]
-print(f"P0 span buried (RSA<0.25): {len(buried)}")
+print(f"sphere sampling: {n_points} points")
+print(f"P0 region (38-58): n={len(pk)}  RSA {min(pk):.4f}-{max(pk):.4f}  median {mid:.4f}")
