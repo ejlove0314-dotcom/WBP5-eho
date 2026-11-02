@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# SUPERSEDED by figS5_300dpi.py, which produced the published Fig. S5.
+# Retained for provenance only. The expectation comment on the rho_pEMT print
+# below reads [0.214]; the published figure and its legend report 0.250, which
+# is the value figS5_300dpi.py prints and checks. Run figS5_300dpi.py to
+# reproduce the published panel.
 """
 Fig. S5 재생성 (YAP/TAZ) — matched-null 10,000 반영 (2026-10-21, v2)
 ===================================================================
