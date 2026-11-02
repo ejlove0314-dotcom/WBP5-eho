@@ -8,7 +8,7 @@ mesenchymal compartments in HNSCC."
 
 | Path | Contents |
 |------|----------|
-| `verification/` | Numerical verification of every value reported in the manuscript. **Start here.** |
+| `verification/` | The numerical audit carried out while the manuscript was under review (87 ledger rows, July-August 2026), together with `README_verification_ledger_scope.md`, which records which of its locations the revision moved and which two values it revised. The recorded values are current; its section and table numbers are those of the submitted version. |
 | `reproducibility/` | Scripts and verified outputs for manuscript Tables 1 and 2, the corrected cell-level file and the note describing its correction. |
 | `revision_outputs/` | Analyses added during revision: the GSE103322 patient-level and permutation outputs (`gse103322_puram/`), the GSE198315 re-annotation and compartment analyses (`gse198315*/`), the four credibility analyses (`credibility/`), subsample barcodes, structural outputs, reference files and the scripts that produced them. |
 | `tables/` | Source tables underlying Supplementary Tables S3 and S4. |
@@ -169,7 +169,7 @@ The AlphaFold model is AF-Q9UHQ7-F1-model_v6 (UniProt Q9UHQ7).
 | `reproducibility/swissadme_final_20260820.csv` | Table S5 Sections B, C and E; Table S10 |
 | `deprecated/SwissADME_Analysis_Report.docx`, Section 4.2 | Table S5 Section D |
 | `reproducibility/docking_replicates_P0_summary_v2.csv` | Table S8; Table S10 |
-| `reproducibility/ProTox-3.0 - ... candidate 1-5, pazopanib.xlsx` | Table S5 Sections F1-F2 |
+| `reproducibility/ProTox-3.0 - Prediction of TOXicity of chemicals *.xlsx` (six files: candidates 1-5 and pazopanib) | Table S5 Sections F1-F2 |
 | `phase1_singlecell/gse198315_wbp5_marker_correlations.tsv` | Fig. 5B; Fig. S1 |
 | `phase1_singlecell/make_gse198315_wbp5_marker_pipeline.py` | Script generating the above TSV |
 | `tables/TableS3_gse198315_depth_correction.csv` | Table S3 |
