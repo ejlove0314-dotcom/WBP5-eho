@@ -9,7 +9,7 @@ been modified.
 
 | Folder | Contents |
 |---|---|
-| `scripts/` | Analysis scripts for every result reported in the revision. `wbp5_rev_common.py` holds the shared statistical routines; the `GSE198315_step*` scripts run in numerical order. |
+| `scripts/` | Analysis scripts for every result reported in the revision. `wbp5_rev_common.py` holds the shared statistical routines; the `GSE198315_step*` scripts run in numerical order; `mixedmodel_five_marker_composite.py` reproduces the patient-aware mixed-effects model quoted in the response to reviewers. |
 | `gse103322_puram/` | Discovery-cohort (GSE103322) signature scoring, within-patient correlations, transcriptome-wide correlation profiles, Puram gene-set enrichment, and the YAP/TAZ permutation (`P5_YAP_TAZ_permutation.csv`). |
 | `gse198315/` | Secondary-cohort (GSE198315) re-annotation, compartment composition, inferCNV, differential expression and depth-adjusted analyses. Primary subsample, random seed 42. |
 | `gse198315_seed2026/`, `gse198315_seed7/` | The same pipeline repeated under two further subsampling seeds. |
@@ -17,7 +17,7 @@ been modified.
 | `verify/` | Independent recomputation of reported values against the raw tool outputs. |
 | `barcodes/` | Cell barcodes retained in each 80,000-cell subsample, one file per seed. |
 | `reference/` | Input gene lists, resolved parameters, AlphaFold predicted aligned error, and regenerated comparison tables. |
-| `structure/` | Per-residue relative solvent accessibility of the AlphaFold model, with the script that computes it. |
+| `structure/` | Per-residue relative solvent accessibility of the AlphaFold model, with the script that computes it, the companion 960-point calculation and a note on the sampling density. |
 
 ## Recorded paths in run-metadata files
 
@@ -44,6 +44,21 @@ the recorded script checksums continue to match the deposited scripts.
   negative and positive control genes.
 - `structure/WBP5_RSA_per_residue.csv` — per-residue SASA and RSA for
   AF-Q9UHQ7-F1-model_v6, with the P₀ pocket span (residues 38–58) flagged.
+  Computed at the Biopython default of 100 sphere points, which is the setting
+  Supplementary Table S18 reports; `structure/WBP5_RSA_per_residue_960pt.csv`
+  holds the same calculation at 960 points.
+
+## Correction notes
+
+Two files in this directory were corrected after the first revision was
+prepared. In both cases the manuscript value was already correct and the
+deposited file was not; each correction is documented next to the file it
+concerns.
+
+- `gse198315/README_J1_correction.md` — one cell missing from the Fig. 4A
+  verification export.
+- `structure/README_RSA_correction.md` — the sphere-sampling density used for
+  the per-residue solvent accessibility.
 
 ## Data not deposited here
 
