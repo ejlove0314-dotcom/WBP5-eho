@@ -60,7 +60,7 @@ SwissADME values above by at most 0.01 Da; see the note there.
 
 ## Pocket assignment
 
-Grid centers for the two pockets differ by 32.75 A:
+Grid centers for the two pockets differ by 34.56 A:
 
 | Pocket | Grid center | DoGSiteScorer Drug Score | Used in manuscript |
 |--------|-------------|--------------------------|--------------------|
