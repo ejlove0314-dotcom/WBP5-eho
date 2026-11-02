@@ -47,6 +47,11 @@ MTiOpenScreen, SwissADME, ProTox 3.0, TIMER3) require no local installation.
 toxicity result reported in the manuscript. Each string was read back from the
 corresponding docked pose in `docking_P0/` and re-parsed with RDKit 2026.03.5.
 
+The molecular weights below are RDKit values. Supplementary Tables S5 and S10 report
+the SwissADME values for the same structures, which differ by at most 0.01 Da because
+the two tools use different standard atomic weights; `reproducibility/swissadme_final_20260820.csv`
+holds the SwissADME figures.
+
 | ID | Formula | MW (Da) | InChIKey |
 |----|---------|---------|----------|
 | Candidate_1 | C17H21N3O3S | 347.44 | JGUIGLSIQCDQRA-UHFFFAOYSA-N |
