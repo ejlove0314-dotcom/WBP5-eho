@@ -1,7 +1,13 @@
 # Deprecated files
 
-Nothing in this directory was used to produce any result reported in the manuscript.
-These files are retained for provenance only.
+With one exception, nothing in this directory was used to produce any result
+reported in the manuscript; these files are retained for provenance only.
+
+The exception is `SwissADME_Analysis_Report.docx`. Section 4.2 of that report is the
+source of the CYP450 predictions tabulated in Supplementary Table S5, Section D, for
+Candidate_2 to Candidate_5. Every other section of the same report is superseded, and
+the values it records for Candidate_1 and for pazopanib are not used anywhere. The
+reasons are set out under the warning below.
 
 ## Contents
 
@@ -13,14 +19,15 @@ These files are retained for provenance only.
 | `convert_simple.py`, `convert_simple2.py`, `convert_simple3.py`, `convert_smiles_to_sdf.py`, `convert_to_pdb.py` | Ad hoc format-conversion helpers used with the deprecated SMILES files. |
 | `gen_img_simple.py`, `generate_images.py`, `generate_protein_image.py` | Draft figure-rendering scripts. Manuscript figures were produced separately. |
 | `PyRx_docking_SMILES.txt`, `SwissADME_input_SMILES.txt` | Input lists for the earlier docking and ADMET submissions. Both carry the two incorrect structures described below. |
-| `SwissADME_Analysis_Report.docx` | ADMET report dated 13 April 2026, generated from those inputs. See the warning below. |
+| `SwissADME_Analysis_Report.docx` | ADMET report dated 13 April 2026, generated from those inputs. **Section 4.2 is the source of Supplementary Table S5, Section D**; every other section is superseded. See the warning below. |
 | `fda.sdf` | Partial local import of an approved-compound library (103 entries with ZINC identifiers). The local import was abandoned; the library-scale screen reported in the manuscript was run on the MTiOpenScreen server instead (Methods 2.7). |
 | `boltz2/` | Exploratory Boltz-2 co-folding run; not reported (see root README). |
 
 ## Warning: `SwissADME_Analysis_Report.docx`
 
 This report predates the structure corrections and **contradicts the manuscript on
-three points**. It is retained only to document what was originally computed.
+three points**, listed below. Apart from Section 4.2, it is retained only to document
+what was originally computed.
 
 | Statement in the report | Status |
 |-------------------------|--------|
@@ -30,6 +37,26 @@ three points**. It is retained only to document what was originally computed.
 
 The ADMET and toxicity values reported in the manuscript were obtained after these
 corrections and are tabulated in Supplementary Tables S5 and S10.
+
+## Why Section 4.2 of this report is still the source of Table S5, Section D
+
+The SwissADME CYP450 module returned no output when the corrected structures were
+re-submitted in August 2026: `reproducibility/swissadme_final_20260820.csv` carries
+`n/d` in all five CYP columns for all six compounds. The April 2026 session is
+therefore the only run that produced CYP values, and Section 4.2 of this report is the
+record of it.
+
+Four of its six rows were computed on the structures the manuscript analyzes. Because
+both runs are SwissADME, their molecular weights can be compared directly against the
+August file: this report records 353.42, 343.40, 355.39 and 349.40 for Candidate_2,
+Candidate_3, Candidate_4 and Candidate_5, which are the August values to the
+hundredth, whereas its 335.42 for Candidate_1 and 472.58 for pazopanib belong to the
+two superseded structures described above (347.43 and 437.52 in the August file).
+Supplementary Table S5, Section D reports the four and gives `n.d.` for the other two,
+which is why those two rows are blank there.
+
+Molecular weights in the root `README.md` are RDKit values and differ from the
+SwissADME values above by at most 0.01 Da; see the note there.
 
 ## Pocket assignment
 
