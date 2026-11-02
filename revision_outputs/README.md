@@ -42,6 +42,15 @@ the recorded script checksums continue to match the deposited scripts.
   correlations before and after adjustment for per-cell sequencing depth.
 - `credibility/*/CR3_family_and_controls.csv` — TCEAL/WBP family specificity with
   negative and positive control genes.
+- `gse198315/G4_WBP5_by_new_celltype.csv` — WBP5 positivity by compartment after
+  re-annotation. One row carries three names and they are the same 2,955 cells:
+  this file calls it `Ambiguous`, Supplementary Table S17 calls it
+  `Unassigned (myofibroblast)` (cluster 24), and the response to reviewers calls
+  it a myofibroblast population. `Ambiguous` is what the automated rule emitted,
+  because the cluster's fibroblast and muscle marker scores were effectively
+  tied; the other two are the label the manuscript reports after inspection. The
+  row gives 77.53% WBP5-positive across ten patients, second to fibroblasts at
+  85.55%, which is the 77.5% the response letter quotes.
 - `structure/WBP5_RSA_per_residue.csv` — per-residue SASA and RSA for
   AF-Q9UHQ7-F1-model_v6, with the P₀ pocket span (residues 38–58) flagged.
   Computed at the Biopython default of 100 sphere points, which is the setting
