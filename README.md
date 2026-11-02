@@ -19,7 +19,7 @@ mesenchymal compartments in HNSCC."
 | `docking_P0/mtiopenscreen/` | MTiOpenScreen Drugs-lib screen at the same pocket (job V06821248773098). |
 | `phase1_singlecell/` | GSE198315 single-cell analysis pipeline. |
 | `pockets/`, `residues/` | DoGSiteScorer pocket detection: run parameters, descriptor table, grid maps and pocket-lining residues. |
-| `deprecated/` | Superseded scripts, ligand files and reports. **Not used for any reported result.** |
+| `deprecated/` | Superseded scripts, ligand files and reports. Nothing here underlies a reported result, with one exception: Section 4.2 of `SwissADME_Analysis_Report.docx` is the source of Supplementary Table S5, Section D. See `deprecated/README.md`. |
 
 Root-level files are the AlphaFold model (`AF-Q9UHQ7-F1-model_v6.pdb`, and the
 identical working copy `WBP5_AlphaFold.pdb` used as the docking receptor), the
@@ -47,10 +47,12 @@ MTiOpenScreen, SwissADME, ProTox 3.0, TIMER3) require no local installation.
 toxicity result reported in the manuscript. Each string was read back from the
 corresponding docked pose in `docking_P0/` and re-parsed with RDKit 2026.03.5.
 
-The molecular weights below are RDKit values. Supplementary Tables S5 and S10 report
-the SwissADME values for the same structures, which differ by at most 0.01 Da because
-the two tools use different standard atomic weights; `reproducibility/swissadme_final_20260820.csv`
-holds the SwissADME figures.
+The molecular weights below are RDKit values; its periodic table gives sulfur
+32.067. Supplementary Tables S5 and S10 report the SwissADME values for the same
+structures, held in `reproducibility/swissadme_final_20260820.csv`. For the six
+compounds both report, they agree on Candidate_4 and are 0.01 Da lower on the other
+five; the difference arises in the two tools' atomic-mass tables and rounding, not in
+the structures.
 
 | ID | Formula | MW (Da) | InChIKey |
 |----|---------|---------|----------|
@@ -165,6 +167,7 @@ The AlphaFold model is AF-Q9UHQ7-F1-model_v6 (UniProt Q9UHQ7).
 | File | Used in |
 |---|---|
 | `reproducibility/swissadme_final_20260820.csv` | Table S5 Sections B, C and E; Table S10 |
+| `deprecated/SwissADME_Analysis_Report.docx`, Section 4.2 | Table S5 Section D |
 | `reproducibility/docking_replicates_P0_summary_v2.csv` | Table S8; Table S10 |
 | `reproducibility/ProTox-3.0 - ... candidate 1-5, pazopanib.xlsx` | Table S5 Sections F1-F2 |
 | `phase1_singlecell/gse198315_wbp5_marker_correlations.tsv` | Fig. 5B; Fig. S1 |
@@ -177,13 +180,19 @@ The AlphaFold model is AF-Q9UHQ7-F1-model_v6 (UniProt Q9UHQ7).
 ### Note on superseded files
 
 Files in `deprecated/` correspond to an earlier analysis run and are retained
-for provenance only. They are not the basis of any value reported in the
-manuscript. In particular, the Candidate_1 structure was corrected after the
-initial SwissADME submission (see Table S5, Section A footnote); all values in
-the manuscript derive from `swissadme_final_20260820.csv`.
-Molecular weights in this table were recomputed with RDKit 2026.03.5 and may
-differ from the SwissADME values reported in the manuscript by 0.01 Da owing
-to differing atomic mass tables.
+for provenance only. With one exception they are not the basis of any value
+reported in the manuscript: the Candidate_1 and pazopanib structures were both
+corrected after the initial SwissADME submission, and the physicochemical,
+drug-likeness and ADMET values in the manuscript derive from
+`reproducibility/swissadme_final_20260820.csv`.
+
+The exception is the CYP450 predictions in Supplementary Table S5, Section D.
+That module returned no output when the corrected structures were re-submitted
+in August 2026 — the five CYP columns of `swissadme_final_20260820.csv` read
+`n/d` for all six compounds — so the four rows Table S5 reports come from
+Section 4.2 of `deprecated/SwissADME_Analysis_Report.docx`. Methods Section
+2.10 states this, and `deprecated/README.md` sets out how the molecular weights
+establish which of the report's rows are usable.
 
 ## Running the deposited scripts
 
