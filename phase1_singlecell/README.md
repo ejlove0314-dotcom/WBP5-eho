@@ -103,5 +103,10 @@ Both are approximations and do not establish compartment identity.
 
 Python 3.10+ with `scanpy`, `anndata`, `numpy`, `pandas`, `scipy`,
 `statsmodels`, `matplotlib`, `seaborn` and `scienceplots`. Random seeds are
-fixed at 42 throughout. Exact package versions used for the reported statistics
-are recorded in `gse198315_region_stats_summary.json`.
+fixed at 42 throughout. `gse198315_region_stats.py` records the package versions
+it ran under in the `versions` field of `gse198315_region_stats_summary.json`,
+which it writes into its output directory at run time; that file is produced by
+running the script and is not deposited here. The versions recorded for the
+analyses added during revision are in the `environment*.txt` files under
+`revision_outputs/`, and the conda specification is `environment.yml` at the
+repository root.
