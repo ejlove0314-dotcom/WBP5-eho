@@ -1,14 +1,16 @@
 # WBP5-eho
 
-Code and data supporting the manuscript "Single-cell-to-structure nomination of
-WBP5 (TCEAL9) as a p-EMT-associated target in HNSCC."
+Code and data supporting the manuscript "Single-cell analysis identifies WBP5
+(TCEAL9) as a partial-EMT program-associated gene shared by malignant and
+mesenchymal compartments in HNSCC."
 
 ## Repository layout
 
 | Path | Contents |
 |------|----------|
 | `verification/` | Numerical verification of every value reported in the manuscript. **Start here.** |
-| `reproducibility/` | Scripts and verified outputs for manuscript Tables 1-4. |
+| `reproducibility/` | Scripts and verified outputs for manuscript Tables 1 and 2, the corrected cell-level file and the note describing its correction. |
+| `revision_outputs/` | Analyses added during revision: the GSE103322 patient-level and permutation outputs (`gse103322_puram/`), the GSE198315 re-annotation and compartment analyses (`gse198315*/`), the four credibility analyses (`credibility/`), subsample barcodes, structural outputs, reference files and the scripts that produced them. |
 | `tables/` | Source tables underlying Supplementary Tables S3 and S4. |
 | `timer3/` | Raw TIMER3 exports underlying Table S4 and Fig. S3. |
 | `figures/` | Scripts that regenerate Figs. S1 and S3. |
@@ -74,8 +76,8 @@ value, source file, source value, status).
 
 To reproduce the derived statistics that are not stored in any export - the two
 chi-square tests in Section 3.1.2, the Benjamini-Hochberg q values in Table S4,
-the docking margins in Sections 3.5 and 3.7, and the depth-correction deltas in
-Table S3:
+the docking margins in Supplementary Note S1 Sections 3.5 and 3.7, and the
+depth-correction deltas in Table S3:
 
 ```bash
 python verification/verify_recompute.py
@@ -130,7 +132,7 @@ All docking values reported in the manuscript derive from pocket P0
 in five replicates per ligand using fixed seeds 42, 1042, 2042, 3042 and 4042.
 
 `pockets/wbp5alphafoldpdb*_desc.txt` is the DoGSiteScorer descriptor table from which
-the pocket geometry reported in Table 3 is taken: for P0, volume 229.62 A^3, surface
+the pocket geometry reported in Table S9 is taken: for P0, volume 229.62 A^3, surface
 811.54 A^2, depth 24.90 A, enclosure 0.36 and Drug Score 0.837. The same table gives
 the corresponding values for the seven other detected pockets, none of which exceeds a
 Drug Score of 0.40. `pockets/PocXlsDescriptors.txt` explains each column, and
@@ -157,8 +159,8 @@ The AlphaFold model is AF-Q9UHQ7-F1-model_v6 (UniProt Q9UHQ7).
 
 | File | Used in |
 |---|---|
-| `reproducibility/swissadme_final_20260820.csv` | Table 4; Table S5 Sections B-C |
-| `reproducibility/docking_replicates_P0_summary_v2.csv` | Table 3; Table 4 |
+| `reproducibility/swissadme_final_20260820.csv` | Table S5 Sections B, C and E; Table S10 |
+| `reproducibility/docking_replicates_P0_summary_v2.csv` | Table S8; Table S10 |
 | `reproducibility/ProTox-3.0 - ... candidate 1-5, pazopanib.xlsx` | Table S5 Sections F1-F2 |
 | `phase1_singlecell/gse198315_wbp5_marker_correlations.tsv` | Fig. 5B; Fig. S1 |
 | `phase1_singlecell/make_gse198315_wbp5_marker_pipeline.py` | Script generating the above TSV |
@@ -177,6 +179,19 @@ the manuscript derive from `swissadme_final_20260820.csv`.
 Molecular weights in this table were recomputed with RDKit 2026.03.5 and may
 differ from the SwissADME values reported in the manuscript by 0.01 Da owing
 to differing atomic mass tables.
+
+## Correction records
+
+Four deposited files were corrected after the first revision was prepared. Each
+correction is documented next to the file it concerns, and in every case the
+manuscript value was already correct:
+
+| Note | Concerns |
+|---|---|
+| `reproducibility/README_cell_level_correction.md` | 18 rows whose annotation had been corrupted to `#NAME?` by spreadsheet round-tripping, 173 rows that had lost their patient identifier, and a new `pooled_plate` column that makes the Methods 2.2 exclusion reproducible from the file alone |
+| `revision_outputs/gse198315/README_J1_correction.md` | One cell missing from the Fig. 4A verification export |
+| `revision_outputs/structure/README_RSA_correction.md` | The sphere-sampling density used for the per-residue solvent accessibility |
+| `verification/README_verification_ledger_scope.md` | The scope of the verification ledger and audit report, both of which use the section and table numbering of the submitted version |
 
 ## License
 
