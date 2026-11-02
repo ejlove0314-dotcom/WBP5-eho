@@ -2,7 +2,7 @@
 
 Library-scale docking of the MTiOpenScreen Drugs-lib collection against the same pocket,
 receptor file, grid definition and exhaustiveness used in the local pipeline. This screen
-provides the external reference scale reported in Section 3.5 of the manuscript.
+provides the external reference scale reported in Section 3.5 of Supplementary Note S1.
 
 ## Job record
 
