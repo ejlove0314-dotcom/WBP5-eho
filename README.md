@@ -207,6 +207,16 @@ repository no longer holds the scripts that produced the deposited outputs.
 Adjust the paths to your own layout before running a script, or read the
 deposited output it produced, which is stored beside it.
 
+**Checking the claims in this documentation.** `verification/check_deposit_claims.py`
+resolves every path the README files here name, recomputes the two script counts
+stated above from the files themselves, and lists the sentences in this
+documentation that make a universal or exclusive claim about the deposit. It needs
+only the Python standard library and takes no arguments; passing the manuscript,
+Supplementary Information and response-letter `.docx` files extends the first and
+third checks over the paper as well. It is a checking tool rather than one of the
+fifty-five analysis scripts counted above, and it excludes itself from those counts,
+so a reader who counts `.py` files in this repository will find fifty-six.
+
 **Comment language.** Nineteen scripts carry comments in Korean, most of them
 in `revision_outputs/scripts/`. The code, the variable names and the printed
 output are in English throughout, and every value these scripts produce is
