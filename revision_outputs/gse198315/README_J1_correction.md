@@ -63,4 +63,9 @@ should print `{'WBP5-high': 2345, 'EGFR-high': 878, 'Double-high': 84}`.
 
 The chi-square check in point 1 above uses these counts with the double-high
 row subtracted from the two "-high" rows, which is how Methods Section 2.2
-defines the mutually exclusive groups.
+defines the mutually exclusive groups. That subtraction matters: carried out on
+the overlapping WBP5-high and EGFR-high groups instead, the compartment test
+returns 652.85 rather than the 692.47 the Fig. 4(D) legend reports, on the same
+8 degrees of freedom and with the same 2 of 15 expected counts below five. The
+degrees of freedom and the expected-count check therefore do not distinguish
+the two groupings, and only the statistic does.
