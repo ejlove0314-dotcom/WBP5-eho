@@ -17,6 +17,10 @@ common definitions, its four sets of decision criteria, its pre-specified
 gene lists and its negative-control list are the plan the runs recorded here
 were judged against.
 
+The hash is computed over the file with LF line endings, as it is stored
+in the repository; a checkout that converts line endings will not reproduce
+it. The repository carries a `.gitattributes` that fixes this.
+
 The line itself has deliberately not been rewritten, for the reason given under
 "Running the deposited scripts" in the top-level `README.md`: these records are
 the record of what was executed. Line 1 of each record states the SHA-256 of
