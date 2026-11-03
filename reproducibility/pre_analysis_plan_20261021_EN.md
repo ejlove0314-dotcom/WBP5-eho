@@ -7,7 +7,7 @@
 > and is the authoritative record. The translation adds nothing to the original
 > and omits nothing from it. The plan was written before any of the four
 > analyses below was run, and the decision rules were not altered afterwards.
-> Analysis outputs are in `results_cred/`.
+> Analysis outputs are in `revision_outputs/credibility/`.
 
 Decision: the TCEAL/WBP gene-family specificity analysis is **included**. All
 four analyses are to be reported in the response letter and in the
@@ -112,7 +112,7 @@ change is to be recorded separately.
 
 ## Outcome against these criteria
 
-Recorded after execution, from `results_cred/` (see the response letter and
+Recorded after execution, from `revision_outputs/credibility/` (see the response letter and
 Supplementary Tables S14–S16 for the values):
 
 | Criterion | Outcome |

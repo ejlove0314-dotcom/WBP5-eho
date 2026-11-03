@@ -1,7 +1,7 @@
 # 신뢰도 분석 4종 — 사전 판정 규칙 (결과 확인 전 기록, 2026-10-21 KST)
 
 > 이 파일은 작성 당시의 한국어 원본이며, 영역본 `pre_analysis_plan_20261021_EN.md`와
-> 함께 보관한다. 분석 산출물은 `results_cred/` 에 있다.
+> 함께 보관한다. 분석 산출물은 `revision_outputs/credibility/` 에 있다.
 
 결정: TCEAL/WBP 계열 특이성 분석 **포함**. 결과 방향과 무관하게 4종 모두 응답서·SI에 보고한다.
 이 문서는 실행 전에 작성되었으며, 결과를 본 뒤 기준을 바꾸지 않는다. 바꿔야 할 경우 변경 사유를 별도로 기록한다.
@@ -50,7 +50,7 @@
 
 ## 실행 후 판정 결과
 
-`results_cred/` 산출물 기준. 수치는 응답서와 Supplementary Table S14–S16 참조.
+`revision_outputs/credibility/` 산출물 기준. 수치는 응답서와 Supplementary Table S14–S16 참조.
 
 | 기준 | 결과 |
 |---|---|
