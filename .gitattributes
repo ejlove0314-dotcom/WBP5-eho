@@ -1,0 +1,7 @@
+# The SHA-256 digests recorded in revision_outputs/credibility/*/CR_run_info.txt
+# are computed over these two scripts as they are stored here, with LF line
+# endings. A checkout that converts line endings would not reproduce them, so
+# their line endings are pinned. Every other deposited file is left exactly as
+# it was deposited, including the files stored with CRLF.
+revision_outputs/scripts/CRED_profiles_20261021.py text eol=lf
+revision_outputs/scripts/wbp5_rev_common.py text eol=lf
