@@ -217,7 +217,7 @@ third checks over the paper as well. It is a checking tool rather than one of th
 fifty-five analysis scripts counted above, and it excludes itself from those counts,
 so a reader who counts `.py` files in this repository will find fifty-six.
 
-**Comment language.** Nineteen scripts carry comments in Korean, most of them
+**Comment language.** Eighteen scripts carry comments in Korean, most of them
 in `revision_outputs/scripts/`. The code, the variable names and the printed
 output are in English throughout, and every value these scripts produce is
 also recorded in the deposited CSV outputs and in `verification/`, so a reader
