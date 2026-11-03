@@ -109,7 +109,9 @@ RECORD = None
 # when the sentence marks it as an input or a run-time product.
 CLAIMS_HELD = re.compile(
     r'\b(?:are|is|were|was) (?:recorded|deposited|held|stored|given|listed|'
-    r'tabulated|contained|provided|supplied|included) (?:in|with|as)\b'
+    r'tabulated|contained|provided|supplied|included|archived) (?:in|with|as|on)\b'
+    r'|\b(?:are|is|were|was) archived\b'
+    r'|\bavailable (?:in|at|from) (?:our|the|this) repository\b'
     r'|\bdeposited (?:as|in|here|with)\b'
     r'|\baccompan(?:y|ies|ied) this (?:revision|submission)\b'
     r'|\b(?:ships|comes) with\b'
@@ -319,7 +321,8 @@ def main(argv):
                 entry = (tag, i, tok, text[max(0, m.start() - 55):m.start() + 55])
                 (known if tok in KNOWN else bad).append(entry)
     print('  %d tokens, %d distinct (source, path) pairs' % (total, len(seen)))
-    print('  unresolved %d   known-and-explained %d' % (len(bad), len(known)))
+    print('  %d token(s) examined; unresolved %d   known-and-explained %d'
+          % (total, len(bad), len(known)))
     for tag, i, tok, ctx in bad:
         print('    FAIL  %-26s %-5s %-44s | %s'
               % (tag, i, tok, ctx.replace('\n', ' ')))
@@ -394,7 +397,11 @@ def main(argv):
     print('=' * 74)
     print('D. Cross-references to tables, figures and sections')
     print('=' * 74)
-    failed_d = False
+    # None, not False: a check that did not run is not a check that
+    # passed.  With False here, the default invocation -- which has no
+    # manuscript to compare against -- printed "Skipped" and still
+    # exited 0, so a reader could not tell the two apart.
+    failed_d = None
     if not doc_paras:
         print('  Skipped: this check needs the manuscript and Supplementary')
         print('  Information, which are not deposited here. Pass them on the')
@@ -537,7 +544,13 @@ def main(argv):
                          % (h, sha, tag, i, ' '.join(sent.split())[:200]))
         print('  recorded %d sentence(s) at %s' % (len(found), sha))
 
-    return 1 if (bad or failed_b or failed_d) else 0
+    if bad or failed_b or failed_d:
+        return 1
+    if failed_d is None:
+        print('\nExit 2: check D did not run (no manuscript given), so '
+              'this is not a clean pass over the whole scope.')
+        return 2
+    return 0
 
 
 if __name__ == '__main__':
