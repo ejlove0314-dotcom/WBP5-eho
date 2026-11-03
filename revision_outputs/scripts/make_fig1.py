@@ -1,15 +1,26 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-make_fig1.py — Figure 1 (Computational workflow)
-=================================================
+make_fig1.py — Figure 1 (Computational workflow), editable PowerPoint version
+=============================================================================
 Corresponds one-to-one with Fig. 1 of the manuscript and with its legend.
 Every element is a native PowerPoint shape, so the figure can be edited
 directly in PowerPoint.
 
 Output: Figure_1_workflow_20261103.pptx
-        (PDF and PNG are produced with LibreOffice:
-         soffice --headless --convert-to pdf)
+
+!! This script is NOT the source of the submitted figure file. !!
+
+    The journal does not accept figures prepared in PowerPoint or Word format
+    and converted to PDF, so the Figure_1.pdf supplied with the manuscript is
+    drawn directly with matplotlib by
+
+        revision_outputs/scripts/make_fig1_vector.py
+
+    That script carries the same geometry, colours, font sizes and strings as
+    this one; the two were checked word by word against each other (194 words,
+    identical text, vertical positions within 0.11 pt). This file is retained
+    because the .pptx remains useful for editing the diagram by hand.
 
 -- revision of 2026-11-03 --------------------------------------------------
 Before this revision the deposited script did not reproduce the submitted
