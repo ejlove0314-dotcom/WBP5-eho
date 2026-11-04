@@ -44,7 +44,7 @@ the recorded script checksums continue to match the deposited scripts.
   negative and positive control genes.
 - `gse198315/G4_WBP5_by_new_celltype.csv` — WBP5 positivity by compartment after
   re-annotation. One row carries three names and they are the same 2,955 cells:
-  this file calls it `Ambiguous`, Supplementary Table S17 calls it
+  this file calls it `Ambiguous`, Supplementary Table S2 calls it
   `Unassigned (myofibroblast)` (cluster 24), and the response to reviewers calls
   it a myofibroblast population. `Ambiguous` is what the automated rule emitted,
   because the cluster's fibroblast and muscle marker scores were effectively
@@ -54,7 +54,7 @@ the recorded script checksums continue to match the deposited scripts.
 - `structure/WBP5_RSA_per_residue.csv` — per-residue SASA and RSA for
   AF-Q9UHQ7-F1-model_v6, with the P₀ pocket span (residues 38–58) flagged.
   Computed at the Biopython default of 100 sphere points, which is the setting
-  Supplementary Table S18 reports; `structure/WBP5_RSA_per_residue_960pt.csv`
+  Supplementary Table S7 reports; `structure/WBP5_RSA_per_residue_960pt.csv`
   holds the same calculation at 960 points.
 
 ## Correction notes
