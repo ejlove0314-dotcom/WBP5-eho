@@ -17,11 +17,11 @@ Thirteen ledger rows refer to `Section 3.4`, `Section 3.5`, `Section 3.6`,
 `Section 3.7`, `Table 3`, `Table 4` or `Fig. 6A`, and `VERIFICATION.md` uses the
 same labels in its narrative. Those labels belong to the submitted version. The quantities themselves are unchanged and are now reported
 in the Supplementary Information, chiefly in Supplementary Note S1 and Tables
-S8 to S13. For example, the four rows giving the P0 pocket descriptors
+S13 to S18. For example, the four rows giving the P0 pocket descriptors
 (Drug Score 0.837, volume 229.6, surface 811.5, depth 24.9; the twelve
 pocket-lining residues; mean pLDDT 79.4; eight detected pockets) are now
-Table S9, and the rows for the docking replicates and the compound profiles
-are now Tables S8 and S10.
+Table S14, and the rows for the docking replicates and the compound profiles
+are now Tables S13 and S15.
 
 ## Rows revised with the manuscript
 

@@ -79,28 +79,28 @@ Sections 3.5 and 3.7 were recomputed from those means. Molecular weight,
 synthetic accessibility, gastrointestinal absorption, and lead-likeness
 violations were matched against `swissadme_final_20260820.csv`.
 
-The SwissADME CYP450 profile in Table S5 Section D derives from an April 2026
+The SwissADME CYP450 profile in Table S8 Section D derives from an April 2026
 session. The prediction module returned no output when the corrected
 structures of Candidate_1 and pazopanib were resubmitted in August 2026, which
 is why those two rows are marked `n.d.`; the remaining four compounds were
 structurally unchanged between sessions, so their April values remain valid.
-This is stated in Sections 2.10 and 2.11 and in the Table S5 legend.
+This is stated in Sections 2.10 and 2.11 and in the Table S8 legend.
 
 ### Bulk cohort (TIMER3)
 
-All thirty coefficient/*p*-value pairs in Table S4 were matched against the ten
+All thirty coefficient/*p*-value pairs in Table S6 were matched against the ten
 `genecorr_table-*.csv` exports, and the corresponding Benjamini–Hochberg *q*
 values were computed in `verify_recompute.py`. The purity coefficient shown in
-Fig. S3A (ρ = 0.125, *p* = 5.49 × 10⁻³) matches the TIMER3 plot annotation.
+Fig. S2A (ρ = 0.125, *p* = 5.49 × 10⁻³) matches the TIMER3 plot annotation.
 
 ---
 
 ## Discrepancy found and corrected
 
-**Table S3, KRT14 delta.** The draft value was −0.092. The exact difference is
+**Table S5, KRT14 delta.** The draft value was −0.092. The exact difference is
 0.1934675998662732 − 0.2846975876897106 = −0.09123, which rounds to **−0.091**.
 Corrected in `tables/TableS3_gse198315_depth_correction.csv`. The range quoted
-in the Section 2.3 and Table S3 legends (0.09–0.15) is unaffected: the exact
+in the Section 2.3 and Table S5 legends (0.09–0.15) is unaffected: the exact
 range is 0.091–0.154.
 
 ---
@@ -157,7 +157,7 @@ values are mutually consistent.
 ## Optional further check
 
 `verify_TableS6_and_pseudobulk.py` recomputes the compartment-wise positivity
-in Table S6 directly from the cell-level matrix, and additionally computes
+in Table S12 directly from the cell-level matrix, and additionally computes
 patient-level pseudobulk Spearman coefficients among malignant cells. The
 latter are not currently in the manuscript; they would strengthen the
 pseudoreplication limitation discussed in Section 4.4.
