@@ -10,16 +10,16 @@ written out, not in the analysis.
 The GSE103322 annotation string for this category is `-Fibroblast`. Because the
 string begins with a hyphen, a spreadsheet application parses it as a formula
 and writes back `#NAME?` on save. The category is the one tabulated in
-Table S6 as **Fibroblast (excl.)** (n = 18 in the full file; n = 17 after the
+Table S12 as **Fibroblast (excl.)** (n = 18 in the full file; n = 17 after the
 pooled-plate exclusion described below).
 
-In this version both columns carry the Table S6 label `Fibroblast (excl.)`.
+In this version both columns carry the Table S12 label `Fibroblast (excl.)`.
 The original GEO string is recorded here rather than in a column of its own,
 because a column holding `-Fibroblast` would reintroduce the same failure mode.
 
 A reviewer recomputing the cancer-versus-fibroblast contrast from the earlier
 file obtained n = 1,422 rather than the n = 1,440 stated in Section 3.1.1.
-The manuscript figure combines the two fibroblast rows of Table S6
+The manuscript figure combines the two fibroblast rows of Table S12
 (1,422 + 18); that combination is stated in the text and is reproducible from
 this file by selecting `compartment in {"Fibroblast", "Fibroblast (excl.)"}`.
 
@@ -49,7 +49,7 @@ file alone: filtering to `pooled_plate == FALSE` returns 2,200 malignant and
 ## Other changes
 
 `compartment` and `non_cancer_type` are normalized to the labels used in
-Table S6, so that the table can be reproduced from this file without an
+Table S12, so that the table can be reproduced from this file without an
 external mapping. Specifically, `0` and empty annotations become `Unannotated`,
 `myocyte` becomes `Myocyte`, and `non_cancer_type` is left empty for malignant
 cells rather than holding `0`. No numeric value in the file was changed.
@@ -58,7 +58,7 @@ cells rather than holding `0`. No numeric value in the file was changed.
 
 | Quantity | Reported | From this file |
 |---|---|---|
-| Table S6, all eleven compartment rows (n, mean, PCT+) | — | reproduced exactly |
+| Table S12, all eleven compartment rows (n, mean, PCT+) | — | reproduced exactly |
 | Cancer vs. all non-malignant (Cliff's δ, p) | +0.308, 1.3×10⁻¹⁰⁵ | +0.3075, 1.33×10⁻¹⁰⁵ |
 | Cancer vs. fibroblast, both rows combined | n = 1,440, δ = −0.023, p = 0.23 | n = 1,440, δ = −0.0228, p = 0.23 |
 | Cancer vs. endothelial | n = 260, δ = +0.010, p = 0.78 | n = 260, δ = +0.0104, p = 0.78 |

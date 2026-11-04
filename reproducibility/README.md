@@ -1,18 +1,18 @@
 # Reproducibility - manuscript tables
 
 Scripts and verified output files that reproduce the numerical values reported in
-Tables 1 and 2 of the manuscript and Supplementary Tables S8 to S10.
+Tables 1 and 2 of the manuscript and Supplementary Tables S13 to S15.
 
 ## Contents
 
 | File | Description |
 |------|-------------|
-| `WBP5_Phase1_recalc.ipynb` | Colab notebook. Reproduces Table 1, Table 2, and the P0 contact analysis now reported in Supplementary Table S9. Despite the file name, it covers both the single-cell and structural analyses. |
+| `WBP5_Phase1_recalc.ipynb` | Colab notebook. Reproduces Table 1, Table 2, and the P0 contact analysis now reported in Supplementary Table S14. Despite the file name, it covers both the single-cell and structural analyses. |
 | `WBP5_Table1_results_v2.csv` | Table 1 - WBP5 expression, cancer vs. non-cancer and primary vs. lymph node. |
 | `WBP5_Table2_results_v2.csv` | Table 2 - Spearman correlations between WBP5 and eight markers. |
 | `WBP5_Table2_meanPCT_v2.csv` | Table 2 - group means and detection rates for WBP5-positive and WBP5-negative malignant cells. |
-| `WBP5_P0_contacts_seed42.csv` | Supplementary Table S9 - residues within 4 A of each ligand in the top-scoring pose (seed 42). |
-| `docking_replicates_P0_summary_v2.csv` | Supplementary Tables S8 and S10 - AutoDock Vina binding energies across five seeds, with the corrected Candidate_1 value. |
+| `WBP5_P0_contacts_seed42.csv` | Supplementary Table S14 - residues within 4 A of each ligand in the top-scoring pose (seed 42). |
+| `docking_replicates_P0_summary_v2.csv` | Supplementary Tables S13 and S15 - AutoDock Vina binding energies across five seeds, with the corrected Candidate_1 value. |
 | `GSE103322_WBP5_cell_level_raw.csv` | Input. Per-cell WBP5 expression with cell-type, site and patient annotation. |
 | `GSE103322_WBP5_EMT_markers_cell_level.csv` | Input. As above, with ITGA5, LAMC2, VIM, KRT14 and KRT17 added. |
 
@@ -31,11 +31,11 @@ pyridin-4-yl variant (MW 347.44). `docking_replicates_P0_summary_v2.csv` contain
 corrected value (-5.44 +/- 0.05 kcal/mol).
 
 **Rounding.** Standard deviations in `docking_replicates_P0_summary_v2.csv` are given to
-three decimal places. Supplementary Tables S8 and S10 report them to two decimal places, so a
+three decimal places. Supplementary Tables S13 and S15 report them to two decimal places, so a
 value of 0.055 appears as 0.05 there; this applies to pazopanib, Candidate_1,
 Candidate_3 and Candidate_4.
 
-**Contact analysis.** The contact residues and distance ranges in Supplementary Table S9 were computed
+**Contact analysis.** The contact residues and distance ranges in Supplementary Table S14 were computed
 from the seed 42 replicate of each ligand, as stated in the table legend. Binding
 energies, by contrast, are means across all five replicates.
 
