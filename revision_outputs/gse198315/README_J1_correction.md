@@ -14,7 +14,7 @@ Endothelial-like proxy compartment. Four independent lines of evidence place it
 there, and no other position is consistent with all four:
 
 1. **The two chi-square tests of Fig. 4(D).** Computed over the three mutually
-   exclusive groups named in Methods Section 2.2 and Supplementary Table S7
+   exclusive groups named in Methods Section 2.2 and Supplementary Table S3
    (WBP5-only 2,261; EGFR-only 794; double-high 84), restoring this one cell
    gives chi-square 26.79 on 6 df with 1 of 12 expected counts below five, and
    692.47 on 8 df with 2 of 15 — matching the published values in every field.
@@ -22,14 +22,14 @@ there, and no other position is consistent with all four:
 2. **Fig. 4A.** The printed WBP5-high tumor-core row reads 67.4 and 9.3 for the
    Stromal-like and Endothelial-like compartments, which require 1,056 cells
    with 98 endothelial. The uncorrected file gives 67.5 and 9.2.
-3. **Supplementary Table S7(e).** The WBP5-high Endothelial-like share of
+3. **Supplementary Table S3(e).** The WBP5-high Endothelial-like share of
    11.51% requires 270 of 2,345. The uncorrected file gives 269 of 2,344,
    which is 11.48%.
 4. **The group total itself**, which the Fig. 4 legend and
    `make_fig4c_runB.py` both state as 2,345.
 
 A fifth line of reasoning was considered and discarded: the WBP5-only
-tumor-core share of 44.6% in Table S7(a) does not discriminate, because
+tumor-core share of 44.6% in Table S3(a) does not discriminate, because
 1,007/2,260 and 1,008/2,261 both round to 44.6%.
 
 ## What has been changed
