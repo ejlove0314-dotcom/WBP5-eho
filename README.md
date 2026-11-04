@@ -1,7 +1,7 @@
 # WBP5-eho
 
 > **Supplementary numbering changed at revision.** Supplementary tables and figures are now
-> numbered in order of first citation; 18 of 20 tables and 4 of 7 figures changed number.
+> numbered in order of first citation; 19 of 20 tables and 4 of 7 figures changed number.
 > References in this repository use the revised numbering. Script and data filenames were not
 > renamed. See [`SUPPLEMENTARY_NUMBERING_MAP.md`](SUPPLEMENTARY_NUMBERING_MAP.md).
 
