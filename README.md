@@ -1,8 +1,13 @@
 # WBP5-eho
 
+> **Supplementary numbering changed at revision.** Supplementary tables and figures are now
+> numbered in order of first citation; 19 of 20 tables and 4 of 7 figures changed number.
+> References in this repository use the revised numbering. Script and data filenames were not
+> renamed. See [`SUPPLEMENTARY_NUMBERING_MAP.md`](SUPPLEMENTARY_NUMBERING_MAP.md).
+
 Code and data supporting the manuscript "Single-cell analysis identifies WBP5
-(TCEAL9) as a partial-EMT program-associated gene shared by malignant and
-mesenchymal compartments in HNSCC."
+(TCEAL9) as a partial-EMT program-associated gene expressed across malignant
+and mesenchymal compartments in HNSCC."
 
 ## Repository layout
 
@@ -13,15 +18,15 @@ mesenchymal compartments in HNSCC."
 | `revision_outputs/` | Analyses added during revision: the GSE103322 patient-level and permutation outputs (`gse103322_puram/`), the GSE198315 re-annotation and compartment analyses (`gse198315*/`), the four credibility analyses (`credibility/`), subsample barcodes, structural outputs, reference files, the scripts that produced them, and
 `verify/`, which re-derives quantities that the analysis scripts print but do not
 store. |
-| `tables/` | Source tables underlying Supplementary Tables S3 and S4. |
-| `timer3/` | Raw TIMER3 exports underlying Table S4 and Fig. S3. |
-| `figures/` | Scripts that regenerate Figs. S1 and S3. |
+| `tables/` | Source tables underlying Supplementary Tables S5 and S6. |
+| `timer3/` | Raw TIMER3 exports underlying Table S6 and Fig. S2. |
+| `figures/` | Scripts that regenerate Figs. S1 and S2. |
 | `gse198315_recalc/` | Depth-corrected recomputation of the GSE198315 correlations. |
 | `docking_P0/` | AutoDock Vina docking at pocket P0 - the protocol reported in the manuscript. |
 | `docking_P0/mtiopenscreen/` | MTiOpenScreen Drugs-lib screen at the same pocket (job V06821248773098). |
 | `phase1_singlecell/` | GSE198315 single-cell analysis pipeline. |
 | `pockets/`, `residues/` | DoGSiteScorer pocket detection: run parameters, descriptor table, grid maps and pocket-lining residues. |
-| `deprecated/` | Superseded scripts, ligand files and reports. Nothing here underlies a reported result, with one exception: Section 4.2 of `SwissADME_Analysis_Report.docx` is the source of Supplementary Table S5, Section D. See `deprecated/README.md`. |
+| `deprecated/` | Superseded scripts, ligand files and reports. Nothing here underlies a reported result, with one exception: Section 4.2 of `SwissADME_Analysis_Report.docx` is the source of Supplementary Table S8, Section D. See `deprecated/README.md`. |
 
 Root-level files are the AlphaFold model (`AF-Q9UHQ7-F1-model_v6.pdb`, and the
 identical working copy `WBP5_AlphaFold.pdb` used as the docking receptor), the
@@ -50,7 +55,7 @@ toxicity result reported in the manuscript. Each string was read back from the
 corresponding docked pose in `docking_P0/` and re-parsed with RDKit 2026.03.5.
 
 The molecular weights below are RDKit values; its periodic table gives sulfur
-32.067. Supplementary Tables S5 and S10 report the SwissADME values for the same
+32.067. Supplementary Tables S8 and S15 report the SwissADME values for the same
 structures, held in `reproducibility/swissadme_final_20260820.csv`. For the six
 compounds both report, they agree on Candidate_4 and are 0.01 Da lower on the other
 five; the difference arises in the two tools' atomic-mass tables and rounding, not in
@@ -84,9 +89,9 @@ for the machine-readable ledger (manuscript location, quantity, manuscript
 value, source file, source value, status).
 
 To reproduce the derived statistics that are not stored in any export - the two
-chi-square tests in Section 3.1.2, the Benjamini-Hochberg q values in Table S4,
+chi-square tests in Section 3.1.2, the Benjamini-Hochberg q values in Table S6,
 the docking margins in Supplementary Note S1 Sections 3.5 and 3.7, and the
-depth-correction deltas in Table S3:
+depth-correction deltas in Table S5:
 
 ```bash
 python verification/verify_recompute.py
@@ -113,7 +118,7 @@ coordinates (20,788 of 33,694; 61.7%), which the step-6 script logs at run time
 but did not save. The value is now also recorded in
 `revision_outputs/gse198315/environment_step6.txt`.
 
-The first checks the compartment-wise positivity rates reported in Table S6. The
+The first checks the compartment-wise positivity rates reported in Table S12. The
 second recomputes the Table 2 coefficients at patient resolution, both
 within-patient and by pseudobulk aggregation over malignant cells, addressing
 the pseudoreplication limitation discussed in Section 4.4. Its outputs are
@@ -122,7 +127,7 @@ deposited alongside it as `WBP5_within_patient_rho.csv`,
 
 ## TIMER3 bulk-cohort analysis
 
-`timer3/` contains the raw exports underlying Table S4 and Fig. S3: ten
+`timer3/` contains the raw exports underlying Table S6 and Fig. S2: ten
 `genecorr_table-{gene}_{adjusted|raw}.csv` files and nine
 `genecorr_plot {gene} {cohort}.jpg` scatter plots.
 
@@ -133,7 +138,7 @@ on and off.
 > **Note on the exported plots.** In TIMER3 output panels the x-axis titles are
 > assigned by facet position rather than by content, so they are transposed
 > whenever the queried gene sorts alphabetically before "Purity" (ITGA5, LAMC2,
-> KRT14, KRT17). The facet strip titles are correct. Fig. S3 was assembled from
+> KRT14, KRT17). The facet strip titles are correct. Fig. S2 was assembled from
 > these files with corrected axis titles by
 > [`figures/make_figS3_from_timer3.py`](figures/make_figS3_from_timer3.py);
 > the unmodified exports are deposited here as received.
@@ -145,7 +150,7 @@ correlation analysis). Panel C carries TIMER3 purity-adjusted coefficients for
 the TCGA HNSC cohort; bars that did not reach q < 0.05 after purity adjustment
 are hatched and marked ns.
 
-`figures/make_figS3_from_timer3.py` assembles Fig. S3 from the TIMER3 exports
+`figures/make_figS3_from_timer3.py` assembles Fig. S2 from the TIMER3 exports
 in `timer3/`.
 
 ## Docking protocol
@@ -155,7 +160,7 @@ All docking values reported in the manuscript derive from pocket P0
 in five replicates per ligand using fixed seeds 42, 1042, 2042, 3042 and 4042.
 
 `pockets/wbp5alphafoldpdb*_desc.txt` is the DoGSiteScorer descriptor table from which
-the pocket geometry reported in Table S9 is taken: for P0, volume 229.62 A^3, surface
+the pocket geometry reported in Table S14 is taken: for P0, volume 229.62 A^3, surface
 811.54 A^2, depth 24.90 A, enclosure 0.36 and Drug Score 0.837. The same table gives
 the corresponding values for the seven other detected pockets, none of which exceeds a
 Drug Score of 0.40. `pockets/PocXlsDescriptors.txt` explains each column, and
@@ -182,15 +187,15 @@ The AlphaFold model is AF-Q9UHQ7-F1-model_v6 (UniProt Q9UHQ7).
 
 | File | Used in |
 |---|---|
-| `reproducibility/swissadme_final_20260820.csv` | Table S5 Sections B, C and E; Table S10 |
-| `deprecated/SwissADME_Analysis_Report.docx`, Section 4.2 | Table S5 Section D |
-| `reproducibility/docking_replicates_P0_summary_v2.csv` | Table S8; Table S10 |
-| `reproducibility/ProTox-3.0 - Prediction of TOXicity of chemicals *.xlsx` (six files: candidates 1-5 and pazopanib) | Table S5 Sections F1-F2 |
+| `reproducibility/swissadme_final_20260820.csv` | Table S8 Sections B, C and E; Table S15 |
+| `deprecated/SwissADME_Analysis_Report.docx`, Section 4.2 | Table S8 Section D |
+| `reproducibility/docking_replicates_P0_summary_v2.csv` | Table S13; Table S15 |
+| `reproducibility/ProTox-3.0 - Prediction of TOXicity of chemicals *.xlsx` (six files: candidates 1-5 and pazopanib) | Table S8 Sections F1-F2 |
 | `phase1_singlecell/gse198315_wbp5_marker_correlations.tsv` | Fig. 5B; Fig. S1 |
 | `phase1_singlecell/make_gse198315_wbp5_marker_pipeline.py` | Script generating the above TSV |
-| `tables/TableS3_gse198315_depth_correction.csv` | Table S3 |
-| `tables/TableS4_timer3_hnsc_correlations.csv` | Table S4 |
-| `gse198315_recalc/headline.tsv` | Section 3.2; Table S3 |
+| `tables/TableS3_gse198315_depth_correction.csv` | Table S5 |
+| `tables/TableS4_timer3_hnsc_correlations.csv` | Table S6 |
+| `gse198315_recalc/headline.tsv` | Section 3.2; Table S5 |
 | `gse198315_recalc/correlations_full.tsv` | Fig. S1A |
 
 ### Note on superseded files
@@ -202,10 +207,10 @@ corrected after the initial SwissADME submission, and the physicochemical,
 drug-likeness and ADMET values in the manuscript derive from
 `reproducibility/swissadme_final_20260820.csv`.
 
-The exception is the CYP450 predictions in Supplementary Table S5, Section D.
+The exception is the CYP450 predictions in Supplementary Table S8, Section D.
 That module returned no output when the corrected structures were re-submitted
 in August 2026 — the five CYP columns of `swissadme_final_20260820.csv` read
-`n/d` for all six compounds — so the four rows Table S5 reports come from
+`n/d` for all six compounds — so the four rows Table S8 reports come from
 Section 4.2 of `deprecated/SwissADME_Analysis_Report.docx`. Methods Section
 2.10 states this, and `deprecated/README.md` sets out how the molecular weights
 establish which of the report's rows are usable.
