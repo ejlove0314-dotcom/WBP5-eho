@@ -14,3 +14,5 @@ threshold 0.01125290085133067
 validity_verdict STILL CONFOUNDED: do not use inferCNV as an independent malignancy call
 gtf C:\Users\user\Desktop\WBP5 revision\gencode.v50.basic.annotation.gtf.gz
 input C:\Users\user\Desktop\WBP5 revision\gse198315_checkpoint_full_annotated.h5ad
+genes_with_coordinates 20788 / 33694 (61.7%)
+gtf_unique_gene_names 77118
