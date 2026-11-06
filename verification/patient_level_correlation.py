@@ -87,26 +87,39 @@ print("(A) WITHIN-PATIENT Spearman rho")
 print("=" * 74)
 print(f"{'marker':<8}{'median':>9}{'IQR':>18}{'pos/n':>9}"
       f"{'sign p':>9}{'pooled':>9}")
+def within_patient_rhos(frame, marker):
+    """Per-patient Spearman rho for one marker."""
+    out = []
+    for _, g in frame.groupby(pid):
+        if g["WBP5"].nunique() > 1 and g[marker].nunique() > 1:
+            r, _ = spearmanr(g["WBP5"], g[marker])
+            if np.isfinite(r):
+                out.append(r)
+    return np.array(out)
+
+
+PATIENTS = sorted(m[pid].astype(str).unique())
 rows_a, sign_p = [], []
 for mk in MARKERS:
-    rhos = []
-    for p, g in m.groupby(pid):
-        if g["WBP5"].nunique() > 1 and g[mk].nunique() > 1:
-            r, _ = spearmanr(g["WBP5"], g[mk])
-            if np.isfinite(r):
-                rhos.append(r)
-    rhos = np.array(rhos)
+    rhos = within_patient_rhos(m, mk)
     npos = int((rhos > 0).sum())
     bt = binomtest(npos, len(rhos), 0.5, alternative="two-sided")
     q1, q3 = np.percentile(rhos, [25, 75])
     sign_p.append(bt.pvalue)
-    rows_a.append((mk, np.median(rhos), q1, q3, npos, len(rhos), bt.pvalue))
+    # leave-one-patient-out: median of the within-patient coefficients with
+    # each patient omitted in turn (Reviewer #5, Major comment 1).
+    lopo = [float(np.median(within_patient_rhos(
+                m[m[pid].astype(str) != p], mk))) for p in PATIENTS]
+    rows_a.append((mk, np.median(rhos), q1, q3, npos, len(rhos), bt.pvalue,
+                   min(lopo), max(lopo)))
     print(f"{mk:<8}{np.median(rhos):>+9.3f}"
           f"{f'{q1:+.3f} to {q3:+.3f}':>18}{f'{npos}/{len(rhos)}':>9}"
           f"{bt.pvalue:>9.4f}{CELL_LEVEL[mk]:>+9.3f}")
 q_a = false_discovery_control(sign_p, method="bh")
 print("\nBH-adjusted sign-test q: " +
       ", ".join(f"{mk}={q:.3f}" for mk, q in zip(MARKERS, q_a)))
+print("leave-one-patient-out range of the median: " +
+      ", ".join(f"{r[0]}={r[7]:+.3f} to {r[8]:+.3f}" for r in rows_a))
 
 # ============================================================ (B) pseudobulk
 print("\n" + "=" * 74)
@@ -127,8 +140,12 @@ for mk, p, q in zip(MARKERS, ps, q_b):
 
 # ---------------------------------------------------------------- save
 pd.DataFrame(rows_a, columns=["marker", "median_rho", "q1", "q3",
-                              "n_positive", "n_patients", "sign_test_p"]
-             ).assign(sign_test_q=q_a).round(4).to_csv(
+                              "n_positive", "n_patients", "sign_test_p",
+                              "lopo_median_min", "lopo_median_max"]
+             ).assign(sign_test_q=q_a).round(4)[
+                 ["marker", "median_rho", "q1", "q3", "n_positive",
+                  "n_patients", "sign_test_p", "sign_test_q",
+                  "lopo_median_min", "lopo_median_max"]].to_csv(
     "WBP5_within_patient_rho.csv", index=False, encoding="utf-8-sig")
 pd.DataFrame(rows_b, columns=["marker", "rho", "p", "q"]).round(4).to_csv(
     "WBP5_pseudobulk_rho.csv", index=False, encoding="utf-8-sig")
