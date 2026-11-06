@@ -124,6 +124,10 @@ within-patient and by pseudobulk aggregation over malignant cells, addressing
 the pseudoreplication limitation discussed in Section 4.4. Its outputs are
 deposited alongside it as `WBP5_within_patient_rho.csv`,
 `WBP5_pseudobulk_rho.csv` and `WBP5_patient_means.csv`.
+`WBP5_within_patient_rho.csv` additionally carries `lopo_median_min` and
+`lopo_median_max`: the smallest and largest value taken by the median
+within-patient coefficient when each of the ten retained patients is omitted
+in turn. The script prints the same ranges at run time.
 
 ## TIMER3 bulk-cohort analysis
 
