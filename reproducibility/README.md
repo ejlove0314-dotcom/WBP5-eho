@@ -15,6 +15,8 @@ Tables 1 and 2 of the manuscript and Supplementary Tables S13 to S15.
 | `docking_replicates_P0_summary_v2.csv` | Supplementary Tables S13 and S15 - AutoDock Vina binding energies across five seeds, with the corrected Candidate_1 value. |
 | `GSE103322_WBP5_cell_level_raw.csv` | Input. Per-cell WBP5 expression with cell-type, site and patient annotation. |
 | `GSE103322_WBP5_EMT_markers_cell_level.csv` | Input. As above, with ITGA5, LAMC2, VIM, KRT14 and KRT17 added. |
+| `fix_cell_level.py` | Repairs either cell-level file; see `README_cell_level_correction.md`. |
+| `README_cell_level_correction.md` | Correction record for both cell-level files. Read this before recomputing anything from them. |
 
 EGFR, PTPRC and EPCAM are not present in the extracted input files; the notebook
 retrieves them directly from the original GSE103322 expression matrix
