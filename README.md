@@ -251,13 +251,13 @@ its results.
 
 ## Correction records
 
-Four deposited files were corrected after the first revision was prepared. Each
+Five deposited files were corrected after the first revision was prepared. Each
 correction is documented next to the file it concerns, and in every case the
 manuscript value was already correct:
 
 | Note | Concerns |
 |---|---|
-| `reproducibility/README_cell_level_correction.md` | 18 rows whose annotation had been corrupted to `#NAME?` by spreadsheet round-tripping, 173 rows that had lost their patient identifier, and a new `pooled_plate` column that makes the Methods 2.2 exclusion reproducible from the file alone |
+| `reproducibility/README_cell_level_correction.md` | Both deposited cell-level files: 18 rows whose annotation had been corrupted to `#NAME?` by spreadsheet round-tripping, 173 rows that had lost their patient identifier, and a `pooled_plate` column that makes the Methods 2.2 exclusion reproducible from the file alone. An earlier release repaired only `GSE103322_WBP5_cell_level_raw.csv`; `GSE103322_WBP5_EMT_markers_cell_level.csv`, which is the input named in the two commands above, is repaired in this release |
 | `revision_outputs/gse198315/README_J1_correction.md` | One cell missing from the Fig. 4A verification export |
 | `revision_outputs/structure/README_RSA_correction.md` | The sphere-sampling density used for the per-residue solvent accessibility |
 | `verification/README_verification_ledger_scope.md` | The scope of the verification ledger and audit report, both of which use the section and table numbering of the submitted version |
