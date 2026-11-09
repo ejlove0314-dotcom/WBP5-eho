@@ -1,6 +1,18 @@
 #!/usr/bin/env python3
 """
-Repair reproducibility/GSE103322_WBP5_cell_level_raw.csv for re-deposition.
+Repair the deposited GSE103322 cell-level files for re-deposition.
+
+Usage: fix_cell_level.py <src.csv> <dst.csv>
+
+Both deposited cell-level files carry the same defects and must both be
+passed through this script:
+
+    reproducibility/GSE103322_WBP5_cell_level_raw.csv
+    reproducibility/GSE103322_WBP5_EMT_markers_cell_level.csv
+
+The two files mark a missing patient differently -- the first leaves the
+field empty, the second writes the string "NA" -- so both spellings are
+treated as missing below.
 
 Three file-side defects, none of which affects any value reported in the
 manuscript or the supplementary information:
@@ -9,7 +21,9 @@ manuscript or the supplementary information:
     `compartment`.  The underlying GSE103322 annotation for this category is
     "-Fibroblast"; because the label begins with a hyphen, a spreadsheet
     application parses it as a formula and writes back #NAME?.  The category is
-    the one tabulated in Table S6 as "Fibroblast (excl.)" (n = 18 before the
+    the one tabulated in Table S12 as "Fibroblast (excluded)", whose short form
+    "Fibroblast (excl.)" is the label used in this file and in the Fig. 2A
+    legend (n = 18 before the
     pooled-plate exclusion, n = 17 after).
 
 (2) 173 rows carry an empty `patient`.  Their cell identifiers use the form
@@ -28,7 +42,7 @@ manuscript or the supplementary information:
     that the exclusion is reproducible from the file alone.
 
 `compartment` and `non_cancer_type` are additionally normalized to the labels
-used in Table S6, so that the table can be reproduced from this file without an
+used in Table S12 and in the Fig. 2A legend, so that the table can be reproduced from this file without an
 external mapping and so that no label begins with a character a spreadsheet
 treats as an operator.  The one GEO annotation string that this renames,
 "-Fibroblast" -> "Fibroblast (excl.)", is recorded in the README rather than in
@@ -55,13 +69,20 @@ NORM = {
     "myocyte":     "Myocyte",
 }
 UNANNOTATED = {"", "0", "nan", "na"}
+# A missing patient is written as an empty field in one deposited file and
+# as "NA" in the other; both spellings must count as missing.
+MISSING = {"", "na", "nan", "n/a", "null"}
+
+
+def is_missing(v):
+    return v.strip().lower() in MISSING
 
 PT17 = re.compile(r"^HNSCC_17_")
 COMBO = re.compile(r"^HNSCC_combo", re.I)
 
 rows = list(csv.DictReader(open(SRC, newline="")))
 fields = list(rows[0])
-out_fields = fields + ["pooled_plate"]
+out_fields = fields if "pooled_plate" in fields else fields + ["pooled_plate"]
 
 counts = dict(name_fixed=0, pt17_filled=0, combo_flagged=0, unannotated=0, myocyte=0)
 
@@ -93,16 +114,19 @@ for r in rows:
     r["pooled_plate"] = "TRUE" if combo else "FALSE"
     if combo:
         counts["combo_flagged"] += 1
-    elif not r["patient"].strip() and PT17.match(r["cell_id"]):
+    elif is_missing(r["patient"]) and PT17.match(r["cell_id"]):
         r["patient"] = "17"
         counts["pt17_filled"] += 1
 
 still_blank = [r for r in rows
-               if not r["patient"].strip() and r["pooled_plate"] == "FALSE"]
+               if is_missing(r["patient"]) and r["pooled_plate"] == "FALSE"]
+# Post-conditions on the OUTPUT, so that the script is idempotent: a file that
+# has already been repaired passes with all repair counts at zero.
 assert not still_blank, f"{len(still_blank)} rows still have no patient"
-assert counts["name_fixed"] == 18, counts
-assert counts["pt17_filled"] == 173, counts
+assert not [r for r in rows if "#NAME?" in (r["compartment"], r["non_cancer_type"])]
 assert counts["combo_flagged"] == 109, counts
+assert counts["name_fixed"] in (0, 18), counts
+assert counts["pt17_filled"] in (0, 173), counts
 
 with open(DST, "w", newline="") as fh:
     w = csv.DictWriter(fh, fieldnames=out_fields)
