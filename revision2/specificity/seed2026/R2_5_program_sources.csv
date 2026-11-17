@@ -1,0 +1,7 @@
+set,source,n_listed,n_evaluable
+PEMT100,p-EMT gene list.xlsx,100,99
+PEMT30,p-EMT gene list.xlsx,30,29
+HALLMARK_EMT,MSigDB_Hallmark_2020: Epithelial Mesenchymal Transition,200,193
+HALLMARK_TGFB,MSigDB_Hallmark_2020: TGF-beta Signaling,54,53
+GO_ECM_ORG,GO_Biological_Process_2023: Extracellular Matrix Organization (GO:0030198),176,134
+FIBROBLAST_GSE103322,results_R2b\gse103322\R2_CAF_derived_GSE103322.txt,100,91

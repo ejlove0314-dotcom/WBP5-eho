@@ -1,0 +1,19 @@
+started 2026-11-16 15:24:25.275919
+args {'cohort': 'gse198315', 'h5ad': 'gse198315_seed2026_full_annotated.h5ad', 'matrix': None, 'pemt': 'p-EMT gene list.xlsx', 'tag': 'seed2026', 'outdir': 'results_R2b\\seed2026', 'check_dir': 'results_cred\\seed2026-20261116T051704Z-1-001\\seed2026', 'gmt': None, 'caf': 'results_R2b\\gse103322\\R2_CAF_derived_GSE103322.txt', 'derive_caf': False, 'n_perm': 10000, 'n_rep': 100, 'n_perm_rep': 2000, 'min_det': 0.01}
+sha256 R2_specificity_sensitivity_20261116b.py 738d2b62b8046866dc20f38155c51cc0c3300188e862df80999029601f011a56
+sha256 CRED_profiles_20261021.py 6e125af2af829d1fba6060616f6184ec22aa295db8a9882b11b5de4e6cc7ba73
+sha256 wbp5_rev_common.py 17f71e703aea00f7b42a515f90fdac4c5a2a9321375a33aceedb6f828730e357
+finished 2026-11-16 15:29:20.683119
+python 3.13.12 | packaged by Anaconda, Inc. | (main, Feb 24 2026, 16:05:56) [MSC v.1942 64 bit (AMD64)]
+numpy 2.4.6
+pandas 3.0.3
+scipy 1.17.1
+tech log1p(obs.total_counts)
+mode n
+cap 287
+set PEMT100: p-EMT gene list.xlsx / evaluable 99
+set PEMT30: p-EMT gene list.xlsx / evaluable 29
+set HALLMARK_EMT: MSigDB_Hallmark_2020: Epithelial Mesenchymal Transition / evaluable 193
+set HALLMARK_TGFB: MSigDB_Hallmark_2020: TGF-beta Signaling / evaluable 53
+set GO_ECM_ORG: GO_Biological_Process_2023: Extracellular Matrix Organization (GO:0030198) / evaluable 134
+set FIBROBLAST_GSE103322: results_R2b\gse103322\R2_CAF_derived_GSE103322.txt / evaluable 91
