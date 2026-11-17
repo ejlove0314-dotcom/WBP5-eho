@@ -1,0 +1,158 @@
+[16:26:33] p-EMT 목록 100개 읽음 (1위 SERPINE1, 마지막 GJA1)
+[16:26:33] 적재: gse198315_seed7_full_annotated.h5ad
+[16:26:40]   X 상태 점검: max 8.42, 정수형 False → 정규화 값
+[16:26:41]   EPI_TUMOR 5,356 세포 / 환자 10 / 유전자 집합 15,679 (검출률 ≥ 1%) / 기술 축 log1p(obs.total_counts)
+[16:26:51]   down-sampling 1/100
+[16:27:13]   down-sampling 11/100
+[16:27:35]   down-sampling 21/100
+[16:27:57]   down-sampling 31/100
+[16:28:20]   down-sampling 41/100
+[16:28:43]   down-sampling 51/100
+[16:29:05]   down-sampling 61/100
+[16:29:29]   down-sampling 71/100
+[16:29:52]   down-sampling 81/100
+[16:30:15]   down-sampling 91/100
+
+######## R2 [seed7] gse198315: 5,356 cells / 10 patients (10 with >= 20 cells) / 15,679 genes / technical covariate: log1p(obs.total_counts) ########
+
+=== R2-0 reproduction ===
+                                                                check  max_abs_diff
+primary profile recomputed by the general partial-correlation routine     9.315e-16
+   primary profile vs CR1_profile_WBP5.csv.gz[rho_adj] (15,679 genes)     8.778e-16
+
+=== R2-1 patient weights ===
+patient  n_cells  share_of_cells  share_of_pooled_weight  eligible_ge20  weight_in_balanced_profile  patient_mean_rho_PEMT100  patient_mean_rho_PEMT30
+    P01     1456          0.2718                  0.2718           True                         0.1                   0.09473                  0.08543
+    P02       96         0.01792                 0.01792           True                         0.1                    0.1334                   0.1397
+    P03      326         0.06087                 0.06087           True                         0.1                   0.05787                  0.06473
+    P04      249         0.04649                 0.04649           True                         0.1                  0.009469                 0.001658
+    P05      199         0.03715                 0.03715           True                         0.1                   0.05149                  0.04752
+    P06      739           0.138                   0.138           True                         0.1                   0.04842                  0.05884
+    P07       80         0.01494                 0.01494           True                         0.1                   0.08788                     0.12
+    P08      489          0.0913                  0.0913           True                         0.1                   0.07473                  0.08852
+    P09     1634          0.3051                  0.3051           True                         0.1                   0.02518                  0.02833
+    P10       88         0.01643                 0.01643           True                         0.1                     0.107                  0.09463
+
+=== R2-2 null model x weighting ===
+                                 profile                         null signature  n_genes  mean_rho_set  null_mean  null_sd     z  perm_p_upper  top200_overlap  top200_expected  top200_hypergeom_p  n_fallback_to_expr_bin
+                        pooled (primary) expression-matched (primary)   PEMT100       99       0.06801    0.04828 0.003169 6.224     9.999e-05              18            1.263            3.76e-16                       0
+                        pooled (primary) expression-matched (primary)    PEMT30       29       0.06883    0.04992 0.005977 3.164     0.0005999               3           0.3699            0.005852                       0
+                        pooled (primary) expression+detection-matched   PEMT100       99       0.06801    0.04118 0.003733 7.189     9.999e-05              18            1.263            3.76e-16                       0
+                        pooled (primary) expression+detection-matched    PEMT30       29       0.06883    0.04088 0.007397 3.778     9.999e-05               3           0.3699            0.005852                       0
+patient-balanced (equal-weight Fisher z) expression-matched (primary)   PEMT100       99       0.06964    0.03621 0.003472  9.63     9.999e-05              22            1.271           1.818e-21                       0
+patient-balanced (equal-weight Fisher z) expression-matched (primary)    PEMT30       29       0.07356     0.0385 0.006516  5.38     9.999e-05               6           0.3722           1.541e-06                       0
+patient-balanced (equal-weight Fisher z) expression+detection-matched   PEMT100       99       0.06964    0.02849 0.003871 10.63     9.999e-05              22            1.271           1.818e-21                       0
+patient-balanced (equal-weight Fisher z) expression+detection-matched    PEMT30       29       0.07356    0.02901 0.007614 5.852     9.999e-05               6           0.3722           1.541e-06                       0
+
+=== R2-3 patient-level ===
+signature                         null  n_patients  n_positive  median_excess  min_excess  max_excess  sign_test_p  wilcoxon_p
+  PEMT100 expression-matched (primary)          10           9        0.02532   -0.001777     0.08012      0.02148    0.003906
+  PEMT100 expression+detection-matched          10          10        0.03519    0.006514     0.08844     0.001953    0.001953
+   PEMT30 expression-matched (primary)          10           8        0.02755    -0.01137     0.09251       0.1094     0.01367
+   PEMT30 expression+detection-matched          10          10        0.03138    0.001213      0.1218     0.001953    0.001953
+
+=== R2-4 capped down-sampling ===
+signature                         null  n_repeats  cap  n_cells  median_mean_rho  median_null_mean  median_z  min_z  median_p     max_p  frac_p_lt_0_05  frac_p_lt_0_01
+  PEMT100 expression+detection-matched        100  287     2147          0.06855           0.03735     9.013  6.731 0.0004998 0.0004998               1               1
+  PEMT100 expression-matched (primary)        100  287     2147          0.06855           0.04369     7.971   5.18 0.0004998 0.0004998               1               1
+   PEMT30 expression+detection-matched        100  287     2147          0.07117           0.03817     4.934  3.009 0.0004998 0.0009995               1               1
+   PEMT30 expression-matched (primary)        100  287     2147          0.07117           0.04546     4.264  1.902 0.0004998   0.02299               1            0.99
+
+=== R2-5 program sources ===
+                 set  n_listed  n_evaluable
+             PEMT100       100           99
+              PEMT30        30           29
+        HALLMARK_EMT       200          195
+       HALLMARK_TGFB        54           53
+          GO_ECM_ORG       176          135
+FIBROBLAST_GSE103322       100           92
+
+=== R2-6 program comparison ===
+                                 profile                         null                                   gene_set  n_genes  mean_rho_set  null_mean  null_sd        z  perm_p_upper  top200_overlap  top200_expected  top200_hypergeom_p  n_fallback_to_expr_bin                         note
+                        pooled (primary) expression-matched (primary)                             PEMT100 (full)       99       0.06801    0.04842 0.003187    6.148     9.999e-05              18            1.263            3.76e-16                       0                          NaN
+                        pooled (primary) expression-matched (primary)                              PEMT30 (full)       29       0.06883    0.04968 0.005978    3.204     0.0007999               3           0.3699            0.005852                       0                          NaN
+                        pooled (primary) expression-matched (primary)       PEMT100 only (in no related program)       57       0.07005     0.0476 0.004084    5.495     9.999e-05              10           0.7271           2.335e-09                       0                          NaN
+                        pooled (primary) expression-matched (primary)                        HALLMARK_EMT (full)      195       0.04055    0.03704 0.001905    1.842        0.0307              10            2.487           0.0002046                       0                          NaN
+                        pooled (primary) expression-matched (primary)         HALLMARK_EMT only (not in PEMT100)      159       0.03543    0.03417 0.001962   0.6434         0.266               3            2.028               0.331                       0                          NaN
+                        pooled (primary) expression-matched (primary)          PEMT100 and HALLMARK_EMT (shared)       36       0.06318    0.04951 0.005435    2.515        0.0044               7           0.4592           3.019e-07                       0                          NaN
+                        pooled (primary) expression-matched (primary)                       HALLMARK_TGFB (full)       53       0.04253    0.04286 0.003896 -0.08291        0.5421               0           0.6761                   1                       0                          NaN
+                        pooled (primary) expression-matched (primary)        HALLMARK_TGFB only (not in PEMT100)       51       0.04207    0.04259  0.00391  -0.1319        0.5569               0           0.6506                   1                       0                          NaN
+                        pooled (primary) expression-matched (primary)         PEMT100 and HALLMARK_TGFB (shared)        2           NaN        NaN      NaN      NaN           NaN             NaN              NaN                 NaN                     NaN fewer than 5 evaluable genes
+                        pooled (primary) expression-matched (primary)                          GO_ECM_ORG (full)      135       0.02938    0.03009 0.001958  -0.3605        0.6479               2            1.722              0.5159                       0                          NaN
+                        pooled (primary) expression-matched (primary)           GO_ECM_ORG only (not in PEMT100)      123       0.02538    0.02825 0.001929   -1.485         0.927               0            1.569                   1                       0                          NaN
+                        pooled (primary) expression-matched (primary)            PEMT100 and GO_ECM_ORG (shared)       12       0.07037    0.04893 0.008664    2.475        0.0045               2           0.1531            0.009823                       0                          NaN
+                        pooled (primary) expression-matched (primary)                FIBROBLAST_GSE103322 (full)       92       0.03462    0.03981 0.002916    -1.78        0.9599               5            1.174            0.006449                       0                          NaN
+                        pooled (primary) expression-matched (primary) FIBROBLAST_GSE103322 only (not in PEMT100)       83       0.03256    0.03881 0.003028   -2.063         0.978               3            1.059             0.08974                       0                          NaN
+                        pooled (primary) expression-matched (primary)  PEMT100 and FIBROBLAST_GSE103322 (shared)        9       0.05357    0.04932  0.01088   0.3897        0.3592               2           0.1148            0.005495                       0                          NaN
+                        pooled (primary) expression+detection-matched                             PEMT100 (full)       99       0.06801    0.04075  0.00379    7.193     9.999e-05              18            1.263            3.76e-16                       0                          NaN
+                        pooled (primary) expression+detection-matched                              PEMT30 (full)       29       0.06883    0.03923 0.007374    4.014     9.999e-05               3           0.3699            0.005852                       0                          NaN
+                        pooled (primary) expression+detection-matched       PEMT100 only (in no related program)       57       0.07005    0.04194 0.004756    5.911     9.999e-05              10           0.7271           2.335e-09                       0                          NaN
+                        pooled (primary) expression+detection-matched                        HALLMARK_EMT (full)      195       0.04055    0.02946 0.002238    4.956     9.999e-05              10            2.487           0.0002046                       0                          NaN
+                        pooled (primary) expression+detection-matched         HALLMARK_EMT only (not in PEMT100)      159       0.03543    0.02725 0.002338    3.499        0.0002               3            2.028               0.331                       0                          NaN
+                        pooled (primary) expression+detection-matched          PEMT100 and HALLMARK_EMT (shared)       36       0.06318    0.03939 0.006541    3.637        0.0003               7           0.4592           3.019e-07                       0                          NaN
+                        pooled (primary) expression+detection-matched                       HALLMARK_TGFB (full)       53       0.04253    0.04334  0.00368  -0.2201        0.5914               0           0.6761                   1                       0                          NaN
+                        pooled (primary) expression+detection-matched        HALLMARK_TGFB only (not in PEMT100)       51       0.04207    0.04372 0.003753  -0.4379        0.6728               0           0.6506                   1                       0                          NaN
+                        pooled (primary) expression+detection-matched         PEMT100 and HALLMARK_TGFB (shared)        2           NaN        NaN      NaN      NaN           NaN             NaN              NaN                 NaN                     NaN fewer than 5 evaluable genes
+                        pooled (primary) expression+detection-matched                          GO_ECM_ORG (full)      135       0.02938    0.02339 0.002275    2.632        0.0035               2            1.722              0.5159                       0                          NaN
+                        pooled (primary) expression+detection-matched           GO_ECM_ORG only (not in PEMT100)      123       0.02538    0.02193 0.002254    1.532       0.06049               0            1.569                   1                       0                          NaN
+                        pooled (primary) expression+detection-matched            PEMT100 and GO_ECM_ORG (shared)       12       0.07037    0.03833  0.01097     2.92     0.0008999               2           0.1531            0.009823                       0                          NaN
+                        pooled (primary) expression+detection-matched                FIBROBLAST_GSE103322 (full)       92       0.03462    0.03154 0.003371   0.9119         0.183               5            1.174            0.006449                       0                          NaN
+                        pooled (primary) expression+detection-matched FIBROBLAST_GSE103322 only (not in PEMT100)       83       0.03256    0.03092 0.003493   0.4694        0.3244               3            1.059             0.08974                       0                          NaN
+                        pooled (primary) expression+detection-matched  PEMT100 and FIBROBLAST_GSE103322 (shared)        9       0.05357    0.03864  0.01291    1.156        0.1175               2           0.1148            0.005495                       0                          NaN
+patient-balanced (equal-weight Fisher z) expression-matched (primary)                             PEMT100 (full)       99       0.06964     0.0362 0.003429    9.752     9.999e-05              22            1.271           1.818e-21                       0                          NaN
+patient-balanced (equal-weight Fisher z) expression-matched (primary)                              PEMT30 (full)       29       0.07356    0.03787 0.006475    5.513     9.999e-05               6           0.3722           1.541e-06                       0                          NaN
+patient-balanced (equal-weight Fisher z) expression-matched (primary)       PEMT100 only (in no related program)       57       0.06903    0.03492 0.004428    7.704     9.999e-05              10           0.7316           2.477e-09                       0                          NaN
+patient-balanced (equal-weight Fisher z) expression-matched (primary)                        HALLMARK_EMT (full)      192       0.03619    0.02427 0.002125    5.609     9.999e-05              14            2.464           1.844e-07                       0                          NaN
+patient-balanced (equal-weight Fisher z) expression-matched (primary)         HALLMARK_EMT only (not in PEMT100)      156       0.02885    0.02114 0.002279    3.386        0.0002               5            2.002             0.05079                       0                          NaN
+patient-balanced (equal-weight Fisher z) expression-matched (primary)          PEMT100 and HALLMARK_EMT (shared)       36       0.06798     0.0379 0.005885    5.111     9.999e-05               9           0.4621           5.509e-10                       0                          NaN
+patient-balanced (equal-weight Fisher z) expression-matched (primary)                       HALLMARK_TGFB (full)       53       0.03598    0.02932 0.004298    1.551       0.05829               1           0.6803              0.4963                       0                          NaN
+patient-balanced (equal-weight Fisher z) expression-matched (primary)        HALLMARK_TGFB only (not in PEMT100)       51       0.03545    0.02903 0.004394     1.46       0.07249               1           0.6546              0.4831                       0                          NaN
+patient-balanced (equal-weight Fisher z) expression-matched (primary)         PEMT100 and HALLMARK_TGFB (shared)        2           NaN        NaN      NaN      NaN           NaN             NaN              NaN                 NaN                     NaN fewer than 5 evaluable genes
+patient-balanced (equal-weight Fisher z) expression-matched (primary)                          GO_ECM_ORG (full)      132       0.02284    0.01709 0.002324    2.476      0.005899               5            1.694             0.02771                       0                          NaN
+patient-balanced (equal-weight Fisher z) expression-matched (primary)           GO_ECM_ORG only (not in PEMT100)      120        0.0176    0.01509 0.002347    1.068        0.1449               1             1.54              0.7891                       0                          NaN
+patient-balanced (equal-weight Fisher z) expression-matched (primary)            PEMT100 and GO_ECM_ORG (shared)       12       0.07528    0.03687 0.009485     4.05     9.999e-05               4            0.154           1.203e-05                       0                          NaN
+patient-balanced (equal-weight Fisher z) expression-matched (primary)                FIBROBLAST_GSE103322 (full)       92       0.02463    0.02655 0.003214  -0.5982        0.7289               4            1.181              0.0307                       0                          NaN
+patient-balanced (equal-weight Fisher z) expression-matched (primary) FIBROBLAST_GSE103322 only (not in PEMT100)       83       0.02121    0.02541  0.00334   -1.257        0.8942               2            1.065              0.2885                       0                          NaN
+patient-balanced (equal-weight Fisher z) expression-matched (primary)  PEMT100 and FIBROBLAST_GSE103322 (shared)        9        0.0562    0.03745  0.01161    1.615       0.05039               2           0.1155            0.005561                       0                          NaN
+patient-balanced (equal-weight Fisher z) expression+detection-matched                             PEMT100 (full)       99       0.06964    0.02763 0.003881    10.83     9.999e-05              22            1.271           1.818e-21                       0                          NaN
+patient-balanced (equal-weight Fisher z) expression+detection-matched                              PEMT30 (full)       29       0.07356    0.02629 0.007432    6.361     9.999e-05               6           0.3722           1.541e-06                       0                          NaN
+patient-balanced (equal-weight Fisher z) expression+detection-matched       PEMT100 only (in no related program)       57       0.06903    0.02855 0.004921    8.225     9.999e-05              10           0.7316           2.477e-09                       0                          NaN
+patient-balanced (equal-weight Fisher z) expression+detection-matched                        HALLMARK_EMT (full)      192       0.03619    0.01773 0.002388    7.731     9.999e-05              14            2.464           1.844e-07                       0                          NaN
+patient-balanced (equal-weight Fisher z) expression+detection-matched         HALLMARK_EMT only (not in PEMT100)      156       0.02885    0.01566 0.002534    5.206     9.999e-05               5            2.002             0.05079                       0                          NaN
+patient-balanced (equal-weight Fisher z) expression+detection-matched          PEMT100 and HALLMARK_EMT (shared)       36       0.06798    0.02671 0.006534    6.316     9.999e-05               9           0.4621           5.509e-10                       0                          NaN
+patient-balanced (equal-weight Fisher z) expression+detection-matched                       HALLMARK_TGFB (full)       53       0.03598     0.0297 0.004145    1.517       0.06419               1           0.6803              0.4963                       0                          NaN
+patient-balanced (equal-weight Fisher z) expression+detection-matched        HALLMARK_TGFB only (not in PEMT100)       51       0.03545    0.03011 0.004218    1.266       0.09919               1           0.6546              0.4831                       0                          NaN
+patient-balanced (equal-weight Fisher z) expression+detection-matched         PEMT100 and HALLMARK_TGFB (shared)        2           NaN        NaN      NaN      NaN           NaN             NaN              NaN                 NaN                     NaN fewer than 5 evaluable genes
+patient-balanced (equal-weight Fisher z) expression+detection-matched                          GO_ECM_ORG (full)      132       0.02284    0.01209 0.002565    4.193     9.999e-05               5            1.694             0.02771                       0                          NaN
+patient-balanced (equal-weight Fisher z) expression+detection-matched           GO_ECM_ORG only (not in PEMT100)      120        0.0176    0.01077 0.002632    2.596        0.0045               1             1.54              0.7891                       0                          NaN
+patient-balanced (equal-weight Fisher z) expression+detection-matched            PEMT100 and GO_ECM_ORG (shared)       12       0.07528    0.02474  0.01111     4.55     9.999e-05               4            0.154           1.203e-05                       0                          NaN
+patient-balanced (equal-weight Fisher z) expression+detection-matched                FIBROBLAST_GSE103322 (full)       92       0.02463     0.0196 0.003564    1.412       0.08039               4            1.181              0.0307                       0                          NaN
+patient-balanced (equal-weight Fisher z) expression+detection-matched FIBROBLAST_GSE103322 only (not in PEMT100)       83       0.02121    0.01896 0.003742   0.6011          0.27               2            1.065              0.2885                       0                          NaN
+patient-balanced (equal-weight Fisher z) expression+detection-matched  PEMT100 and FIBROBLAST_GSE103322 (shared)        9        0.0562    0.02622  0.01348    2.224        0.0122               2           0.1155            0.005561                       0                          NaN[16:30:42] done -> C:\Users\user\Desktop\CSBJ Revision 2\results_R2b\seed7
+
+
+=== R2-7 conditional enrichment ===
+          competitor                                                            test                         null  n_genes  mean_rho_before  z_before  p_before  mean_rho_after  null_mean_after  z_after   p_after  top200_after  top200_expected  top200_hypergeom_p_after
+        HALLMARK_EMT         p-EMT-only genes | technical + HALLMARK_EMT-only module expression-matched (primary)       63          0.07077     5.866 9.999e-05         0.03546          0.03075    1.383   0.08129             6           0.8036                 0.0001483
+        HALLMARK_EMT         p-EMT-only genes | technical + HALLMARK_EMT-only module expression+detection-matched       63          0.07077     6.443 9.999e-05         0.03546          0.02508    2.925    0.0017             6           0.8036                 0.0001483
+        HALLMARK_EMT         HALLMARK_EMT-only genes | technical + p-EMT-only module expression-matched (primary)      159          0.03543    0.6434     0.266        0.005139          0.01118   -3.963         1             1            2.028                    0.8715
+        HALLMARK_EMT         HALLMARK_EMT-only genes | technical + p-EMT-only module expression+detection-matched      159          0.03543     3.499    0.0002        0.005139         0.008408   -2.001    0.9789             1            2.028                    0.8715
+       HALLMARK_TGFB        p-EMT-only genes | technical + HALLMARK_TGFB-only module expression-matched (primary)       97          0.06829     6.184 9.999e-05         0.05062          0.03487    4.932 9.999e-05            12            1.237                 3.683e-09
+       HALLMARK_TGFB        p-EMT-only genes | technical + HALLMARK_TGFB-only module expression+detection-matched       97          0.06829     7.227 9.999e-05         0.05062          0.02858    6.141 9.999e-05            12            1.237                 3.683e-09
+       HALLMARK_TGFB        HALLMARK_TGFB-only genes | technical + p-EMT-only module expression-matched (primary)       51          0.04207   -0.1319    0.5569         0.01252           0.0165   -1.298     0.904             0           0.6506                         1
+       HALLMARK_TGFB        HALLMARK_TGFB-only genes | technical + p-EMT-only module expression+detection-matched       51          0.04207   -0.4379    0.6728         0.01252          0.01734   -1.568    0.9432             0           0.6506                         1
+          GO_ECM_ORG           p-EMT-only genes | technical + GO_ECM_ORG-only module expression-matched (primary)       87          0.06768     5.677 9.999e-05         0.04361          0.03715    2.029     0.022            10             1.11                 1.553e-07
+          GO_ECM_ORG           p-EMT-only genes | technical + GO_ECM_ORG-only module expression+detection-matched       87          0.06768     6.651 9.999e-05         0.04361          0.03004    3.851 9.999e-05            10             1.11                 1.553e-07
+          GO_ECM_ORG           GO_ECM_ORG-only genes | technical + p-EMT-only module expression-matched (primary)      123          0.02538    -1.485     0.927       0.0007347         0.008554   -5.092         1             0            1.569                         1
+          GO_ECM_ORG           GO_ECM_ORG-only genes | technical + p-EMT-only module expression+detection-matched      123          0.02538     1.532   0.06049       0.0007347         0.005972   -3.216    0.9996             0            1.569                         1
+FIBROBLAST_GSE103322 p-EMT-only genes | technical + FIBROBLAST_GSE103322-only module expression-matched (primary)       90          0.06945     6.277 9.999e-05         0.05148          0.03952    3.666    0.0003            10            1.148                 2.148e-07
+FIBROBLAST_GSE103322 p-EMT-only genes | technical + FIBROBLAST_GSE103322-only module expression+detection-matched       90          0.06945     7.205 9.999e-05         0.05148            0.032    5.291 9.999e-05            10            1.148                 2.148e-07
+FIBROBLAST_GSE103322 FIBROBLAST_GSE103322-only genes | technical + p-EMT-only module expression-matched (primary)       83          0.03256    -2.063     0.978        0.008119            0.015   -2.827    0.9971             1            1.059                    0.6564
+FIBROBLAST_GSE103322 FIBROBLAST_GSE103322-only genes | technical + p-EMT-only module expression+detection-matched       83          0.03256    0.4694    0.3244        0.008119          0.01138   -1.286    0.9032             1            1.059                    0.6564
+
+=== R2-8 module partials ===
+          competitor  n_pemt_only  n_competitor_only  rho_modules  rho_wbp5_pemt_only | tech  rho_wbp5_competitor_only | tech  rho_wbp5_pemt_only | tech+competitor  rho_wbp5_competitor_only | tech+pemt patients_positive_pemt | tech+competitor patients_positive_competitor | tech+pemt
+        HALLMARK_EMT           63                159       0.6587                     0.2258                           0.1672                                0.1559                               0.02517                                    10/10                                     5/10
+       HALLMARK_TGFB           97                 51       0.4558                     0.2247                           0.1288                                0.1881                               0.03041                                     9/10                                     7/10
+          GO_ECM_ORG           87                123       0.5874                     0.2231                           0.1315                                0.1818                              0.000628                                    10/10                                     5/10
+FIBROBLAST_GSE103322           90                 83        0.441                     0.2227                           0.1226                                0.1893                               0.02782                                     9/10                                     5/10

@@ -1,0 +1,18 @@
+# pan-pCAF signature, Galbo, Zang & Zheng, Clin Cancer Res 2021, Supplementary Table S3
+NUSAP1
+DIAPH3
+LOXL2
+ADAM12
+LOX
+POSTN
+THY1
+CD248
+FN1
+COL12A1
+CTHRC1
+COL5A1
+LOXL1
+COL1A1
+COL8A1
+COL6A1
+COL6A2

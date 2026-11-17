@@ -1,0 +1,19 @@
+started 2026-11-16 17:18:42.732238
+args {'cohort': 'gse198315', 'h5ad': 'gse198315_seed2026_full_annotated.h5ad', 'matrix': None, 'pemt': 'p-EMT gene list.xlsx', 'tag': 'seed2026', 'outdir': 'results_R2c\\seed2026', 'check_dir': None, 'gmt': ['results_R2b\\genesets\\MSigDB_Hallmark_2020.gmt', 'results_R2b\\genesets\\GO_Biological_Process_2023.gmt'], 'caf': 'results_R2b\\gse103322\\R2_CAF_derived_GSE103322.txt', 'derive_caf': False, 'extra': ['PAN_myCAF=genesets_galbo\\genesets_galbo\\galbo_pan_myCAF.txt', 'PAN_dCAF=genesets_galbo\\genesets_galbo\\galbo_pan_dCAF.txt', 'PAN_iCAF=genesets_galbo\\genesets_galbo\\galbo_pan_iCAF.txt', 'PAN_iCAF2=genesets_galbo\\genesets_galbo\\galbo_pan_iCAF_2.txt', 'PAN_pCAF=genesets_galbo\\genesets_galbo\\galbo_pan_pCAF.txt'], 'n_perm': 10000, 'n_rep': 100, 'n_perm_rep': 2000, 'min_det': 0.01}
+sha256 R2_specificity_sensitivity_20261116c.py 63cd05038e9948d2e45feb2c3ca88b49af4094670b8b019eef19ea9eef8c2341
+sha256 CRED_profiles_20261021.py 6e125af2af829d1fba6060616f6184ec22aa295db8a9882b11b5de4e6cc7ba73
+sha256 wbp5_rev_common.py 17f71e703aea00f7b42a515f90fdac4c5a2a9321375a33aceedb6f828730e357
+finished 2026-11-16 17:19:05.383768
+python 3.13.12 | packaged by Anaconda, Inc. | (main, Feb 24 2026, 16:05:56) [MSC v.1942 64 bit (AMD64)]
+numpy 2.4.6
+pandas 3.0.3
+scipy 1.17.1
+tech log1p(obs.total_counts)
+mode n
+set PEMT100: p-EMT gene list.xlsx / evaluable 99
+set PEMT30: p-EMT gene list.xlsx / evaluable 29
+set PAN_myCAF: pan-myCAF signature, Galbo, Zang & Zheng, Clin Cancer Res 2021, Supplementary Table S3 / evaluable 50
+set PAN_dCAF: pan-dCAF signature, Galbo, Zang & Zheng, Clin Cancer Res 2021, Supplementary Table S3 / evaluable 67
+set PAN_iCAF: pan-iCAF signature, Galbo, Zang & Zheng, Clin Cancer Res 2021, Supplementary Table S3 / evaluable 35
+set PAN_iCAF2: pan-iCAF-2 signature, Galbo, Zang & Zheng, Clin Cancer Res 2021, Supplementary Table S3 / evaluable 29
+set PAN_pCAF: pan-pCAF signature, Galbo, Zang & Zheng, Clin Cancer Res 2021, Supplementary Table S3 / evaluable 17
