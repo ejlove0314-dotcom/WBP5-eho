@@ -5,9 +5,24 @@
 > References in this repository use the revised numbering. Script and data filenames were not
 > renamed. See [`SUPPLEMENTARY_NUMBERING_MAP.md`](SUPPLEMENTARY_NUMBERING_MAP.md).
 
-Code and data supporting the manuscript "Single-cell analysis identifies WBP5
-(TCEAL9) as a partial-EMT program-associated gene expressed across malignant
-and mesenchymal compartments in HNSCC."
+Code and data supporting the manuscript "Single-cell analysis of WBP5 (TCEAL9) in
+HNSCC: expression across malignant and mesenchymal compartments and association with an
+EMT-related program within the tumor epithelium" (CSBJ-D-26-00923). Until the second
+revision the manuscript was titled "Single-cell analysis identifies WBP5 (TCEAL9) as a
+partial-EMT program-associated gene expressed across malignant and mesenchymal
+compartments in HNSCC."
+
+> **Second revision (November 2026).** The material added for the second revision is in
+> [`revision2/`](revision2/README.md); its two decision documents are
+> `reproducibility/pre_analysis_plan_R2_20261116.md` and
+> `reproducibility/pre_analysis_plan_R2_addendum_20261116.md`. No file deposited earlier
+> was changed. The second revision adds six supplementary tables and two supplementary
+> figures, so some numbers moved again. Files deposited before this release, including
+> `SUPPLEMENTARY_NUMBERING_MAP.md` and the rest of this README, use the numbering of the
+> first revision; `revision2/` uses the numbering of the second. First revision → second
+> revision: Tables S1–S9 unchanged, S10 → S11, S11 → S12, S12–S20 → S18–S26 (Tables S10
+> and S13–S17 are new); Figs. S1–S3 unchanged, S4–S7 → S6–S9 (Figs. S4 and S5 are the
+> former main-text Figs. 4 and 3); main-text Fig. 5 → Fig. 4, and main-text Fig. 3 is new.
 
 ## Repository layout
 
@@ -15,6 +30,7 @@ and mesenchymal compartments in HNSCC."
 |------|----------|
 | `verification/` | The numerical audit carried out while the manuscript was under review (87 ledger rows, July-August 2026), together with `README_verification_ledger_scope.md`, which records which of its locations the revision moved and which two values it revised. The recorded values are current; its section and table numbers are those of the submitted version. |
 | `reproducibility/` | Scripts and verified outputs for manuscript Tables 1 and 2, the corrected cell-level file and the note describing its correction. |
+| `revision2/` | Analyses, decision rules, figures and logs added for the second revision: specificity of the association relative to related programs, sensitivity to the null model and to patient weighting, and the published CAF signatures. See `revision2/README.md`. |
 | `revision_outputs/` | Analyses added during revision: the GSE103322 patient-level and permutation outputs (`gse103322_puram/`), the GSE198315 re-annotation and compartment analyses (`gse198315*/`), the four credibility analyses (`credibility/`), subsample barcodes, structural outputs, reference files, the scripts that produced them, and
 `verify/`, which re-derives quantities that the analysis scripts print but do not
 store. |
