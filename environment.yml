@@ -1,6 +1,7 @@
 # Computational environment for:
-#   Single-cell-to-structure nomination of WBP5 (TCEAL9) as a p-EMT-associated
-#   target in HNSCC
+#   Single-cell analysis of WBP5 (TCEAL9) in HNSCC: expression across malignant
+#   and mesenchymal compartments and association with an EMT-related program
+#   within the tumor epithelium
 #
 #   conda env create -f environment.yml
 #   conda activate wbp5
